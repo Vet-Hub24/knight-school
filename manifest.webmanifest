@@ -1,0 +1,21 @@
+{
+  "id": "./",
+  "name": "Knight School — Chess Trainer",
+  "short_name": "Knight School",
+  "description": "Free chess lessons, spaced opening practice and local Stockfish coaching.",
+  "start_url": "./#today",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f6f5ef",
+  "theme_color": "#19382c",
+  "icons": [
+    {"src":"./assets/icons/icon-192.png","sizes":"192x192","type":"image/png","purpose":"any"},
+    {"src":"./assets/icons/icon-512.png","sizes":"512x512","type":"image/png","purpose":"any"},
+    {"src":"./assets/icons/icon-512.png","sizes":"512x512","type":"image/png","purpose":"maskable"}
+  ],
+  "shortcuts": [
+    {"name":"Opening practice","url":"./#openings"},
+    {"name":"Free practice","url":"./#practice"},
+    {"name":"Game review","url":"./#review"}
+  ]
+}
