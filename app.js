@@ -1,5 +1,6 @@
 import {Chess} from './vendor/chess.js';
 import {pieceVisual} from './pieces.js';
+import {initPWA} from './pwa.js';
 import {trainingKey,emptyTraining,loadTraining,reviewKey,scheduleReview,dueReviews,createMistake,rememberMistake} from './training.js';
 import {makeBackup,parseBackup,restoreBackup} from './backup.js';
 let training;try{training=loadTraining(localStorage)}catch{training=emptyTraining()}
@@ -276,3 +277,5 @@ document.addEventListener('click',e=>{
  const due=e.target.closest('[data-due-review]');if(due){const r=training.reviews[due.dataset.dueReview];if(!r)return;$('#modal').close();page='openings';history.replaceState(null,'','#openings');renderNav();openStudy(r.lessonId);drillSide=r.side;$('#drillSide').value=r.side;startDrill();return}
  const mistake=e.target.closest('[data-mistake-study]');if(mistake){const m=training.mistakes.find(x=>x.id===mistake.dataset.mistakeStudy);if(!m)return;$('#modal').close();pendingPracticeFen=m.fenBefore;pendingMistakeId=m.id;if(page==='practice')practice();else navigate('practice')}
 });
+
+initPWA(modal);
