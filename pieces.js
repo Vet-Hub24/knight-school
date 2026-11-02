@@ -11,7 +11,7 @@ const shapes = {
 const base='<path d="M21 48h22l3 5H18Z"/><path d="M18 53h28v4H18Z"/>';
 export function pieceVisual(piece) {
  const white=piece.color==='w',type=shapes[piece.type]?piece.type:'p';
- const fill=white?'#fff9e9':'#202b32',stroke=white?'#29333a':'#101820';
+ const fill=white?'#ffffff':'#1c2732',stroke=white?'#33404b':'#101820';
  const detail=type==='n'?`<circle cx="36" cy="21" r="1.7" fill="${white?'#26392d':'#dbe4cf'}" stroke="none"/>`:'';
  return `<span aria-hidden="true" class="piece vector-piece ${white?'white':'black'}" data-piece="${piece.color}${type}"><svg viewBox="0 0 64 64" preserveAspectRatio="xMidYMid meet" focusable="false" aria-hidden="true"><g fill="${fill}" stroke="${stroke}" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">${shapes[type]}${base}${detail}<path d="M21 54h22" fill="none" stroke="${white?'#d7cba9':'#52616b'}" stroke-width="1.2"/></g></svg></span>`;
 }
