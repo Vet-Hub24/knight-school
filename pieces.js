@@ -8,10 +8,10 @@ const shapes = {
  q:'<path d="m18 19 8 8 6-13 6 13 8-8-6 21H24Z"/><circle cx="17" cy="15" r="3.5"/><circle cx="32" cy="9.5" r="3.5"/><circle cx="47" cy="15" r="3.5"/><path d="M24 40h16v5H24Z"/><path d="M26 45h12l3 3H23Z"/>',
  k:'<path d="M29 6h6v6h6v6h-6v6h-6v-6h-6v-6h6Z"/><path d="M32 27c-6-7-17-4-16 5 0 5 5 10 9 13h14c4-3 9-8 9-13 1-9-10-12-16-5Z"/><path d="M24 43h16v5H24Z"/>',
 };
-const base='<path d="M21 48h22l3 6H18Z"/><path d="M18 54h28v4H18Z"/>';
+const base='<path d="M21 48h22l3 5H18Z"/><path d="M18 53h28v4H18Z"/>';
 export function pieceVisual(piece) {
  const white=piece.color==='w',type=shapes[piece.type]?piece.type:'p';
- const fill=white?'#fffef5':'#1b2d24',stroke=white?'#26392d':'#0c1811';
+ const fill=white?'#fff9e9':'#202b32',stroke=white?'#29333a':'#101820';
  const detail=type==='n'?`<circle cx="36" cy="21" r="1.7" fill="${white?'#26392d':'#dbe4cf'}" stroke="none"/>`:'';
- return `<span aria-hidden="true" class="piece vector-piece ${white?'white':'black'}" data-piece="${piece.color}${type}"><svg viewBox="0 0 64 64" preserveAspectRatio="xMidYMid meet" focusable="false" aria-hidden="true"><g fill="${fill}" stroke="${stroke}" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">${shapes[type]}${base}${detail}</g></svg></span>`;
+ return `<span aria-hidden="true" class="piece vector-piece ${white?'white':'black'}" data-piece="${piece.color}${type}"><svg viewBox="0 0 64 64" preserveAspectRatio="xMidYMid meet" focusable="false" aria-hidden="true"><g fill="${fill}" stroke="${stroke}" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">${shapes[type]}${base}${detail}<path d="M21 54h22" fill="none" stroke="${white?'#d7cba9':'#52616b'}" stroke-width="1.2"/></g></svg></span>`;
 }
