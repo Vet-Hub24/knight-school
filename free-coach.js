@@ -41,13 +41,15 @@ export function inspectLine(fen,line){
  return {first,san,events,materialChange:materialBalance(board,color)-initial,finalFen:board.fen()};
 }
 export function reviewClassification(before,after,mover){
- if(!before||!after)return {label:'Analyze to compare',loss:null};
+ if(!before||!after)return {label:'Analyze to compare',code:'unrated',loss:null};
  const sign=mover==='w'?1:-1;
- if(before.mateWhite!==null&&before.mateWhite!==undefined&&before.mateWhite*sign>0&&!(after.mateWhite*sign>0))return {label:'Missed mating line',loss:null};
- if(after.mateWhite!==null&&after.mateWhite!==undefined&&after.mateWhite*sign<0&&!(before.mateWhite*sign<0))return {label:'Allows a mating line',loss:null};
- if(!Number.isFinite(before.scoreWhite)||!Number.isFinite(after.scoreWhite))return {label:'Mate estimate — inspect the line',loss:null};
+ if(after.terminal==='checkmate')return {label:'Checkmate delivered',code:'good',loss:0};
+ if(after.mateWhite!=null&&after.mateWhite*sign>0)return {label:before.mateWhite!=null&&before.mateWhite*sign>0?'Keeps a mating line':'Finds a mating line',code:'good',loss:0};
+ if(before.mateWhite!==null&&before.mateWhite!==undefined&&before.mateWhite*sign>0&&!(after.mateWhite*sign>0))return {label:'Missed mating line',code:'blunder',loss:null};
+ if(after.mateWhite!==null&&after.mateWhite!==undefined&&after.mateWhite*sign<0&&!(before.mateWhite*sign<0))return {label:'Allows a mating line',code:'blunder',loss:null};
+ if(!Number.isFinite(before.scoreWhite)||!Number.isFinite(after.scoreWhite))return {label:'Mate estimate — inspect the line',code:'unrated',loss:null};
  const loss=(before.scoreWhite-after.scoreWhite)*sign;
- return {label:loss>=2?'Blunder estimate':loss>=1?'Mistake estimate':loss>=.4?'Inaccuracy estimate':loss<-.4?'Search assessment changed':'Close to the earlier estimate',loss};
+ return {code:loss>=2?'blunder':loss>=1?'mistake':loss>=.4?'inaccuracy':loss<-.4?'unrated':'good',label:loss>=2?'Blunder estimate':loss>=1?'Mistake estimate':loss>=.4?'Inaccuracy estimate':loss<-.4?'Search assessment changed':'Close to the earlier estimate',loss};
 }
 export function coachReport(chess,analysis){
  const fen=chess.fen(),position=positionFacts(chess),captures=legalCaptureOpportunities(chess),alerts=[];
@@ -59,7 +61,7 @@ export function coachReport(chess,analysis){
  if(review){const last=chess.history({verbose:true}).at(-1),root=last?.before||review.beforeFen,top=review.before?.[0],after=review.after?.[0]||best;
   if(last&&root&&top&&after){classification=reviewClassification(top,after,last.color);const suggested=inspectLine(root,top),different=suggested.first?.san!==last.san;
    if(different&&suggested.first){alerts.push({type:'alternative',title:'Alternative before your move',text:`Before ${side(last.color)} played ${last.san}, Stockfish preferred ${suggested.first.san}. Example: ${suggested.san.slice(0,8).join(' ')}. This line starts before your move, not from the current board.`});
-    if(classification.loss>=.4||classification.label.includes('mating')){
+    if(classification.loss>=.4||classification.code==='blunder'){
      const cap=legalCaptureOpportunities(new Chess(root)).find(x=>x.san===suggested.first.san);
      if(cap&&(cap.hanging||suggested.materialChange>0))alerts.push({type:'missed-capture',title:'Missed capture',text:`${suggested.first.san} was a capture to investigate: it takes the ${names[cap.victim]} on ${cap.to}${cap.hanging?' without an immediate legal recapture on that square':''}. The engine comparison favored this opportunity over ${last.san}.`});
      const tactic=suggested.events.find(x=>['mate','fork','pin','skewer','discovered'].includes(x.type));
