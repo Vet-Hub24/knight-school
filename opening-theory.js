@@ -1,3 +1,4 @@
+import {additionalTheory} from './extra-openings.js?v=6';
 // Plans are teaching guides, not a claim that every thematic move is best now.
 // Notes follow the exact main line in content.js, one entry per half-move.
 export const openingTheory = {
@@ -69,3 +70,5 @@ export function getOpeningTheory(name='') {
   return Object.entries(openingTheory).sort((a,b)=>b[0].length-a[0].length)
     .find(([key])=>(key==='Modern'?normalized.includes('modern defense'):normalized.includes(key.toLowerCase())))?.[1] || null;
 }
+
+Object.assign(openingTheory,additionalTheory);

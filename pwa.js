@@ -12,7 +12,7 @@ export function initPWA(showModal){
  button.onclick=openInstructions;
  window.addEventListener('beforeinstallprompt',event=>{event.preventDefault();deferredInstall=event;button.textContent='Install app';button.hidden=false});
  window.addEventListener('appinstalled',()=>{deferredInstall=null;button.textContent='App ready'});
- function connectivity(){document.documentElement.dataset.connection=navigator.onLine?'online':'offline';$('connectionStatus').textContent=navigator.onLine?'Local engine · free forever':'Offline · cached study';}
+ function connectivity(){document.documentElement.dataset.connection=navigator.onLine?'online':'offline';$('connectionStatus').textContent=navigator.onLine?'Local engine · no API calls':'Offline · cached study';}
  window.addEventListener('online',connectivity);window.addEventListener('offline',connectivity);connectivity();
  if('serviceWorker' in navigator&&window.isSecureContext){
   navigator.serviceWorker.register(new URL('./sw.js',import.meta.url),{scope:'./',updateViaCache:'none'}).then(reg=>{

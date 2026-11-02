@@ -61,3 +61,24 @@ GitHub Pages is public static hosting. Anyone with the link can access it, and c
 ## Ask ChatGPT handoff (no API bill)
 
 In the Coach, choose **Ask ChatGPT** to preview the full coaching prompt. Edit the question, click **Copy complete prompt**, and then click **Open ChatGPT**. This prevents Safari from navigating away before copying. You may paste a direct link to your own ChatGPT chess project or conversation; Knight School remembers that URL locally in your browser. Pasting and sending the prompt in ChatGPT remains a manual step. Your ChatGPT Plus subscription does not provide embedded API access.
+
+## Development improvements (approval required)
+
+Work is isolated on `development/polished-training-2026-11-02`. Main and the live GitHub Pages site must not be changed until Jake approves. The Pages deployment workflow remains main-only; the additional workflow runs tests and never deploys.
+
+- Professional Colin M. L. Burnett Staunton SVG pieces, with solid white fills and dark outlines. Source and GPL-2.0-or-later attribution/license are in `assets/pieces/`.
+- Walnut, Tournament and Slate board themes. The existing lesson panel, move list, controls, both-side plans and Coach remain in the same workspace structure. Phone/tablet layouts stack the same teaching content beneath the board.
+- 40 guided opening lines, including 12 newly annotated studies in `extra-openings.js`. Every guided half-move has a note, both-side plans and a check-understanding question. The original 3,865 named variations and `eco-*` IDs are unchanged.
+- Opening recall schedules per variation and side. Good recall starts at one day, then three days and gradually longer intervals. Again returns in ten minutes; Hard and Easy adjust the interval. Mistakes and hints affect the suggested grade, which the learner can change after completing the drill. These rules support recall; they are not a scientifically calibrated prediction of memory.
+- A local mistake notebook saves Stockfish-reviewed inaccuracies, mistakes, blunders and missed mates. Review an entry from its original position and try the earlier candidate. Short engine searches can change their assessment; grades are estimates rather than Elo ratings or proof of a forced result.
+- Complete JSON backup/restore covers the original progress, Coach questions/conversations, schedules, notebook, board theme, and saved ChatGPT project URL. Restore accepts the old progress-only JSON too. It validates before writing, downloads a safety backup, merges records, uses maximum counters to avoid repeated-import inflation, and preserves this device’s existing theme/destination. A quota failure attempts to roll back all writes.
+- A free home-screen web app: manifest, Apple touch icon, standalone display, and a scope-qualified offline cache. In iPhone Safari choose Share → Add to Home Screen, leave Open as Web App on if offered, and add it. No App Store membership is involved. Back up first: browser and home-screen storage may differ. Restore the backup if needed. Physical Safari/home-screen installation must still be checked after approved publication.
+- Stockfish, rules-based coaching and all lessons stay local and free. Ask ChatGPT remains an explicit preview → copy → open flow. Its saved destination key is preserved, edits require a new copy, clipboard failure has a manual-copy confirmation, and no chess prompt is sent automatically.
+
+### Tests and local preview
+
+`npm test` uses only Node's built-in test runner; there are no npm runtime dependencies or install steps. Serve the repository using `python -m http.server 8000`. The tests cover all original lines, all 40 guided annotations, SVG assets, both-color grading, spaced intervals, complete/legacy restore, storage rollback, manifest/icon paths and offline Stockfish/dependency delivery under `/knight-school/`.
+
+For a future approved release, run `node scripts/version-assets.mjs 7` (use a new version each time). This gives all authored ES-module imports the same version, updates the HTML asset links and changes the offline cache version. Code/CSS/data use network-first fetching and offline fallback. A waiting service-worker update is offered through the install panel rather than interrupting a study session. Other GitHub Pages project caches are not touched.
+
+The app icon uses the same Cburnett knight artwork and license as the board set. The SVG is retained as editable source. Installation guidance: https://support.apple.com/guide/iphone/iphea86e5236/ios . PWA manifest guidance: https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Guides/Making_PWAs_installable .
