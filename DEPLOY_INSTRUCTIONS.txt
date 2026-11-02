@@ -1,0 +1,18 @@
+KNIGHT SCHOOL - GitHub Pages static website
+
+This ZIP contains the complete browser-only Knight School application including
+Stockfish WASM and license/source files. It does not require an AI API key.
+
+Preferred: create a NEW public GitHub repository named knight-school.
+Upload the contents of this ZIP to the repository ROOT (index.html at root).
+Go to Settings > Pages > Build and deployment > Deploy from a branch > main > /(root) > Save.
+The site will normally be at https://vet-hub24.github.io/knight-school/
+
+Alternatively, place the contents in docs/knight-school/ in the existing Vet-Hub24 repository if Pages is already configured to use docs/.
+The resulting URL is https://vet-hub24.github.io/Vet-Hub24/knight-school/
+
+Progress is stored in browser localStorage and does not automatically move from the old site. Export it using the original site's About & sources > Export training progress before switching, and retain that backup.
+
+Use the same browser/device to avoid losing local progress. Do not delete the existing hosted site until you've tested the new one.
+
+Verify: lessons, Coach questions, board pieces, engine analysis, Ask ChatGPT, and progress saving.
