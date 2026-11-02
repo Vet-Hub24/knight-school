@@ -58,3 +58,9 @@ html[data-board-theme="midnight"]{--ks-light:#d7e0e8;--ks-dark:#536a7e;--ks-high
 .knight-tools button:hover{background:#e8efdc}
 @media(max-width:720px){.knight-tools{gap:6px}.knight-tools button{flex:1 1 42%}.knight-tools select{flex:1 1 50%}.board .vector-piece{width:94%;height:94%}.coach-question-container{scroll-margin-top:78px}}
 @media(prefers-reduced-motion:reduce){.board .square{transition:none!important}}
+
+/* Premium Staunton assets: full-size, crisp and consistently centered. */
+.board .vector-piece{position:absolute;inset:0;margin:auto;width:94%;height:94%;padding:0;display:grid;place-items:center;pointer-events:none;filter:drop-shadow(0 2px 1px rgba(15,23,22,.25))}
+.board .staunton-piece{display:block;width:100%;height:100%;object-fit:contain;user-select:none;-webkit-user-drag:none}
+.board-shell{border-radius:10px;overflow:hidden;box-shadow:0 14px 34px rgba(15,32,27,.19),0 3px 8px rgba(15,32,27,.12)}
+@media(max-width:720px){.board .vector-piece{width:96%;height:96%}}
