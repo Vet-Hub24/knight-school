@@ -24,8 +24,8 @@ const coachThreads=new Map(Array.isArray(savedThreads)?savedThreads.filter(x=>Ar
 
 const $=s=>document.querySelector(s);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const icons={today:'◈',openings:'♙',strategy:'♞',endgames:'♔',masters:'♛',review:'⌕',practice:'⚔'};
-const names={today:'Today',openings:'Openings',strategy:'Strategy & tactics',endgames:'Endgames',masters:'Master games',review:'Game review',practice:'Free practice'};
+const icons={today:'◈',openings:'♙',guided:'♙',analysis:'⌕',mistakes:'✎',videos:'▶',strategy:'♞',endgames:'♔',masters:'♛',review:'⌕',practice:'⚔'};
+const names={today:'Today',openings:'Openings',guided:'Guided Lessons',analysis:'Game Analysis',mistakes:'Mistake Notebook',videos:'Video Academy',strategy:'Strategy & tactics',endgames:'Endgames',masters:'Master games',review:'Game review',practice:'Free practice'};
 let progress;try{progress=JSON.parse(localStorage.getItem('knight-school-v1'))||{}}catch{progress={}}
 progress={done:[],saved:[],weak:[],attempts:0,correct:0,days:[],...progress};
 let pendingPracticeFen=null;let storageAvailable=true;let openings=[],page='today',search='',eco='all',savedOnly=false,catalogPage=0;
@@ -110,7 +110,43 @@ async function analyze(mode='analyze'){
  catch(error){if(error.name==='AbortError'||token!==engineToken)return;engineBusy=false;engineError=error.message;if(mode==='play')playing=false;renderPanel()}
 }
 function legacyAction(action){if(action==='playPosition'){pendingPracticeFen=chess.fen();playSide=chess.turn();navigate('practice');return}if(action==='flip'){flipped=!flipped;renderBoard();return}if(action==='glossary'){glossaryModal();return}if(action==='back'){catalogOrPage();return}if(action==='analyze'){analyze();return}if(action==='export'){download('knight-school-game.pgn',chess.pgn());return}if(action==='exportProgress'){exportFullBackup();return}if(action==='play'){if(playing){stopEngine();playing=false;renderPanel();return}playSide=$('#playSide').value;playLevel=$('#playLevel').value;playing=true;stopEngine();renderPanel();if(chess.turn()!==playSide)analyze('play');return}if(action==='undo'){stopEngine();if(playing){chess.undo();if(chess.turn()!==playSide)chess.undo()}else chess.undo();lastMove=chess.history({verbose:true}).at(-1);selected=null;legal=[];renderBoard();renderPanel();if(playing&&!chess.isGameOver()&&chess.turn()!==playSide)analyze('play');return}if(action==='loadFen'){try{const c=new Chess($('#fenInput').value.trim());resetContext();chess=c;startFen=c.fen();renderBoard();renderPanel();toast('Position loaded.')}catch{toast('That FEN could not be read. Check that both kings are present.')}return}if(action==='saveOpening'){if(progress.saved.includes(lesson.id)){progress.saved=progress.saved.filter(x=>x!==lesson.id);toast('Opening removed from saved studies.')}else{progress.saved.push(lesson.id);toast('Opening saved for your next session.')}save();renderPanel();return}if(action==='drill'){startDrill();return}if(action==='exitDrill'){drill=false;step=0;feedback='';setPosition();renderBoard();renderPanel();return}if(action==='complete'){done(lesson.id);return}if(action==='exercise'||action==='retry'){step=0;setPosition();drill=true;feedback='Find the move that demonstrates this lesson.';feedbackError=false;renderBoard();renderPanel();return}if(action==='solution'){step=line.length;setPosition();drill=false;feedback='Demonstration revealed. Try it yourself next time to check your recall.';feedbackError=false;renderBoard();renderPanel();return}if(['first','prev','next','last','reset'].includes(action)){if(page==='practice'){if(action==='reset'){resetContext();chess=new Chess(startFen||undefined);line=[];step=0}else if(action==='first'){while(chess.undo()){}lastMove=null;free=false}else if(action==='prev'){chess.undo();lastMove=chess.history({verbose:true}).at(-1)}renderBoard();renderPanel();return}drill=false;feedback='';step=action==='first'||action==='reset'?0:action==='last'?line.length:action==='prev'?Math.max(0,step-1):Math.min(line.length,step+1);setPosition();renderBoard();renderPanel()}}
-function catalogOrPage(){if(['openings','strategy','endgames'].includes(page))catalog();else if(page==='masters')masterCatalog();else if(page==='review')review();else if(page==='practice')practice();else today()}
+
+/* Clear entry points for the existing teaching and coaching features. */
+function guidedCatalog(){
+ resetContext();
+ const studies=families.filter(x=>x.plan&&x.id).slice();
+ $('#main').innerHTML=heading('GUIDED LESSONS','Learn the why behind every move.',studies.length+' guided opening studies · explanations for both sides · interactive chessboard')+
+ '<p class="lesson-copy">Choose a guided line below. The original Openings menu still contains the complete reference library.</p>'+
+ '<div class="catalog">'+studies.map(x=>'<article class="catalog-card"><span class="pill">GUIDED OPENING</span><h3>'+esc(x.name)+'</h3><p>'+esc(x.title||x.plan||'Move-by-move coaching')+'</p><button class="secondary" data-open="'+esc(x.id)+'">Study this opening →</button></article>').join('')+'</div>';
+}
+function analysisLanding(){
+ resetContext();
+ $('#main').innerHTML=heading('GAME ANALYSIS','Understand your moves.','Import a game, step through the moves and review positions with Stockfish.')+
+ '<div class="catalog"><article class="catalog-card"><h3>Analyze a PGN game</h3><p>Import a game from Chess.com or Lichess, then use Review last move to estimate move quality and explain threats.</p><a class="secondary" href="#review">Open game review →</a></article><article class="catalog-card"><h3>Analyze your own moves</h3><p>Play through a position and use the Coach and Stockfish tools.</p><a class="secondary" href="#practice">Open free practice →</a></article></div>';
+}
+function mistakeLanding(){
+ resetContext();
+ $('#main').innerHTML=heading('MISTAKE NOTEBOOK','Learn from the moves you missed.',training.mistakes.length+' saved positions · revisit the original board and try a better move')+
+ '<p class="lesson-copy">Mistakes are saved after you use Stockfish move review. If the list is empty, analyze a game first.</p>'+
+ '<div class="catalog">'+(training.mistakes.length?training.mistakes.map(m=>'<article class="catalog-card"><span class="pill">'+esc(m.grade)+'</span><h3>'+esc(m.played)+'</h3><p>Candidate: '+esc(m.bestMove)+' · '+(m.reviewCount||0)+' successful recalls</p><button class="secondary" data-mistake-study="'+esc(m.id)+'">Retry this move →</button></article>').join(''):'<article class="catalog-card"><h3>No mistakes saved yet</h3><p>Start a game review, review your last move with Stockfish, then come back here.</p><a class="secondary" href="#review">Analyze a game →</a></article>')+'</div>';
+}
+function videoAcademy(){
+ resetContext();
+ const topics=[
+ ['Start here','Chess basics and beginner lessons','https://lichess.org/video?q=beginner','Get comfortable with chess rules, development and common mistakes.'],
+ ['Opening principles','Center control and piece development','https://lichess.org/video?tags=beginner%2Fopening','Learn why opening moves work before memorizing variations.'],
+ ['Tactics','Forks, pins and missed captures','https://lichess.org/video?tags=beginner%2Ftactic','Spot concrete threats and prevent blunders.'],
+ ['Strategy','Make a plan in the middlegame','https://lichess.org/video?tags=beginner%2Fstrategy','Learn piece activity, weak squares and planning.'],
+ ['Endgames','Winning the positions that matter','https://lichess.org/video?tags=beginner%2Fendgame','Practice king activity, pawn endings and basic checkmates.'],
+ ['Sicilian Defense','Understand Black’s ...c5 ideas','https://lichess.org/video?q=Sicilian','Connect opening videos with your Sicilian lessons.']
+ ];
+ $('#main').innerHTML=heading('VIDEO ACADEMY','Watch. Understand. Practice.','Free chess lessons collected by topic. Videos open on Lichess; your training site stays free.')+
+ '<p class="lesson-copy">These links open curated free-video searches on Lichess. We are not copying or rehosting creators’ videos. Watch a lesson, then return to Knight School to practice its ideas.</p>'+
+ '<div class="catalog">'+topics.map(t=>'<article class="catalog-card"><span class="pill">'+esc(t[0])+'</span><h3>'+esc(t[1])+'</h3><p>'+esc(t[3])+'</p><a class="secondary" href="'+t[2]+'" target="_blank" rel="noopener noreferrer">Watch free videos ↗</a></article>').join('')+'</div>'+
+ '<div class="button-row"><a class="primary" href="#guided">Practice guided openings →</a><a class="secondary" href="#strategy">Practice tactics →</a></div>';
+}
+
+function catalogOrPage(){if(page==='guided')guidedCatalog();else if(page==='analysis')analysisLanding();else if(page==='mistakes')mistakeLanding();else if(page==='videos')videoAcademy();else if(['openings','strategy','endgames'].includes(page))catalog();else if(page==='masters')masterCatalog();else if(page==='review')review();else if(page==='practice')practice();else today()}
 function route(){const dest=location.hash.slice(1).split('?')[0]||'today';page=names[dest]?dest:'today';search='';catalogPage=0;renderNav();catalogOrPage();window.scrollTo(0,0)}
 document.addEventListener('click',e=>{const sq=e.target.closest('[data-square]');if(sq){squareClick(sq.dataset.square);return}const act=e.target.closest('[data-action]');if(act){onAction(act.dataset.action);return}const open=e.target.closest('[data-open]');if(open){openStudy(open.dataset.open);window.scrollTo(0,0);return}const st=e.target.closest('[data-step]');if(st&&!drill&&!playing){pausePlayback();step=Number(st.dataset.step);feedback='';setPosition();renderBoard();renderPanel();return}if(e.target.id==='previousPage'){catalogPage--;renderCatalogCards();window.scrollTo(0,180)}if(e.target.id==='nextPage'){catalogPage++;renderCatalogCards();window.scrollTo(0,180)}if(e.target.id==='savedFilter'){savedOnly=!savedOnly;catalogPage=0;$('#savedFilter').textContent=savedOnly?'✓ Saved openings':'♡ Saved openings';renderCatalogCards()}if(e.target.id==='importPgn')importText($('#pgnInput').value);if(e.target.id==='sampleGame'){$('#pgnInput').value=masters[0].pgn;importText(masters[0].pgn)}});
 document.addEventListener('input',e=>{if(e.target.id==='search'){search=e.target.value;catalogPage=0;renderCatalogCards()}});document.addEventListener('change',async e=>{if(e.target.id==='ecoFilter'){eco=e.target.value;catalogPage=0;renderCatalogCards()}if(e.target.id==='pgnFile'&&e.target.files[0]){if(e.target.files[0].size>500000){toast('Please choose a single game file smaller than 500 KB.');return}const text=await e.target.files[0].text();$('#pgnInput').value=text;importText(text)}});
