@@ -1,4 +1,4 @@
-import {Chess} from './vendor/chess.js?v=10';
+import {Chess} from './vendor/chess.js?v=11';
 export const backupKeys=['knight-school-v1','knight-school-chats-v2','knight-school-questions-v1','knight-school-training-v1','knight-school-chatgpt-destination','knight-school-chatgpt-destination-v1','knight-school-board-theme'];
 const textKeys=new Set(['knight-school-chatgpt-destination','knight-school-chatgpt-destination-v1','knight-school-board-theme']);
 const object=x=>x!==null&&typeof x==='object'&&!Array.isArray(x);
