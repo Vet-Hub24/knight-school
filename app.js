@@ -1,18 +1,18 @@
-import {Chess} from './vendor/chess.js?v=6';
-import {pieceVisual} from './pieces.js?v=6';
-import {initPWA} from './pwa.js?v=6';
-import {trainingKey,emptyTraining,loadTraining,reviewKey,scheduleReview,dueReviews,createMistake,rememberMistake} from './training.js?v=6';
-import {makeBackup,parseBackup,restoreBackup} from './backup.js?v=6';
+import {Chess} from './vendor/chess.js?v=7';
+import {pieceVisual} from './pieces.js?v=7';
+import {initPWA} from './pwa.js?v=7';
+import {trainingKey,emptyTraining,loadTraining,reviewKey,scheduleReview,dueReviews,createMistake,rememberMistake} from './training.js?v=7';
+import {makeBackup,parseBackup,restoreBackup} from './backup.js?v=7';
 let training;try{training=loadTraining(localStorage)}catch{training=emptyTraining()}
 let drillErrors=0,drillHints=0,pendingRecallResult=null,pendingMistakeId=null,activeMistakeId=null,restoreCandidate=null;
-import {families,strategies,endgames,masters,glossary} from './content.js?v=6';
-import {advancedStrategies,advancedEndgames} from './advanced.js?v=6';
-import {enrichMaster} from './master-notes.js?v=6';
-import {explainMove,positionFacts,planText,answerGuided,side} from './coach.js?v=6';
-import {getOpeningTheory} from './opening-theory.js?v=6';
-import {searchPosition} from './engine.js?v=6';
-import {coachReport,freeCoachReply,buildChatGPTPrompt} from './free-coach.js?v=6';
-import {questionDeck,makeQuestionState,currentQuestion,submitQuestion,nextQuestion,previousQuestion,restartQuestions} from './coach-questions.js?v=6';
+import {families,strategies,endgames,masters,glossary} from './content.js?v=7';
+import {advancedStrategies,advancedEndgames} from './advanced.js?v=7';
+import {enrichMaster} from './master-notes.js?v=7';
+import {explainMove,positionFacts,planText,answerGuided,side} from './coach.js?v=7';
+import {getOpeningTheory} from './opening-theory.js?v=7';
+import {searchPosition} from './engine.js?v=7';
+import {coachReport,freeCoachReply,buildChatGPTPrompt} from './free-coach.js?v=7';
+import {questionDeck,makeQuestionState,currentQuestion,submitQuestion,nextQuestion,previousQuestion,restartQuestions} from './coach-questions.js?v=7';
 let savedQuestionSessions=[];try{savedQuestionSessions=JSON.parse(localStorage.getItem('knight-school-questions-v1'))||[]}catch{}
 const questionSessions=new Map(Array.isArray(savedQuestionSessions)?savedQuestionSessions.filter(x=>Array.isArray(x)&&typeof x[0]==='string').map(([key,value])=>[key,makeQuestionState(value)]):[]);
 

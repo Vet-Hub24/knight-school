@@ -38,3 +38,7 @@
 .install-icon{border-radius:20px;float:right;margin:0 0 15px 15px;box-shadow:0 8px 20px #18382922}.install-steps{padding-left:22px;font-size:14px;line-height:1.9}.install-steps li{margin:12px 0}#connectionStatus{font-size:10px}html[data-connection=offline] #connectionStatus{color:#a06e32}#installApp{color:#315644;font-weight:600}@media(display-mode:standalone){.topbar{padding-top:calc(12px + env(safe-area-inset-top))}footer{padding-bottom:calc(20px + env(safe-area-inset-bottom))}}@media(max-width:650px){body{padding-left:env(safe-area-inset-left);padding-right:env(safe-area-inset-right)}footer{flex-wrap:wrap;gap:12px}.install-steps{font-size:15px}}
 .guided-tag{display:block;font-size:10px;color:#416e51;font-weight:600;margin:0 0 12px;letter-spacing:.02em}
 #manualCopyDone[hidden]{display:none!important}
+
+/* The expanded training menu must remain reachable on short screens. */
+.sidebar{overflow-y:auto;overscroll-behavior:contain}
+.sidebar>.brand,.sidebar>.side-label,.sidebar>nav,.sidebar>.side-bottom{flex-shrink:0}
