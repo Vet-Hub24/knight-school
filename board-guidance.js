@@ -1,10 +1,11 @@
-import {Chess} from './vendor/chess.js?v=9';
-import {reviewClassification} from './free-coach.js?v=9';
+import {Chess} from './vendor/chess.js?v=10';
+import {reviewClassification} from './free-coach.js?v=10';
 export function squareCenter(square,flipped=false){const f=square.charCodeAt(0)-97,r=Number(square[1])-1;return {x:((flipped?7-f:f)+.5)*100,y:((flipped?r:7-r)+.5)*100}}
-export function boardGuidance({fen,analysis,lastMove,lessonMove=false,hidden=false}){
+export function boardGuidance({fen,analysis,lastMove,lessonMove=false,nextMove=null,lessonAttempt=null,hidden=false}){
  const out={arrows:[],badges:[],caption:''};if(hidden)return out;
  const board=new Chess(fen),fresh=analysis?.fen===fen;
- if(lastMove&&lessonMove){out.arrows.push({from:lastMove.from,to:lastMove.to,kind:'lesson'});out.caption='Green arrow: the move explained in this lesson.'}
+ if(nextMove){try{const m=new Chess(fen).move(nextMove.san);out.arrows.push({from:m.from,to:m.to,kind:'lesson'});out.caption='Green arrow: play '+m.san+' next as '+(m.color==='w'?'White':'Black')+' in the taught line. This is an opening choice, not an engine ranking.'}catch{}}
+ if(lessonAttempt?.fen===fen){out.badges.push({square:lessonAttempt.to,kind:lessonAttempt.correct?'lesson':'mistake',symbol:lessonAttempt.correct?'✓':'×'});out.caption=lessonAttempt.correct?'Correct opening move. '+out.caption:'Try again: '+lessonAttempt.san+' is legal but is not the move in this course. Red × marks your attempted destination; it does not mean an engine-proven blunder. '+out.caption;}
  if(fresh&&analysis.moveReview&&lastMove){const r=analysis.moveReview;const grade=reviewClassification(r.before?.[0],r.after?.[0],lastMove.color);if(['mistake','blunder','inaccuracy'].includes(grade.code)){out.badges.push({square:lastMove.to,kind:grade.code==='inaccuracy'?'warning':'mistake',symbol:grade.code==='inaccuracy'?'?!':'×'});out.arrows.push({from:lastMove.from,to:lastMove.to,kind:'mistake'});out.caption=grade.label+' for '+lastMove.san+'. Red marks the played move; gold shows the engine’s reply now. Review the earlier position to see your better alternative.'}}
  if(fresh){const u=analysis.lines?.[0]?.uci?.[0];if(u){try{const m=board.move({from:u.slice(0,2),to:u.slice(2,4),promotion:u[4]||'q'});out.arrows.push({from:m.from,to:m.to,kind:'engine'});out.badges.push({square:m.to,kind:'engine',symbol:'★'});out.caption+=(out.caption?' ':'')+'Gold star: '+m.san+', Stockfish’s current top candidate for '+(m.color==='w'?'White':'Black')+'. Short-search estimate, not a guaranteed best move.'}catch{}}}
  return out;

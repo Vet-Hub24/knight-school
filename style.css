@@ -46,3 +46,5 @@
 .teach-card{padding:18px;border:2px solid #a2b978;border-radius:10px;margin-bottom:24px;background:#f8faef}.teach-card p{font-size:15px;color:#344d3c}.teach-card details{margin:14px 0}.teach-card summary{cursor:pointer;font-weight:700;padding:12px 0}.teach-choices{display:grid;gap:8px;margin:12px 0}.teach-card button{min-height:44px;white-space:normal}
 
 .board-guidance{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:4;overflow:visible}#boardGuidanceLayer{pointer-events:none}.guidance-controls{margin-top:12px}.guidance-controls p{font-size:13px;line-height:1.5;color:var(--ink);margin:8px 0}.guidance-controls small{display:block;line-height:1.5}.guidance-controls button{min-height:44px}
+
+.teach-next{background:#eef5df;border-left:4px solid #23815b;padding:14px;margin:14px 0}.teach-next h3{margin-top:12px}.teach-next [role="status"]{padding:10px;background:white;border-radius:6px}
