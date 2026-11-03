@@ -42,3 +42,5 @@
 /* The expanded training menu must remain reachable on short screens. */
 .sidebar{overflow-y:auto;overscroll-behavior:contain}
 .sidebar>.brand,.sidebar>.side-label,.sidebar>nav,.sidebar>.side-bottom{flex-shrink:0}
+
+.teach-card{padding:18px;border:2px solid #a2b978;border-radius:10px;margin-bottom:24px;background:#f8faef}.teach-card p{font-size:15px;color:#344d3c}.teach-card details{margin:14px 0}.teach-card summary{cursor:pointer;font-weight:700;padding:12px 0}.teach-choices{display:grid;gap:8px;margin:12px 0}.teach-card button{min-height:44px;white-space:normal}

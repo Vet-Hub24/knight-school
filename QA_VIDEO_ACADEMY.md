@@ -57,3 +57,11 @@ Core application checks passed. External video playback/access and physical iPho
 ## Screenshot evidence
 
 Delivered separately: Guided Lessons with updated left menu, Game Analysis, Mistake Notebook with successful recall, Video Academy, desktop board with teaching panel, and a three-view 390px mobile review (board, teaching panel, scrollable menu). Responsive review fixtures are local QA aids and are not part of the branch or production site.
+
+## Teach Me follow-up (development only)
+
+Added ten practical opening courses (Italian, Ruy Lopez, Sicilian, French, Caro-Kann, Queen’s Gambit, Slav, King’s Indian, London, English). Each reuses its original legal line and exact per-move notes, with a new overview, deeper structure/plans, terminology, a legal alternative board comparison and return, Continue walkthrough, and a final multiple-choice check. Four transfer chapters add explanation around existing development, fork, opposition and Lucena exercises. Quiz answers are session-local; existing drill completion and spaced practice retain their normal persistence.
+
+Mistake cards no longer reveal the best move before retry. The retry panel labels the original move, task, optional candidate and explanation in order. No stored mistake records were migrated or deleted.
+
+Validation: 12/12 automated tests passed, including every new alternative sequence. Chromium checked all ten course/alternative/return flows; completed Italian walkthrough and wrong/right quiz feedback; actual Stockfish returned depth 19 candidates; all four transfer chapter panels opened. At 390px frame width London Continue and comparison/return worked with no horizontal overflow (375px content). Startup initialization error found and fixed before saving. The previous physical-iPhone and external-video limitations still apply. No new paid services or video dependency. Release asset version 8 includes teach-me.js in offline cache.
