@@ -85,3 +85,7 @@ Added explicit Learn (arrows/theory) and Test (recall, with optional hint) modes
 Ten original response lessons added alongside the ten main courses: Italian Two Knights, Ruy Lopez Exchange, Sicilian Alapin, French Advance, Caro-Kann Exchange, Queen’s Gambit Accepted, Slav Exchange, King’s Indian Sämisch setup, London against ...c5, Symmetrical English. Every half-move has a note; reused prefixes are checked against the original line and branches have their own quiz. These are introductory illustrative branches, not exhaustive repertoires.
 
 Browser checks: all ten branches opened, branch quizzes appeared, Test hid arrows, and switching back restored Learn. Completed the Italian response as White with one hint and verified a spaced-review result (0 errors / 1 hint). Phone-width French branch/Black Test showed no overflow or arrows; Learn restored normally. Screenshot records the Two Knights branch at ...Nf6 with its specific explanation. Automated suite now contains 15 tests; all branch sequences and prefix/note coverage are tested. No production publication.
+
+## Reliable course navigation
+
+Same-section sidebar links now rerun routing and return to the landing page. Added All courses and Restart this line beside Learn/Test; restarting preserves selected line and mode, and repeated Test presses begin a fresh round. Tested same-section Teach Me return (10 cards), All courses, Learn reset (0/12), repeated Test reset, Restart during Test, and phone-width All courses/restart. Automated suite 15/15 passed; asset version 12. No main merge or deployment.

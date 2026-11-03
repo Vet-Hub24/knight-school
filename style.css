@@ -52,3 +52,5 @@
 .teach-testing #learningExtras{display:none}.teach-card select{width:100%;max-width:100%;margin-top:8px;font-size:16px}.teach-card label{display:block;margin-top:16px}
 
 .teach-testing #lessonPanel>.lesson-copy,.teach-testing #lessonPanel>.lesson-subtitle,.teach-testing #lessonPanel>.notice{display:none}
+
+.teach-navigation{margin-bottom:18px}.teach-navigation button{white-space:normal}

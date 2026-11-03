@@ -1,25 +1,25 @@
-import {openingBranches} from './teach-branches.js?v=11';
+import {openingBranches} from './teach-branches.js?v=12';
 let lessonAttempt=null;
-import {boardGuidance,guidanceSvg} from './board-guidance.js?v=11';
+import {boardGuidance,guidanceSvg} from './board-guidance.js?v=12';
 let showBoardGuidance=true;let guidancePreview=null;
 const teachAnswers=new Map();let teachBranch=null;
-import {teachCourses} from './teach-me.js?v=11';
-import {Chess} from './vendor/chess.js?v=11';
-import {pieceVisual} from './pieces.js?v=11';
-import {initPWA} from './pwa.js?v=11';
-import {trainingKey,emptyTraining,loadTraining,reviewKey,scheduleReview,dueReviews,createMistake,rememberMistake} from './training.js?v=11';
-import {makeBackup,parseBackup,restoreBackup} from './backup.js?v=11';
+import {teachCourses} from './teach-me.js?v=12';
+import {Chess} from './vendor/chess.js?v=12';
+import {pieceVisual} from './pieces.js?v=12';
+import {initPWA} from './pwa.js?v=12';
+import {trainingKey,emptyTraining,loadTraining,reviewKey,scheduleReview,dueReviews,createMistake,rememberMistake} from './training.js?v=12';
+import {makeBackup,parseBackup,restoreBackup} from './backup.js?v=12';
 let training;try{training=loadTraining(localStorage)}catch{training=emptyTraining()}
 let drillErrors=0,drillHints=0,pendingRecallResult=null,pendingMistakeId=null,activeMistakeId=null,restoreCandidate=null;
-import {families,strategies,endgames,masters,glossary} from './content.js?v=11';
+import {families,strategies,endgames,masters,glossary} from './content.js?v=12';
 const teachBranchLessons=openingBranches.map(b=>{const f=families.find(f=>f.id===b.courseId),theory=getOpeningTheory(f.name);return {...f,id:b.id,courseId:b.courseId,name:f.name+' — '+b.title,line:b.line,branchNotes:[...theory.notes.slice(0,b.prefixCount),...b.notes]}});
-import {advancedStrategies,advancedEndgames} from './advanced.js?v=11';
-import {enrichMaster} from './master-notes.js?v=11';
-import {explainMove,positionFacts,planText,answerGuided,side} from './coach.js?v=11';
-import {getOpeningTheory} from './opening-theory.js?v=11';
-import {searchPosition} from './engine.js?v=11';
-import {coachReport,freeCoachReply,buildChatGPTPrompt} from './free-coach.js?v=11';
-import {questionDeck,makeQuestionState,currentQuestion,submitQuestion,nextQuestion,previousQuestion,restartQuestions} from './coach-questions.js?v=11';
+import {advancedStrategies,advancedEndgames} from './advanced.js?v=12';
+import {enrichMaster} from './master-notes.js?v=12';
+import {explainMove,positionFacts,planText,answerGuided,side} from './coach.js?v=12';
+import {getOpeningTheory} from './opening-theory.js?v=12';
+import {searchPosition} from './engine.js?v=12';
+import {coachReport,freeCoachReply,buildChatGPTPrompt} from './free-coach.js?v=12';
+import {questionDeck,makeQuestionState,currentQuestion,submitQuestion,nextQuestion,previousQuestion,restartQuestions} from './coach-questions.js?v=12';
 let savedQuestionSessions=[];try{savedQuestionSessions=JSON.parse(localStorage.getItem('knight-school-questions-v1'))||[]}catch{}
 const questionSessions=new Map(Array.isArray(savedQuestionSessions)?savedQuestionSessions.filter(x=>Array.isArray(x)&&typeof x[0]==='string').map(([key,value])=>[key,makeQuestionState(value)]):[]);
 
@@ -347,8 +347,11 @@ document.addEventListener('click',e=>{if(e.target.closest('[data-guidance-toggle
 function nextLessonMove(){if(drill||playing||free||teachBranch||guidancePreview||!lesson||lessonType==='review'||page==='practice'||step>=line.length)return null;try{const m=new Chess(chess.fen()).move(line[step]);return {san:m.san,from:m.from,to:m.to}}catch{return null}}
 function teachNextTheoryMarkup(){const next=nextLessonMove();if(!next)return '<p>Walkthrough finished, or exploring an alternative. Return to the taught line to continue.</p>';const theory=getOpeningTheory(lesson.name),why=(lesson.branchNotes||theory?.notes)?.[step];return `<section class="teach-next" aria-label="Your next opening move"><span class="pill">YOUR TURN · ${side(chess.turn())}</span><h3>Play ${esc(next.san)}: ${esc(next.from)} → ${esc(next.to)}</h3><p><b>Why this move?</b> ${esc(why||'Follow the illustrated line and compare the position with the plans below.')}</p><p>Move the piece on the board. The green arrow points to its destination. Learn both sides before testing your memory with Practice.</p>${lessonAttempt?`<p role="status"><b>${lessonAttempt.correct?'✓ Correct':'× Try again'}</b> ${esc(feedback)}</p>`:''}<details><summary>Connect this move to the theory</summary><p><b>Pawn structure and tradeoffs:</b> ${esc(theory?.structure||'')}</p><p><b>White’s long-term plan:</b> ${esc(theory?.white||'')}</p><p><b>Black’s long-term plan:</b> ${esc(theory?.black||'')}</p><p>After every move, check what changed: central control, development, king safety, and the opponent’s forcing replies. A familiar opening move can still be wrong in a different position.</p></details></section>`}
 
-function teachModeControls(c){return `<section class="teach-card" aria-label="Learning mode and branch"><h3>Choose how to learn</h3><div class="button-row"><button class="${drill?'secondary':'primary'}" data-teach-learn aria-pressed="${!drill}">Learn · arrows & theory</button><button class="${drill?'primary':'secondary'}" data-teach-test aria-pressed="${drill}">Test · recall from memory</button></div><label for="teachBranchSelect">Opening response</label><select id="teachBranchSelect" aria-label="Opening response"><option value="${c.id}" ${lesson.id===c.id?'selected':''}>Main course line</option>${teachBranchLessons.filter(x=>x.courseId===c.id).map(x=>`<option value="${x.id}" ${lesson.id===x.id?'selected':''}>${esc(x.name)}</option>`).join('')}</select><label for="teachTestSide">Test as</label><select id="teachTestSide" aria-label="Test as"><option value="w" ${drillSide==='w'?'selected':''}>White</option><option value="b" ${drillSide==='b'?'selected':''}>Black</option><option value="both" ${drillSide==='both'?'selected':''}>Both sides</option></select><p>Learn both sides step by step. Each response and side has its own recall schedule.</p></section>`}
+function teachModeControls(c){return `<section class="teach-card" aria-label="Learning mode and branch"><div class="button-row teach-navigation"><button class="secondary" data-teach-home>← All courses</button><button class="secondary" data-teach-restart>↺ Restart this line</button></div><h3>Choose how to learn</h3><div class="button-row"><button class="${drill?'secondary':'primary'}" data-teach-learn aria-pressed="${!drill}">Learn · arrows & theory</button><button class="${drill?'primary':'secondary'}" data-teach-test aria-pressed="${drill}">Test · recall from memory</button></div><label for="teachBranchSelect">Opening response</label><select id="teachBranchSelect" aria-label="Opening response"><option value="${c.id}" ${lesson.id===c.id?'selected':''}>Main course line</option>${teachBranchLessons.filter(x=>x.courseId===c.id).map(x=>`<option value="${x.id}" ${lesson.id===x.id?'selected':''}>${esc(x.name)}</option>`).join('')}</select><label for="teachTestSide">Test as</label><select id="teachTestSide" aria-label="Test as"><option value="w" ${drillSide==='w'?'selected':''}>White</option><option value="b" ${drillSide==='b'?'selected':''}>Black</option><option value="both" ${drillSide==='both'?'selected':''}>Both sides</option></select><p>Learn both sides step by step. Each response and side has its own recall schedule.</p></section>`}
 document.addEventListener('change',e=>{if(e.target.id==='teachBranchSelect'){const testing=drill;openStudy(e.target.value);if(testing)startDrill()}});
 document.addEventListener('click',e=>{if(e.target.closest('[data-teach-test]')){teachBranch=null;drillSide=$('#teachTestSide').value;if($('#drillSide'))$('#drillSide').value=drillSide;startDrill()}if(e.target.closest('[data-teach-learn]')){drill=false;step=0;feedback='';teachBranch=null;setPosition();renderBoard();renderPanel()}});
 
 document.addEventListener('change',e=>{if(e.target.id==='teachTestSide'){drillSide=e.target.value;if($('#drillSide'))$('#drillSide').value=drillSide;if(drill)startDrill()}});
+
+// A selected sidebar section is also a reliable way back to its landing page.
+document.addEventListener('click',e=>{const link=e.target.closest('#nav a');if(link&&link.hash===location.hash){e.preventDefault();route();return}if(e.target.closest('[data-teach-home]')){teachCatalog();window.scrollTo(0,0);return}if(e.target.closest('[data-teach-restart]')){pausePlayback();teachBranch=null;if(drill)startDrill();else{step=0;feedback='';feedbackError=false;setPosition();renderBoard();renderPanel()}$('#lessonPanel')?.scrollIntoView({block:'start',behavior:'smooth'})}});
