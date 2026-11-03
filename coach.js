@@ -1,6 +1,6 @@
-import {Chess} from './vendor/chess.js?v=6';
-import {families,glossary} from './content.js?v=6';
-import {getOpeningTheory} from './opening-theory.js?v=6';
+import {Chess} from './vendor/chess.js?v=12';
+import {families,glossary} from './content.js?v=12';
+import {getOpeningTheory} from './opening-theory.js?v=12';
 const names={p:'pawn',n:'knight',b:'bishop',r:'rook',q:'queen',k:'king'};
 const values={p:1,n:3,b:3,r:5,q:9,k:0};
 const familyHistories=new Map(families.map(f=>{const c=new Chess();for(const m of f.line.split(' '))c.move(m);return[f.id,c.history()]}));
@@ -52,6 +52,7 @@ export function explainMove(chess,lesson={}){
   if(move.piece==='r'){const filePieces=after.board().flat().filter(p=>p?.square[0]===move.to[0]&&p.type==='p');if(!filePieces.length)facts.push('The rook reaches a file with no pawns. Look for a safe entry square and targets beyond the file.');}
   if(!facts.length)facts.push(`The ${names[move.piece]} relocates from ${move.from} to ${move.to}. Evaluate its new targets, the squares left behind, and the opponent’s most forcing reply.`);
  }
+ if(lesson?.branchNotes){const hist=chess.history(),tokens=lesson.line.split(' ');if(hist.every((m,i)=>m===tokens[i]))authored=lesson.branchNotes[hist.length-1]||'';}
  return {move,authored,facts,theory,position:positionFacts(chess)};
 }
 export function planText(chess,color,lesson){
