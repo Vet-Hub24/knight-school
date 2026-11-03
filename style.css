@@ -54,3 +54,11 @@
 .teach-testing #lessonPanel>.lesson-copy,.teach-testing #lessonPanel>.lesson-subtitle,.teach-testing #lessonPanel>.notice{display:none}
 
 .teach-navigation{margin-bottom:18px}.teach-navigation button{white-space:normal}
+
+/* Keep the active teaching task visible; preserve all existing tools. */
+.narration-tools,.study-tools,.reply-demo{padding:14px;border:1px solid var(--border,#d9d3c7);border-radius:12px;margin-bottom:16px;max-width:100%;overflow-wrap:anywhere}
+.narration-tools summary,.study-tools summary{cursor:pointer;font-weight:700}
+.narration-tools select{display:block;width:100%;margin:6px 0 12px;min-height:44px}
+.narration-tools .button-row,.reply-demo .button-row{flex-wrap:wrap;gap:8px}
+.narration-tools button,.reply-demo button{min-height:44px}
+.teach-testing .narration-tools{display:none}

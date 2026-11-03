@@ -52,3 +52,20 @@ Performed on the local development build in Chromium. The live site was not used
 A physical iPhone/Safari installation and a real browser offline session have not been performed. This environment provides Chromium, not iOS Safari. Offline fetch behavior is tested in the service-worker simulation and actual online Stockfish is tested in Chromium. After approval and deployment, verify Safari → Share → Add to Home Screen, initial offline caching, and backup/restore between Safari and the home-screen app. Browser storage may differ; the app explains this and offers complete backup/restore.
 
 The code is ready for review, not a claim of native App Store certification or independently calibrated coaching strength. Grades remain short-search estimates. No paid AI API is present.
+
+
+## Voice and learning development update — 2026-11-03
+
+Branch: `development/voice-and-learning`. No main modification or publication.
+
+Added local-only speech controls (read, pause/resume, repeat, stop, voice and speed), saved Teach Me line/branch/move/side/Learn-Test-Plan state, ten opening-to-middlegame plan questions, and a six-ply Stockfish reply demonstration with exact return. Existing detailed tools remain in an expandable section; open sections survive panel updates. Session data participates in validated backup/restore. Offline cache includes all new modules (release 13).
+
+Executed validation:
+- `npm test`: 19 passed, 0 failed. Includes all existing legal content, pieces, guidance, SRS, mistakes, backups, PWA caching, plus snapshot restore/validation, all ten plan records and local-only narration sequencing/cancellation.
+- Browser: actual guided e2-e4, correct next Black arrow; reload and resume at ply 1; branch/Black Test restore; plan-mode reload/restore and feedback; all 10 plan screens opened.
+- Browser Stockfish: analyzed starting position (depth 19), then imported a test FEN, played Kh2 instead of Rxd5, and reviewed the move. Engine reply Qxd1 demonstrated the lost rook. Next/Back and Return restored pieces and the original depth-29 analysis. Saved mistake displayed in notebook.
+- Regression smoke: 64 board squares and loaded SVG images; board flip and Slate/Walnut switching; free Coach answer advanced to question 2; Ask ChatGPT still displayed its manual preview without redirecting. Expanded engine tools remained open after analysis updated.
+- Responsive browser frames: phone 390 outer / 375 content and tablet 820 outer / 805 content; no horizontal overflow. Phone teaching panel was below the board; voice button visible. Desktop board and teaching panel remained together.
+- No application-origin error logs observed. Browser extension metadata errors were unrelated to the application.
+
+Limitations: cloud Chromium has no local speech voice. Real audio was not heard; fallback and injected voice sequencing were tested. Physical iPhone Safari, home-screen installation and actual airplane-mode operation were not tested in this update. Video content unchanged. Existing exhaustive chess rule regression was covered in the earlier QA release, not all repeated manually here. New change requires user review before deployment.
