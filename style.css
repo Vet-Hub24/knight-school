@@ -67,3 +67,5 @@
 .narration-tools .button-row button{flex:1 1 110px;white-space:normal;word-break:normal;overflow-wrap:normal}.narration-tools label{display:block;margin-top:12px}
 
 #narrationTextPreview{white-space:pre-line;overflow-wrap:anywhere}.spoken-preview{margin:14px 0;padding:12px;border:1px solid var(--border,#d9d3c7);border-radius:8px}
+
+.narration-tools .auto-explain-option{display:flex;align-items:center;gap:10px;min-height:44px}.auto-explain-option input{width:22px;height:22px;flex:none}
