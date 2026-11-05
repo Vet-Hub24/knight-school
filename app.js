@@ -1,34 +1,34 @@
-import {deviationLessons,deviationBoard} from './deviations.js?v=14';
-import {practiceSample,selectPracticeMoment,practiceMomentReport} from './practice-review.js?v=14';
+import {deviationLessons,deviationBoard} from './deviations.js?v=15';
+import {practiceSample,selectPracticeMoment,practiceMomentReport} from './practice-review.js?v=15';
 let deviationState=null,openingPractice=null,pendingOpeningPractice=null,practiceRecall=null;
-import {createNarrator} from './narration.js?v=14';
-import {loadStudySession,saveStudySession} from './study-session.js?v=14';
-import {planningLessons} from './plan-lessons.js?v=14';
+import {createNarrator} from './narration.js?v=15';
+import {loadStudySession,saveStudySession} from './study-session.js?v=15';
+import {planningLessons} from './plan-lessons.js?v=15';
 let studySession;try{studySession=loadStudySession(localStorage)}catch{studySession={version:1,last:null,answers:[]}}
 let teachPlanMode=false,restoringStudy=false,replyDemo=null,narrationFen='',voiceURI='',voiceRate=1;
 const narrator=createNarrator({synth:window.speechSynthesis,Utterance:window.SpeechSynthesisUtterance,onStatus:message=>{const status=document.getElementById('narrationStatus');if(status)status.textContent=message}});
-import {openingBranches} from './teach-branches.js?v=14';
+import {openingBranches} from './teach-branches.js?v=15';
 let lessonAttempt=null;
-import {boardGuidance,guidanceSvg} from './board-guidance.js?v=14';
+import {boardGuidance,guidanceSvg} from './board-guidance.js?v=15';
 let showBoardGuidance=true;let guidancePreview=null;
 const teachAnswers=new Map(studySession.answers);let teachBranch=null;
-import {teachCourses} from './teach-me.js?v=14';
-import {Chess} from './vendor/chess.js?v=14';
-import {pieceVisual} from './pieces.js?v=14';
-import {initPWA} from './pwa.js?v=14';
-import {trainingKey,emptyTraining,loadTraining,reviewKey,scheduleReview,dueReviews,createMistake,rememberMistake} from './training.js?v=14';
-import {makeBackup,parseBackup,restoreBackup} from './backup.js?v=14';
+import {teachCourses} from './teach-me.js?v=15';
+import {Chess} from './vendor/chess.js?v=15';
+import {pieceVisual} from './pieces.js?v=15';
+import {initPWA} from './pwa.js?v=15';
+import {trainingKey,emptyTraining,loadTraining,reviewKey,scheduleReview,dueReviews,createMistake,rememberMistake} from './training.js?v=15';
+import {makeBackup,parseBackup,restoreBackup} from './backup.js?v=15';
 let training;try{training=loadTraining(localStorage)}catch{training=emptyTraining()}
 let drillErrors=0,drillHints=0,pendingRecallResult=null,pendingMistakeId=null,activeMistakeId=null,restoreCandidate=null;
-import {families,strategies,endgames,masters,glossary} from './content.js?v=14';
+import {families,strategies,endgames,masters,glossary} from './content.js?v=15';
 const teachBranchLessons=openingBranches.map(b=>{const f=families.find(f=>f.id===b.courseId),theory=getOpeningTheory(f.name);return {...f,id:b.id,courseId:b.courseId,name:f.name+' — '+b.title,line:b.line,branchNotes:[...theory.notes.slice(0,b.prefixCount),...b.notes]}});
-import {advancedStrategies,advancedEndgames} from './advanced.js?v=14';
-import {enrichMaster} from './master-notes.js?v=14';
-import {explainMove,positionFacts,planText,answerGuided,side} from './coach.js?v=14';
-import {getOpeningTheory} from './opening-theory.js?v=14';
-import {searchPosition} from './engine.js?v=14';
-import {coachReport,freeCoachReply,buildChatGPTPrompt} from './free-coach.js?v=14';
-import {questionDeck,makeQuestionState,currentQuestion,submitQuestion,nextQuestion,previousQuestion,restartQuestions} from './coach-questions.js?v=14';
+import {advancedStrategies,advancedEndgames} from './advanced.js?v=15';
+import {enrichMaster} from './master-notes.js?v=15';
+import {explainMove,positionFacts,planText,answerGuided,side} from './coach.js?v=15';
+import {getOpeningTheory} from './opening-theory.js?v=15';
+import {searchPosition} from './engine.js?v=15';
+import {coachReport,freeCoachReply,buildChatGPTPrompt} from './free-coach.js?v=15';
+import {questionDeck,makeQuestionState,currentQuestion,submitQuestion,nextQuestion,previousQuestion,restartQuestions} from './coach-questions.js?v=15';
 let savedQuestionSessions=[];try{savedQuestionSessions=JSON.parse(localStorage.getItem('knight-school-questions-v1'))||[]}catch{}
 const questionSessions=new Map(Array.isArray(savedQuestionSessions)?savedQuestionSessions.filter(x=>Array.isArray(x)&&typeof x[0]==='string').map(([key,value])=>[key,makeQuestionState(value)]):[]);
 
@@ -376,9 +376,10 @@ document.addEventListener('click',e=>{const link=e.target.closest('#nav a');if(l
 
 
 // Browser-local teaching helpers. No remote AI or narration service is used.
-function narrationMarkup(){return `<details class="narration-tools"><summary>🔊 Listen to the explanation</summary><p>Uses an available on-device voice. Tap Explain aloud to start; nothing plays automatically.</p><div class="button-row"><button class="primary" data-narrate="read" ${drill?'disabled':''}>Explain aloud</button><button class="secondary" data-narrate="pause">Pause / resume</button><button class="secondary" data-narrate="repeat" ${drill?'disabled':''}>Repeat</button><button class="secondary" data-narrate="stop">Stop</button></div><label for="narrationVoice">On-device voice</label><select id="narrationVoice">${localVoiceOptions()}</select><label for="narrationRate">Reading speed</label><select id="narrationRate">${[.75,1,1.25].map(v=>`<option value="${v}" ${v===voiceRate?'selected':''}>${v}×</option>`).join('')}</select><p id="narrationStatus" role="status">${drill?'Written and spoken explanations are hidden during recall.':'Ready when you are. Voice availability depends on your device.'}</p></details>`}
-function localVoiceOptions(){return narrator.voices().map(v=>`<option value="${esc(v.voiceURI)}" ${v.voiceURI===voiceURI?'selected':''}>${esc(v.name)} (${esc(v.lang)})</option>`).join('')||'<option value="">No on-device voice available</option>'}
-window.speechSynthesis?.addEventListener('voiceschanged',()=>{if($('#narrationVoice'))$('#narrationVoice').innerHTML=localVoiceOptions()});
+function narrationMarkup(){return `<details class="narration-tools"><summary>🔊 Listen to the explanation</summary><p>Free browser speech. Local voices are preferred. Browser default may use your browser’s speech service. Text is spoken only after you tap a button.</p><div class="button-row"><button class="secondary" data-narrate="test" ${drill?'disabled':''}>Test voice</button><button class="primary" data-narrate="read" ${drill?'disabled':''}>Explain aloud</button><button class="secondary" data-narrate="pause">Pause / resume</button><button class="secondary" data-narrate="repeat" ${drill?'disabled':''}>Repeat</button><button class="secondary" data-narrate="stop">Stop</button></div><label for="narrationVoice">Voice</label><select id="narrationVoice">${localVoiceOptions()}</select><button class="secondary" data-narrate="refresh">Refresh voices</button><label for="narrationRate">Reading speed</label><select id="narrationRate">${[.75,1,1.25].map(v=>`<option value="${v}" ${v===voiceRate?'selected':''}>${v}×</option>`).join('')}</select><p id="narrationStatus" role="status">${esc(drill?'Written and spoken explanations are hidden during recall.':narrator.status()&&narrator.status()!=='Stopped.'?narrator.status():narrator.availability())}</p><p>If there is no sound, check volume and Bluetooth/headphone output. The remote preview may have no speech engine; audio on your own device needs a separate check.</p></details>`}
+function localVoiceOptions(){const local=narrator.voices(),selected=voiceURI||(local.find(v=>v.lang?.startsWith('en'))||local[0])?.voiceURI||'__default__';return local.map(v=>`<option value="${esc(v.voiceURI)}" ${v.voiceURI===selected?'selected':''}>${esc(v.name)} (${esc(v.lang)}) · on device</option>`).join('')+`<option value="__default__" ${selected==='__default__'?'selected':''}>Browser default · try if no local voice works</option>`}
+function refreshVoiceChoices(){if($('#narrationVoice'))$('#narrationVoice').innerHTML=localVoiceOptions();if($('#narrationStatus'))$('#narrationStatus').textContent=narrator.availability()}
+window.speechSynthesis?.addEventListener('voiceschanged',refreshVoiceChoices);
 function currentNarration(){if(deviationState)return $('#deviationLesson')?.innerText||'';if(openingPractice)return $('#openingPracticeCard')?.innerText||'';if(replyDemo)return replyDemoExplanation();if(teachPlanMode){const p=planningLessons[lesson?.courseId||lesson?.id],a=teachAnswers.get('plan:'+lesson.id);return p.question+' '+p.choices.map((c,i)=>`Option ${i+1}: ${c}.`).join(' ')+(a!==undefined?' '+p.why:'')}const card=$('#lessonPanel .teach-card[aria-label="Teach Me lesson"]');return card?.innerText||[lesson?.name,generalNote(),engineResult?.fen===chess.fen()?engineResult.moveReview?.summary:'',engineResult?.fen===chess.fen()?engineResult.explain:'',planText(chess,'w',lesson),planText(chess,'b',lesson)].filter(Boolean).join('. ')}
 function rememberStudy(){if(deviationState){rememberDeviation();return;}if(!teachCourses.some(c=>c.id===(lesson?.courseId||lesson?.id))||restoringStudy||replyDemo||page!=='teach'||lessonType!=='opening'||free||teachBranch||guidancePreview)return;studySession={version:1,last:{id:lesson.id,step,side:drillSide,mode:drill?'test':teachPlanMode?'plan':'learn',errors:drillErrors,hints:drillHints,updatedAt:new Date().toISOString()},answers:[...teachAnswers]};try{saveStudySession(localStorage,studySession)}catch{toast('Lesson could not be saved on this device. Keep this tab open.')}}
 function resumeStudyMarkup(){const r=studySession.last;if(!r||![...families,...teachBranchLessons].some(x=>x.id===r.id))return '';return `<section class="teach-card"><h3>Pick up where you left off</h3><p>${esc(studyName(r.id))} · ${esc(r.mode)} · half-move ${r.step}</p><button class="primary" data-study-resume>Resume learning →</button></section>`}
@@ -389,7 +390,7 @@ function replyDemoExplanation(){if(!replyDemo?.cursor)return 'This is the positi
 function showReplyDemo(){if(drill||playing||engineResult?.fen!==chess.fen())return;const moves=engineResult.lines?.[0]?.uci?.slice(0,6);if(!moves?.length)return;const probe=new Chess(chess.fen()),legalMoves=[];for(const u of moves){try{probe.move({from:u.slice(0,2),to:u.slice(2,4),promotion:u[4]||'q'});legalMoves.push(u)}catch{break}}if(!legalMoves.length)return;pausePlayback();narrator.stop();replyDemo={original:{chess,lastMove,engineResult,step,free},fen:chess.fen(),moves:legalMoves,cursor:0};engineResult=null;selected=null;legal=[];free=true;renderBoard();renderPanel()}
 function stepReplyDemo(delta){if(!replyDemo)return;replyDemo.cursor=Math.max(0,Math.min(replyDemo.moves.length,replyDemo.cursor+delta));chess=new Chess(replyDemo.fen);for(const u of replyDemo.moves.slice(0,replyDemo.cursor))chess.move({from:u.slice(0,2),to:u.slice(2,4),promotion:u[4]||'q'});lastMove=chess.history({verbose:true}).at(-1)||null;renderBoard();renderPanel()}
 document.addEventListener('change',e=>{if(e.target.id==='narrationVoice')voiceURI=e.target.value;if(e.target.id==='narrationRate')voiceRate=Number(e.target.value)});
-document.addEventListener('click',e=>{const speech=e.target.closest('[data-narrate]');if(speech){const action=speech.dataset.narrate;if(action==='stop')narrator.stop();if(action==='pause')narrator.pause();if(!drill&&action==='repeat')narrator.repeat();if(!drill&&action==='read'){pausePlayback();narrator.read(currentNarration(),{voiceURI:$('#narrationVoice')?.value||voiceURI,rate:voiceRate})}return}if(e.target.closest('[data-study-resume]')){resumeStudy();return}if(e.target.closest('[data-teach-plan]')){const c=teachCourses.find(x=>x.id===(lesson?.courseId||lesson?.id));if(!c)return;openStudy(c.id,movesFor(families.find(x=>x.id===c.id).line).length);teachPlanMode=true;renderBoard();renderPanel();$('#lessonPanel').scrollIntoView({block:'start'});return}const answer=e.target.closest('[data-plan-answer]');if(answer){teachAnswers.set('plan:'+lesson.id,Number(answer.dataset.planAnswer));renderPanel();return}if(e.target.closest('[data-reply-demo]'))showReplyDemo();if(e.target.closest('[data-demo-next]'))stepReplyDemo(1);if(e.target.closest('[data-demo-back]'))stepReplyDemo(-1);if(e.target.closest('[data-demo-return]')&&replyDemo){({chess,lastMove,engineResult,step,free}=replyDemo.original);replyDemo=null;renderBoard();renderPanel()}});
+document.addEventListener('click',e=>{const speech=e.target.closest('[data-narrate]');if(speech){const action=speech.dataset.narrate;if(action==='stop')narrator.stop();if(action==='refresh')refreshVoiceChoices();if(!drill&&action==='test'){pausePlayback();const chosen=$('#narrationVoice')?.value||voiceURI;narrator.read('Knight School voice test. Develop your pieces, protect your king, and check your opponent’s threats.',{voiceURI:chosen,rate:voiceRate,allowBrowserDefault:chosen==='__default__'})}if(action==='pause')narrator.pause();if(!drill&&action==='repeat')narrator.repeat();if(!drill&&action==='read'){pausePlayback();narrator.read(currentNarration(),{voiceURI:$('#narrationVoice')?.value||voiceURI,rate:voiceRate,allowBrowserDefault:$('#narrationVoice')?.value==='__default__'})}return}if(e.target.closest('[data-study-resume]')){resumeStudy();return}if(e.target.closest('[data-teach-plan]')){const c=teachCourses.find(x=>x.id===(lesson?.courseId||lesson?.id));if(!c)return;openStudy(c.id,movesFor(families.find(x=>x.id===c.id).line).length);teachPlanMode=true;renderBoard();renderPanel();$('#lessonPanel').scrollIntoView({block:'start'});return}const answer=e.target.closest('[data-plan-answer]');if(answer){teachAnswers.set('plan:'+lesson.id,Number(answer.dataset.planAnswer));renderPanel();return}if(e.target.closest('[data-reply-demo]'))showReplyDemo();if(e.target.closest('[data-demo-next]'))stepReplyDemo(1);if(e.target.closest('[data-demo-back]'))stepReplyDemo(-1);if(e.target.closest('[data-demo-return]')&&replyDemo){({chess,lastMove,engineResult,step,free}=replyDemo.original);replyDemo=null;renderBoard();renderPanel()}});
 
 
 function currentDeviation(){return deviationLessons.find(d=>d.id===deviationState?.id)}

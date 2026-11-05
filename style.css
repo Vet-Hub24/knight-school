@@ -64,3 +64,4 @@
 .teach-testing .narration-tools{display:none}
 
 #deviationSelect{display:block;width:100%;min-height:44px;margin:10px 0 18px}#deviationLesson .button-row,#openingPracticeCard .button-row{flex-wrap:wrap;gap:8px}#deviationLesson button,#openingPracticeCard button{min-height:44px;max-width:100%;white-space:normal}#openingPracticeCard{overflow-wrap:anywhere}
+.narration-tools .button-row button{flex:1 1 110px;white-space:normal;word-break:normal;overflow-wrap:normal}.narration-tools label{display:block;margin-top:12px}
