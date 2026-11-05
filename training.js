@@ -1,4 +1,4 @@
-import {coachReport} from './free-coach.js?v=13';
+import {coachReport} from './free-coach.js?v=14';
 export const trainingKey='knight-school-training-v1';
 export const DAY=86400000;
 export const reviewKey=(lessonId,side)=>`${lessonId}::${side}`;

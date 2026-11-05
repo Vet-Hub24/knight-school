@@ -1,6 +1,6 @@
-import {Chess} from './vendor/chess.js?v=13';
-import {families,glossary} from './content.js?v=13';
-import {getOpeningTheory} from './opening-theory.js?v=13';
+import {Chess} from './vendor/chess.js?v=14';
+import {families,glossary} from './content.js?v=14';
+import {getOpeningTheory} from './opening-theory.js?v=14';
 const names={p:'pawn',n:'knight',b:'bishop',r:'rook',q:'queen',k:'king'};
 const values={p:1,n:3,b:3,r:5,q:9,k:0};
 const familyHistories=new Map(families.map(f=>{const c=new Chess();for(const m of f.line.split(' '))c.move(m);return[f.id,c.history()]}));

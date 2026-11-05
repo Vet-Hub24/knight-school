@@ -69,3 +69,19 @@ Executed validation:
 - No application-origin error logs observed. Browser extension metadata errors were unrelated to the application.
 
 Limitations: cloud Chromium has no local speech voice. Real audio was not heard; fallback and injected voice sequencing were tested. Physical iPhone Safari, home-screen installation and actual airplane-mode operation were not tested in this update. Video content unchanged. Existing exhaustive chess rule regression was covered in the earlier QA release, not all repeated manually here. New change requires user review before deployment.
+
+
+## Opponent-deviation and practice follow-up — 2026-11-04
+
+Incremental work on `development/voice-and-learning` / draft PR #3. Main and production were not changed.
+
+- Eleven original decision exercises cover all ten practical courses, including an extra early-queen scenario. Each has three legal response choices, specific reasoning, and an illustrative continuation. Playable alternatives are explicitly distinguished from tradeoffs; only Stockfish grades actual practice mistakes.
+- Choices work through buttons or the board. Next/Back, Retry, course return, and saved exercise/choice/cursor restore preserve the teaching interface. Arrows remain hidden until a response is chosen, then show the next illustrative move.
+- Opening and plan lessons can launch free Stockfish practice from the exact displayed FEN, with starting plans for both sides and return to the course.
+- Finish & review analyzes up to six recent moves for the selected side using local Stockfish. It chooses one estimated mistake (or a useful moment if none was identified), explains it, saves eligible mistakes, and supports retry without losing the practice-game board/history. The sample size is stated; this is not exhaustive game analysis.
+
+Validation executed: all 23 automated tests passed, including exact SAN legality at every step of all 33 choices, the early-queen rook-capture illustration, backup/restore of decision state, player-specific practice sampling and mistake selection. Existing content, pieces, SRS, backup and PWA tests remained green. Syntax and diff-whitespace checks passed.
+
+Browser validation: opened all ten exercise pages, chose all 30 main-course responses and stepped through a reply; no application-origin error logs and every board retained 64 squares. Early-queen choice by button and board worked; reload resumed the choice/cursor and returned to the correct original course ply. Actual engine practice as Black after Qh5, g6, and the engine reply produced a blunder estimate; the short review recommended Nc6. The retry accepted Nc6, incremented notebook recall once, and restored the exact practice board. Notebook showed the saved g6 record with one successful recall. Learn/Test switching, normal e2-e4 guidance and the manual Ask ChatGPT preview remained functional. Phone 390 / content 375 and tablet 820 / content 805 had no horizontal overflow; phone panel remained below the board.
+
+Limits: physical iPhone/Safari audio and installation remain device checks; browser tests use Chromium at responsive frame widths. Illustrative lines are original teaching examples, not frequency rankings or forced best continuations. Reviews use short searches and may change with deeper analysis. Video links and hosting are unchanged.
