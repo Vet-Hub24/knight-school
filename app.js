@@ -1,36 +1,36 @@
-import {buildNarration,loadNarrationSettings,saveNarrationSettings} from './narration-content.js?v=16';
-let narrationPreferences;try{narrationPreferences=loadNarrationSettings(localStorage)}catch{narrationPreferences={voiceURI:'',rate:1,scope:'move'}}
-import {deviationLessons,deviationBoard} from './deviations.js?v=16';
-import {practiceSample,selectPracticeMoment,practiceMomentReport} from './practice-review.js?v=16';
+import {buildNarration,loadNarrationSettings,saveNarrationSettings,selectedVoiceURI} from './narration-content.js?v=17';
+let narrationPreferences;try{narrationPreferences=loadNarrationSettings(localStorage)}catch{narrationPreferences={voiceURI:'',rate:.75,scope:'move'}}
+import {deviationLessons,deviationBoard} from './deviations.js?v=17';
+import {practiceSample,selectPracticeMoment,practiceMomentReport} from './practice-review.js?v=17';
 let deviationState=null,openingPractice=null,pendingOpeningPractice=null,practiceRecall=null;
-import {createNarrator} from './narration.js?v=16';
-import {loadStudySession,saveStudySession} from './study-session.js?v=16';
-import {planningLessons} from './plan-lessons.js?v=16';
+import {createNarrator} from './narration.js?v=17';
+import {loadStudySession,saveStudySession} from './study-session.js?v=17';
+import {planningLessons} from './plan-lessons.js?v=17';
 let studySession;try{studySession=loadStudySession(localStorage)}catch{studySession={version:1,last:null,answers:[]}}
 let teachPlanMode=false,restoringStudy=false,replyDemo=null,narrationFen='',voiceURI=narrationPreferences.voiceURI,voiceRate=narrationPreferences.rate,narrationScope=narrationPreferences.scope;
 const narrator=createNarrator({synth:window.speechSynthesis,Utterance:window.SpeechSynthesisUtterance,onStatus:message=>{const status=document.getElementById('narrationStatus');if(status)status.textContent=message}});
-import {openingBranches} from './teach-branches.js?v=16';
+import {openingBranches} from './teach-branches.js?v=17';
 let lessonAttempt=null;
-import {boardGuidance,guidanceSvg} from './board-guidance.js?v=16';
+import {boardGuidance,guidanceSvg} from './board-guidance.js?v=17';
 let showBoardGuidance=true;let guidancePreview=null;
 const teachAnswers=new Map(studySession.answers);let teachBranch=null;
-import {teachCourses} from './teach-me.js?v=16';
-import {Chess} from './vendor/chess.js?v=16';
-import {pieceVisual} from './pieces.js?v=16';
-import {initPWA} from './pwa.js?v=16';
-import {trainingKey,emptyTraining,loadTraining,reviewKey,scheduleReview,dueReviews,createMistake,rememberMistake} from './training.js?v=16';
-import {makeBackup,parseBackup,restoreBackup} from './backup.js?v=16';
+import {teachCourses} from './teach-me.js?v=17';
+import {Chess} from './vendor/chess.js?v=17';
+import {pieceVisual} from './pieces.js?v=17';
+import {initPWA} from './pwa.js?v=17';
+import {trainingKey,emptyTraining,loadTraining,reviewKey,scheduleReview,dueReviews,createMistake,rememberMistake} from './training.js?v=17';
+import {makeBackup,parseBackup,restoreBackup} from './backup.js?v=17';
 let training;try{training=loadTraining(localStorage)}catch{training=emptyTraining()}
 let drillErrors=0,drillHints=0,pendingRecallResult=null,pendingMistakeId=null,activeMistakeId=null,restoreCandidate=null;
-import {families,strategies,endgames,masters,glossary} from './content.js?v=16';
+import {families,strategies,endgames,masters,glossary} from './content.js?v=17';
 const teachBranchLessons=openingBranches.map(b=>{const f=families.find(f=>f.id===b.courseId),theory=getOpeningTheory(f.name);return {...f,id:b.id,courseId:b.courseId,name:f.name+' — '+b.title,line:b.line,branchNotes:[...theory.notes.slice(0,b.prefixCount),...b.notes]}});
-import {advancedStrategies,advancedEndgames} from './advanced.js?v=16';
-import {enrichMaster} from './master-notes.js?v=16';
-import {explainMove,positionFacts,planText,answerGuided,side} from './coach.js?v=16';
-import {getOpeningTheory} from './opening-theory.js?v=16';
-import {searchPosition} from './engine.js?v=16';
-import {coachReport,freeCoachReply,buildChatGPTPrompt} from './free-coach.js?v=16';
-import {questionDeck,makeQuestionState,currentQuestion,submitQuestion,nextQuestion,previousQuestion,restartQuestions} from './coach-questions.js?v=16';
+import {advancedStrategies,advancedEndgames} from './advanced.js?v=17';
+import {enrichMaster} from './master-notes.js?v=17';
+import {explainMove,positionFacts,planText,answerGuided,side} from './coach.js?v=17';
+import {getOpeningTheory} from './opening-theory.js?v=17';
+import {searchPosition} from './engine.js?v=17';
+import {coachReport,freeCoachReply,buildChatGPTPrompt} from './free-coach.js?v=17';
+import {questionDeck,makeQuestionState,currentQuestion,submitQuestion,nextQuestion,previousQuestion,restartQuestions} from './coach-questions.js?v=17';
 let savedQuestionSessions=[];try{savedQuestionSessions=JSON.parse(localStorage.getItem('knight-school-questions-v1'))||[]}catch{}
 const questionSessions=new Map(Array.isArray(savedQuestionSessions)?savedQuestionSessions.filter(x=>Array.isArray(x)&&typeof x[0]==='string').map(([key,value])=>[key,makeQuestionState(value)]):[]);
 
@@ -379,7 +379,7 @@ document.addEventListener('click',e=>{const link=e.target.closest('#nav a');if(l
 
 // Browser-local teaching helpers. No remote AI or narration service is used.
 function narrationMarkup(){return `<details class="narration-tools"><summary>🔊 Listen to the explanation</summary><p>Hear the current move and its explanation. Buttons, menus and progress labels are never included. Voice quality depends on the voices your device makes available.</p><div class="button-row"><button class="secondary" data-narrate="test" ${drill?'disabled':''}>Test voice</button><button class="primary" data-narrate="read" ${drill?'disabled':''}>Explain aloud</button><button class="secondary" data-narrate="pause">Pause / resume</button><button class="secondary" data-narrate="repeat" ${drill?'disabled':''}>Repeat</button><button class="secondary" data-narrate="stop">Stop</button></div><label for="narrationScope">What to hear</label><select id="narrationScope"><option value="move" ${narrationScope==='move'?'selected':''}>Current move & reason</option><option value="theory" ${narrationScope==='theory'?'selected':''}>Move, deeper theory & both plans</option></select><details class="spoken-preview"><summary>Preview the spoken explanation</summary><p id="narrationTextPreview">${esc(currentNarration())}</p></details><label for="narrationVoice">Voice · English choices first</label><select id="narrationVoice">${localVoiceOptions()}</select><button class="secondary" data-narrate="refresh">Refresh voices</button><label for="narrationRate">Reading speed</label><select id="narrationRate">${[.75,.9,1,1.1,1.25].map(v=>`<option value="${v}" ${v===voiceRate?'selected':''}>${v}×</option>`).join('')}</select><p id="narrationStatus" role="status">${esc(drill?'Written and spoken explanations are hidden during recall.':narrator.status()&&narrator.status()!=='Stopped.'?narrator.status():narrator.availability())}</p><details><summary>Improve voice quality on iPhone</summary><p>Try the named English voices above using Test voice. Enhanced or Premium voices may sound more natural if your iPhone exposes them here. Your choice and speed are saved on this device.</p><p>You can download enhanced voices in iPhone Accessibility settings. After downloading, reopen Safari, tap Refresh voices and choose the voice if it appears. Safari may expose a different list from other Apple apps.</p><a href="https://support.apple.com/en-us/111798" target="_blank" rel="noopener noreferrer">Apple’s voice setup instructions ↗</a><p>These are device or browser voices, not a newly generated custom voice. A voice marked “browser service” or Browser default may use your browser’s speech service when you tap a speech button. Knight School makes no paid AI calls.</p></details></details>`}
-function localVoiceOptions(){const choices=narrator.voiceOptions(),available=choices.some(v=>v.voiceURI===voiceURI),selected=available||voiceURI==='__default__'?voiceURI:(choices.find(v=>v.localService===true&&/^en/i.test(v.lang))||choices.find(v=>v.localService===true))?.voiceURI||'__default__';return choices.map(v=>`<option value="${esc(v.voiceURI)}" ${v.voiceURI===selected?'selected':''}>${esc(v.name)} (${esc(v.lang)}) · ${v.localService===true?'on device':'browser service'}</option>`).join('')+`<option value="__default__" ${selected==='__default__'?'selected':''}>Browser default</option>`}
+function localVoiceOptions(){const choices=narrator.voiceOptions(),selected=selectedVoiceURI(choices,voiceURI);return choices.map(v=>`<option value="${esc(v.voiceURI)}" ${v.voiceURI===selected?'selected':''}>${esc(v.name)} (${esc(v.lang)}) · ${v.localService===true?'on device':'browser service'}</option>`).join('')+`<option value="__default__" ${selected==='__default__'?'selected':''}>Browser default</option>`}
 function refreshVoiceChoices(){if($('#narrationVoice'))$('#narrationVoice').innerHTML=localVoiceOptions();if($('#narrationStatus'))$('#narrationStatus').textContent=narrator.availability()}
 window.speechSynthesis?.addEventListener('voiceschanged',refreshVoiceChoices);
 function currentNarrationContext(){

@@ -1,5 +1,5 @@
-import {Chess} from './vendor/chess.js?v=16';
-import {attackSquares,positionFacts,explainMove,planText,answerGuided,side} from './coach.js?v=16';
+import {Chess} from './vendor/chess.js?v=17';
+import {attackSquares,positionFacts,explainMove,planText,answerGuided,side} from './coach.js?v=17';
 const values={p:1,n:3,b:3,r:5,q:9,k:0},names={p:'pawn',n:'knight',b:'bishop',r:'rook',q:'queen',k:'king'};
 const opposite=c=>c==='w'?'b':'w';
 export function playUci(board,uci){return board.move({from:uci.slice(0,2),to:uci.slice(2,4),promotion:uci[4]||'q'})}
