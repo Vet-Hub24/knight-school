@@ -1,5 +1,5 @@
-import {Chess} from './vendor/chess.js?v=15';
-import {reviewClassification} from './free-coach.js?v=15';
+import {Chess} from './vendor/chess.js?v=16';
+import {reviewClassification} from './free-coach.js?v=16';
 export function squareCenter(square,flipped=false){const f=square.charCodeAt(0)-97,r=Number(square[1])-1;return {x:((flipped?7-f:f)+.5)*100,y:((flipped?r:7-r)+.5)*100}}
 export function boardGuidance({fen,analysis,lastMove,lessonMove=false,nextMove=null,lessonAttempt=null,hidden=false}){
  const out={arrows:[],badges:[],caption:''};if(hidden)return out;
