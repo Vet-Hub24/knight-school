@@ -1,4 +1,4 @@
-import {Chess} from './vendor/chess.js?v=18';
+import {Chess} from './vendor/chess.js?v=19';
 export function searchPosition(fen,{time=1800,multipv=3,skill=null}={}){
  const worker=new Worker('./vendor/stockfish-19-lite-single.js');
  let rejectTask,finished=false,ready=false,timer;
