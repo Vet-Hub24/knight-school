@@ -1,8 +1,8 @@
 // Scope-qualified caches cannot evict another GitHub Pages project's data.
 const BASE=new URL(self.registration.scope);
 const PREFIX='knight-school:'+BASE.pathname+':';
-const CACHE=PREFIX+'release-15';
-const CORE=['deviations.js','practice-review.js','narration.js','study-session.js','plan-lessons.js','./','index.html','app.js','teach-me.js','teach-branches.js','board-guidance.js','style.css','pieces.js','engine.js','coach.js','free-coach.js','coach-questions.js','training.js','backup.js','pwa.js','content.js','extra-openings.js','advanced.js','opening-theory.js','master-notes.js','openings.json','master-games.json','manifest.webmanifest','vendor/chess.js','vendor/stockfish-19-lite-single.js','vendor/stockfish-19-lite-single.wasm','assets/icons/icon-192.png','assets/icons/icon-512.png','assets/icons/apple-touch-icon.png',...['w','b'].flatMap(c=>['K','Q','R','B','N','P'].map(p=>'assets/pieces/'+c+p+'.svg'))];
+const CACHE=PREFIX+'release-16';
+const CORE=['narration-content.js','deviations.js','practice-review.js','narration.js','study-session.js','plan-lessons.js','./','index.html','app.js','teach-me.js','teach-branches.js','board-guidance.js','style.css','pieces.js','engine.js','coach.js','free-coach.js','coach-questions.js','training.js','backup.js','pwa.js','content.js','extra-openings.js','advanced.js','opening-theory.js','master-notes.js','openings.json','master-games.json','manifest.webmanifest','vendor/chess.js','vendor/stockfish-19-lite-single.js','vendor/stockfish-19-lite-single.wasm','assets/icons/icon-192.png','assets/icons/icon-512.png','assets/icons/apple-touch-icon.png',...['w','b'].flatMap(c=>['K','Q','R','B','N','P'].map(p=>'assets/pieces/'+c+p+'.svg'))];
 const ALLOWED=new Set(CORE.map(path=>new URL(path,BASE).pathname));
 self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(CORE.map(path=>new URL(path,BASE).href)))));
 self.addEventListener('activate',event=>event.waitUntil((async()=>{for(const name of await caches.keys())if(name.startsWith(PREFIX)&&name!==CACHE)await caches.delete(name);await self.clients.claim()})()));

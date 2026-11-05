@@ -1,6 +1,7 @@
-import {validateStudySession,studySessionKey} from './study-session.js?v=15';
-import {Chess} from './vendor/chess.js?v=15';
-export const backupKeys=[studySessionKey,'knight-school-v1','knight-school-chats-v2','knight-school-questions-v1','knight-school-training-v1','knight-school-chatgpt-destination','knight-school-chatgpt-destination-v1','knight-school-board-theme'];
+import {narrationSettingsKey,validateNarrationSettings} from './narration-content.js?v=16';
+import {validateStudySession,studySessionKey} from './study-session.js?v=16';
+import {Chess} from './vendor/chess.js?v=16';
+export const backupKeys=[narrationSettingsKey,studySessionKey,'knight-school-v1','knight-school-chats-v2','knight-school-questions-v1','knight-school-training-v1','knight-school-chatgpt-destination','knight-school-chatgpt-destination-v1','knight-school-board-theme'];
 const textKeys=new Set(['knight-school-chatgpt-destination','knight-school-chatgpt-destination-v1','knight-school-board-theme']);
 const object=x=>x!==null&&typeof x==='object'&&!Array.isArray(x);
 const strings=x=>Array.isArray(x)&&x.length<=30000&&x.every(v=>typeof v==='string'&&v.length<=2000);
@@ -9,7 +10,8 @@ const iso=x=>typeof x==='string'&&Number.isFinite(Date.parse(x));
 function rejectUnsafe(x,depth=0){if(depth>20)throw Error('Backup nesting is too deep.');if(typeof x==='string'&&x.length>100000)throw Error('Backup text is too long.');if(x&&typeof x==='object'){for(const [k,v]of Object.entries(x)){if(['__proto__','prototype','constructor'].includes(k))throw Error('Invalid backup property.');rejectUnsafe(v,depth+1)}}}
 export function validateRecord(key,x){
  rejectUnsafe(x);
- if(key===studySessionKey){validateStudySession(x);
+ if(key===narrationSettingsKey){validateNarrationSettings(x);
+ }else if(key===studySessionKey){validateStudySession(x);
  }else if(key==='knight-school-v1'){
   if(!object(x)||!['done','saved','weak','days'].every(k=>strings(x[k]))||!['attempts','correct'].every(k=>count(x[k]))||x.correct>x.attempts||!x.days.every(d=>/^\d{4}-\d{2}-\d{2}$/.test(d)))throw Error('Invalid training progress.');
  }else if(key==='knight-school-chats-v2'||key==='knight-school-questions-v1'){
