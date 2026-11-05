@@ -69,3 +69,11 @@
 #narrationTextPreview{white-space:pre-line;overflow-wrap:anywhere}.spoken-preview{margin:14px 0;padding:12px;border:1px solid var(--border,#d9d3c7);border-radius:8px}
 
 .narration-tools .auto-explain-option{display:flex;align-items:center;gap:10px;min-height:44px}.auto-explain-option input{width:22px;height:22px;flex:none}
+
+/* Opening ownership is independent of turn, board orientation and recall side. */
+.opening-identity{display:flex;flex-wrap:wrap;align-items:center;gap:7px 10px;margin:12px 0;font-size:.85rem;line-height:1.5}
+.opening-identity p{flex-basis:100%;margin:2px 0 0}
+.opening-side{display:inline-flex;align-items:center;gap:7px;padding:4px 9px;border:1px solid currentColor;border-radius:6px;font-weight:700}
+.opening-side.opening-white:before,.opening-side.opening-black:before{content:"";width:12px;height:12px;border-radius:50%;border:2px solid #75818d;flex-shrink:0}
+.opening-side.opening-white:before{background:#fff}
+.opening-side.opening-black:before{background:#161e27}
