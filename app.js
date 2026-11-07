@@ -1,41 +1,41 @@
-import {homeMarkup} from './home.js?v=22';
-import {learningMoveReport,learningMoveGuidance,terminalAnalysis,undoPlayerTurn} from './play-learning.js?v=22';
+import {homeMarkup} from './home.js?v=23';
+import {learningMoveReport,learningMoveGuidance,terminalAnalysis,undoPlayerTurn} from './play-learning.js?v=23';
 let learningGame=false,learningReview=null,learningStatus='';
-import {openingSide} from './opening-side.js?v=22';
-import {buildNarration,loadNarrationSettings,saveNarrationSettings,selectedVoiceURI,createAutoExplanationGate} from './narration-content.js?v=22';
+import {openingSide} from './opening-side.js?v=23';
+import {buildNarration,loadNarrationSettings,saveNarrationSettings,selectedVoiceURI,createAutoExplanationGate} from './narration-content.js?v=23';
 let autoExplain=false,autoExplainPaused=false;const autoExplanationGate=createAutoExplanationGate();
 let narrationPreferences;try{narrationPreferences=loadNarrationSettings(localStorage)}catch{narrationPreferences={voiceURI:'',rate:.75,scope:'move'}}
-import {deviationLessons,deviationBoard} from './deviations.js?v=22';
-import {practiceSample,selectPracticeMoment,practiceMomentReport} from './practice-review.js?v=22';
+import {deviationLessons,deviationBoard} from './deviations.js?v=23';
+import {practiceSample,selectPracticeMoment,practiceMomentReport} from './practice-review.js?v=23';
 let deviationState=null,openingPractice=null,pendingOpeningPractice=null,practiceRecall=null;
-import {createNarrator} from './narration.js?v=22';
-import {loadStudySession,saveStudySession} from './study-session.js?v=22';
-import {planningLessons} from './plan-lessons.js?v=22';
+import {createNarrator} from './narration.js?v=23';
+import {loadStudySession,saveStudySession} from './study-session.js?v=23';
+import {planningLessons} from './plan-lessons.js?v=23';
 let studySession;try{studySession=loadStudySession(localStorage)}catch{studySession={version:1,last:null,answers:[]}}
 let teachPlanMode=false,restoringStudy=false,replyDemo=null,narrationFen='',voiceURI=narrationPreferences.voiceURI,voiceRate=narrationPreferences.rate,narrationScope=narrationPreferences.scope;
 const narrator=createNarrator({synth:window.speechSynthesis,Utterance:window.SpeechSynthesisUtterance,onStatus:message=>{const status=document.getElementById('narrationStatus');if(status)status.textContent=message}});
-import {openingBranches} from './teach-branches.js?v=22';
+import {openingBranches} from './teach-branches.js?v=23';
 let lessonAttempt=null;
-import {boardGuidance,guidanceSvg} from './board-guidance.js?v=22';
+import {boardGuidance,guidanceSvg} from './board-guidance.js?v=23';
 let showBoardGuidance=true;let guidancePreview=null;
 const teachAnswers=new Map(studySession.answers);let teachBranch=null;
-import {teachCourses} from './teach-me.js?v=22';
-import {Chess} from './vendor/chess.js?v=22';
-import {pieceVisual} from './pieces.js?v=22';
-import {initPWA} from './pwa.js?v=22';
-import {trainingKey,emptyTraining,loadTraining,reviewKey,scheduleReview,dueReviews,createMistake,rememberMistake} from './training.js?v=22';
-import {makeBackup,parseBackup,restoreBackup} from './backup.js?v=22';
+import {teachCourses} from './teach-me.js?v=23';
+import {Chess} from './vendor/chess.js?v=23';
+import {pieceVisual} from './pieces.js?v=23';
+import {initPWA} from './pwa.js?v=23';
+import {trainingKey,emptyTraining,loadTraining,reviewKey,scheduleReview,dueReviews,createMistake,rememberMistake} from './training.js?v=23';
+import {makeBackup,parseBackup,restoreBackup} from './backup.js?v=23';
 let training;try{training=loadTraining(localStorage)}catch{training=emptyTraining()}
 let drillErrors=0,drillHints=0,pendingRecallResult=null,pendingMistakeId=null,activeMistakeId=null,restoreCandidate=null;
-import {families,strategies,endgames,masters,glossary} from './content.js?v=22';
+import {families,strategies,endgames,masters,glossary} from './content.js?v=23';
 const teachBranchLessons=openingBranches.map(b=>{const f=families.find(f=>f.id===b.courseId),theory=getOpeningTheory(f.name);return {...f,id:b.id,courseId:b.courseId,name:f.name+' — '+b.title,line:b.line,branchNotes:[...theory.notes.slice(0,b.prefixCount),...b.notes]}});
-import {advancedStrategies,advancedEndgames} from './advanced.js?v=22';
-import {enrichMaster} from './master-notes.js?v=22';
-import {explainMove,positionFacts,planText,answerGuided,side} from './coach.js?v=22';
-import {getOpeningTheory} from './opening-theory.js?v=22';
-import {searchPosition} from './engine.js?v=22';
-import {coachReport,freeCoachReply,buildChatGPTPrompt} from './free-coach.js?v=22';
-import {questionDeck,makeQuestionState,currentQuestion,submitQuestion,nextQuestion,previousQuestion,restartQuestions} from './coach-questions.js?v=22';
+import {advancedStrategies,advancedEndgames} from './advanced.js?v=23';
+import {enrichMaster} from './master-notes.js?v=23';
+import {explainMove,positionFacts,planText,answerGuided,side} from './coach.js?v=23';
+import {getOpeningTheory} from './opening-theory.js?v=23';
+import {searchPosition} from './engine.js?v=23';
+import {coachReport,freeCoachReply,buildChatGPTPrompt} from './free-coach.js?v=23';
+import {questionDeck,makeQuestionState,currentQuestion,submitQuestion,nextQuestion,previousQuestion,restartQuestions} from './coach-questions.js?v=23';
 let savedQuestionSessions=[];try{savedQuestionSessions=JSON.parse(localStorage.getItem('knight-school-questions-v1'))||[]}catch{}
 const questionSessions=new Map(Array.isArray(savedQuestionSessions)?savedQuestionSessions.filter(x=>Array.isArray(x)&&typeof x[0]==='string').map(([key,value])=>[key,makeQuestionState(value)]):[]);
 
@@ -67,7 +67,7 @@ function movesFor(pgn,fen){const c=new Chess(fen||undefined);c.loadPgn((fen?`[Se
 function loadLesson(item,type,initial=0){resetContext();lesson=item;lessonType=type;startFen=item.fen||null;line=movesFor(item.pgn||item.line,startFen);step=Math.min(initial,line.length);setPosition();}
 function setPosition(){narrator.stop();replyDemo=null;teachPlanMode=false;lessonAttempt=null;guidancePreview=null;stopEngine();chess=new Chess(startFen||undefined);for(let i=0;i<step;i++)lastMove=chess.move(line[i]);if(step===0)lastMove=null;selected=null;legal=[];free=false}
 function navigate(dest){location.hash=dest}
-function renderNav(){ $('#nav').innerHTML=Object.entries(names).map(([id,name])=>`<a href="#${id}" class="${page===id?'active':''}"><span class="nav-icon">${icons[id]}</span>${name}${id==='openings'?'<span class="nav-count">3.8k</span>':''}</a>`).join('');$('#breadcrumb').innerHTML=`Training room <span>/</span> ${names[page]||'Today'}`;setMobileMenu(false);$('#homeBack').hidden=page==='today';updateTop() }
+function renderNav(){ $('#nav').innerHTML=Object.entries(names).map(([id,name])=>`<a href="#${id}" class="${page===id?'active':''}"><span class="nav-icon">${icons[id]}</span>${name}${id==='openings'?'<span class="nav-count">3.8k</span>':''}</a>`).join('');$('#breadcrumb').innerHTML=`Training room <span>/</span> ${names[page]||'Today'}`;setMobileMenu(false);$('#homeBack').hidden=false;$('#homeBack').innerHTML=page==='today'?'<span aria-hidden="true">⌂</span> Home':'<span aria-hidden="true">←</span> Back to Home';$('#homeBack').setAttribute('aria-label',page==='today'?'Home':'Back to Home');if(page==='today')$('#homeBack').setAttribute('aria-current','page');else $('#homeBack').removeAttribute('aria-current');updateTop() }
 function heading(label,title,sub,extra=''){return `<div class="page-heading"><div><p class="eyebrow">${label}</p><h1>${title}</h1><p>${sub}</p></div>${extra}</div>`}
 function workspace(){return `<div class="workspace"><div class="board-panel"><div class="board-appearance"><span class="mini-label">STAUNTON · STUDY BOARD</span><label for="boardTheme" class="sr-only">Board theme</label><select id="boardTheme" aria-label="Board theme">${[['walnut','Walnut'],['tournament','Tournament'],['slate','Slate']].map(([v,n])=>`<option value="${v}" ${document.documentElement.dataset.boardTheme===v?'selected':''}>${n}</option>`).join('')}</select></div><div class="player-label"><strong id="opponentLabel"><span class="piece-mini">♚</span> Black pieces</strong><span id="turnBadge">White to move</span></div><div class="board-area"><div class="eval" aria-label="Position evaluation"><div class="eval-fill" id="evalFill"></div></div><div class="board-shell"><div id="board" class="board" role="group" aria-label="Interactive chessboard"></div><div id="boardGuidanceLayer"></div></div></div><div class="board-controls"><div class="control-group"><button class="icon-button" data-action="flip" title="Flip board" aria-label="Flip board">⇅</button><button class="icon-button" data-action="reset" title="Restart position" aria-label="Restart position">↺</button></div><div class="control-group"><button class="icon-button" data-action="first" aria-label="First position">|‹</button><button class="icon-button" data-action="prev" aria-label="Previous move">‹</button><button class="icon-button" data-action="next" aria-label="Next move">›</button><button class="icon-button" data-action="last" aria-label="Final position">›|</button></div><span id="boardStatus" class="board-status"></span></div><div id="gameLearningTools"></div><div class="guidance-controls"><button class="secondary" data-guidance-toggle>Show / hide board teaching</button><p id="boardGuidanceCaption" role="status"></p><small>Green → next course move · ✓ correct course move · gold ★ engine candidate · red × course retry or reviewed mistake (see caption) · amber ?! inaccuracy. No grading without analysis. Hidden during recall drills; optional Learning mode adds your move grades in engine games.</small><div id="guidanceReviewControls"></div></div><div class="playback-bar"><button class="primary" data-action="autoplay" id="autoplayButton">▶ Play through</button><label for="playbackSpeed">Each move</label><select id="playbackSpeed"><option value="5">5 sec</option><option value="12" selected>12 sec</option><option value="20">20 sec</option><option value="30">30 sec</option></select><span id="playbackStatus">Pause any time to study or ask.</span></div></div><section class="lesson-panel" id="lessonPanel" aria-label="Lesson and coach"></section></div>`}
 function today(){loadLesson(families[0],'opening',6);$('#main').innerHTML=heading('YOUR NEXT MOVE','Welcome back, Jake.','Build your understanding. One position at a time.',`<div class="date-tag">${new Date().toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'})}</div>`)+`<div class="stats"><div class="stat"><div class="stat-icon">♙</div><div><strong>${openings.length.toLocaleString()}</strong><small>Opening variations</small></div><span class="stat-desc">A whole world to explore</span></div><div class="stat"><div class="stat-icon">✓</div><div><strong>${progress.done.length}</strong><small>Lessons completed</small></div><span class="stat-desc">Your knowledge, growing</span></div><div class="stat"><div class="stat-icon">◷</div><div><strong>${progress.days.length}</strong><small>Days you’ve trained</small></div><span class="stat-desc">Keep showing up</span></div></div>${reviewQueueSummary()}<div class="section-heading"><h2>Your board. Your next breakthrough.</h2><span>OPENING SPOTLIGHT</span></div>`+workspace()+`<div class="bottom-grid"><a href="#openings" class="path-card"><span class="card-icon">♙</span><h3>Know the opening. Understand the plan.</h3><p>Explore major openings and thousands of variations.</p><small>Opening library <span>↗</span></small></a><a href="#strategy" class="path-card"><span class="card-icon">♞</span><h3>See what your opponent misses.</h3><p>Practice tactics, pawn structures, and positional ideas.</p><small>Strategy & tactics <span>↗</span></small></a><a href="#endgames" class="path-card"><span class="card-icon">♔</span><h3>Turn an advantage into a win.</h3><p>Learn mating patterns and essential endgame techniques.</p><small>Endgame training <span>↗</span></small></a></div><div class="quote">“Help your pieces so they can help you.”</div>`;renderBoard();renderPanel()}
@@ -439,7 +439,7 @@ document.addEventListener('change',e=>{if(e.target.id!=='autoExplainNext')return
 
 function openingSideMarkup(item,detail=false){const info=openingSide(item.name);return `<div class="opening-identity" aria-label="Opening color"><span class="opening-side ${info.side==='w'?'opening-white':info.side==='b'?'opening-black':''}">${esc(info.label)}</span><span>${esc(info.opponent)}</span>${detail?`<p>${esc(info.explanation)} <b>Lesson coverage: both sides.</b> This label describes the opening, not whose turn it is or your Test as setting.</p>`:''}</div>`}
 
-function setMobileMenu(open){$('.sidebar').classList.toggle('open',open);$('.mobile-brand').setAttribute('aria-expanded',String(open));$('.mobile-brand').setAttribute('aria-label',open?'Close navigation':'Show navigation');}
+function setMobileMenu(open){open=!!open&&window.matchMedia('(max-width:900px)').matches;$('.sidebar').classList.toggle('open',open);document.documentElement.classList.toggle('mobile-menu-open',open);$('#navBackdrop').hidden=!open;$('.mobile-brand').setAttribute('aria-expanded',String(open));$('.mobile-brand').setAttribute('aria-label',open?'Close navigation':'Show navigation');}
 document.addEventListener('keydown',e=>{if(e.key==='Escape')setMobileMenu(false)});
 function renderGameLearningTools(){const root=$('#gameLearningTools');if(!root)return;if(page!=='practice'){root.innerHTML='';return;}const canUndo=playing?chess.history({verbose:true}).some(m=>m.color===playSide):chess.history().length>0;root.innerHTML=`<section class="game-learning" aria-label="Computer game learning"><label class="learning-toggle"><input id="learningGame" type="checkbox" ${learningGame?'checked':''}> Learning mode · grade my moves</label><p>★ engine top choice · ✓ good · ?! inaccuracy · × mistake or blunder. An unusual move is not automatically bad. Optional local analysis adds thinking time.</p><button class="secondary" data-action="undo" ${canUndo?'':'disabled'}>${playing?'↶ Undo my last turn':'↶ Undo last move'}</button><p class="learning-status" role="status">${esc(learningStatus)}</p>${learningGame&&learningReview?learningReviewMarkup():''}</section>`;}
 function learningReviewMarkup(){const r=learningReview;return `<article class="learning-review" aria-label="Your last move feedback"><h3>${esc(r.symbol||'—')} ${esc(r.move.san)} · ${esc(r.label)}</h3><p>${esc(r.report.summary)}</p>${r.report.alerts.filter(a=>a.type!=='better').map(a=>`<p><b>${esc(a.title)}:</b> ${esc(a.text)}</p>`).join('')}${r.alternative&&r.alternative.san!==r.move.san?`<p><b>Compare before your move:</b> ${esc(r.alternative.san)} (${r.alternative.from} → ${r.alternative.to}). Undo your last turn to try it.</p>`:''}<p>Grades compare full-strength, short searches before and after your move. Your opponent still uses the selected difficulty. No paid API calls.</p></article>`;}
@@ -454,3 +454,6 @@ function homeCourse(id){$('#modal').close();page='teach';history.replaceState(nu
 function homeOpeningPicker(color=null){const ids=color==='w'?['family-0','family-18','family-1','family-19']:['family-4','family-2','family-3','family-13'];modal(`<p class="eyebrow">FIND YOUR FIRST LINE</p><h2>Which side would you like to learn?</h2><p>White starts the game. Black chooses a defense. Every lesson still explains both players’ ideas.</p><div class="home-side-choices"><button class="${color==='w'?'primary':'secondary'}" data-home-side="w" aria-pressed="${color==='w'}">♙ Learn as White</button><button class="${color==='b'?'primary':'secondary'}" data-home-side="b" aria-pressed="${color==='b'}">♟ Learn as Black</button></div>${color?`<h3 class="home-picker-heading">${color==='w'?'White openings':'Black defenses'} to explore</h3><div class="home-picker-list">${ids.map(id=>{const c=teachCourses.find(x=>x.id===id);return `<button class="home-course-choice" data-home-course="${id}"><b>${esc(c.name)} <span>→</span></b><small>${esc(c.intro)}</small></button>`}).join('')}</div><p>These are useful starting points, not a ranking of winning strength.</p><button class="secondary" data-home-all>Browse every Teach Me course →</button>`:'<p>Choose a side above for a small, approachable starting selection.</p>'}`);}
 function homeStarter(){modal(`<p class="eyebrow">YOUR FIRST STEP</p><h2>Three ideas. A better first move.</h2><ol class="home-first-steps"><li><b>Control the center.</b> The middle squares give your pieces more room and more choices.</li><li><b>Develop your pieces.</b> Bring knights and bishops off their starting squares so they can help.</li><li><b>Protect your king.</b> Prepare to castle: the king moves toward safety and the rook joins the game.</li></ol><p>Try the Italian Game. We’ll start from the first move, show where to go, and explain why. No memorizing required.</p><button class="primary" data-home-course="family-0">Start my first lesson →</button><button class="secondary" data-action="glossary">Explain chess words</button>`);}
 document.addEventListener('click',e=>{if(e.target.closest('[data-home-openings]')){homeOpeningPicker();return;}const side=e.target.closest('[data-home-side]');if(side){homeOpeningPicker(side.dataset.homeSide);return;}const course=e.target.closest('[data-home-course]');if(course){homeCourse(course.dataset.homeCourse);return;}if(e.target.closest('[data-home-all]')){$('#modal').close();navigate('teach');return;}if(e.target.closest('[data-home-start]')){homeStarter();return;}if(e.target.closest('[data-home-play]')){learningGame=true;navigate('practice');return;}if(e.target.closest('[data-home-resume]')){page='teach';history.replaceState(null,'','#teach');renderNav();resumeStudy();window.scrollTo(0,0);}});
+
+$('#navBackdrop').addEventListener('click',()=>{setMobileMenu(false);$('.mobile-brand').focus({preventScroll:true})});
+window.matchMedia('(max-width:900px)').addEventListener('change',()=>setMobileMenu(false));
