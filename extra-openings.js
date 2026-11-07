@@ -1,4 +1,4 @@
-import {moreGuidedDefinitions} from './more-guided.js?v=22';
+import {moreGuidedDefinitions} from './more-guided.js?v=23';
 // Additional guided studies. These are illustrative main lines, not forced moves.
 // Original family-* and eco-* IDs are deliberately unchanged.
 const sicilianStart=[

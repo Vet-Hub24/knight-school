@@ -1,4 +1,4 @@
-import {Chess} from './vendor/chess.js?v=22';
+import {Chess} from './vendor/chess.js?v=23';
 // Original decision exercises. "Recommended" identifies the teaching plan, not a unique engine-best move.
 const choice=(move,label,kind,why,line)=>({move,label,kind,why,line:line.split(' ')});
 export const deviationLessons=[

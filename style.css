@@ -100,3 +100,14 @@
 .home-back[hidden]{display:none!important}.home-back:hover{background:#1f402e}.home-back span{font-size:19px;line-height:1}.main-wrap{padding-bottom:78px}.computer-intro{padding:13px 15px;background:#eef3e4;border-left:3px solid #8da96a;border-radius:5px;font-size:13px;line-height:1.75;color:#415d38}
 @media(max-width:1150px) and (min-width:901px){.home-back{left:206px}}
 @media(max-width:900px){.home-back{left:calc(12px + env(safe-area-inset-left,0px));bottom:calc(12px + env(safe-area-inset-bottom,0px))}}
+
+/* Tap-off dismissal shields the board from accidental moves while the drawer is open. */
+.nav-backdrop{position:fixed;inset:0;z-index:29;border:0;border-radius:0;padding:0;background:#0b1d1470;touch-action:manipulation;cursor:default}
+.nav-backdrop[hidden]{display:none!important}
+@media(min-width:901px){.nav-backdrop{display:none!important}}
+@media(max-width:900px){
+ html.mobile-menu-open,html.mobile-menu-open body{overflow:hidden;overscroll-behavior:none}
+ .mobile-bottom-nav{position:fixed;left:0;right:0;bottom:0;z-index:27;display:flex;padding:10px max(12px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px));background:#fffefaf5;border-top:1px solid #cdd7bf;box-shadow:0 -3px 18px #20362912}
+ .mobile-bottom-nav .home-back{position:static;display:inline-flex;min-height:48px;padding:12px 18px;font-size:14px;font-weight:700;border-radius:10px;box-shadow:none;background:#2e543e;border:1px solid #2e543e;color:#fffef4}
+ .main-wrap{padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))}
+}

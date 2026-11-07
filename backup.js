@@ -1,6 +1,6 @@
-import {narrationSettingsKey,validateNarrationSettings} from './narration-content.js?v=22';
-import {validateStudySession,studySessionKey} from './study-session.js?v=22';
-import {Chess} from './vendor/chess.js?v=22';
+import {narrationSettingsKey,validateNarrationSettings} from './narration-content.js?v=23';
+import {validateStudySession,studySessionKey} from './study-session.js?v=23';
+import {Chess} from './vendor/chess.js?v=23';
 export const backupKeys=[narrationSettingsKey,studySessionKey,'knight-school-v1','knight-school-chats-v2','knight-school-questions-v1','knight-school-training-v1','knight-school-chatgpt-destination','knight-school-chatgpt-destination-v1','knight-school-board-theme'];
 const textKeys=new Set(['knight-school-chatgpt-destination','knight-school-chatgpt-destination-v1','knight-school-board-theme']);
 const object=x=>x!==null&&typeof x==='object'&&!Array.isArray(x);
