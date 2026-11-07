@@ -1,4 +1,4 @@
-import {additionalFamilies} from './extra-openings.js?v=21';
+import {additionalFamilies} from './extra-openings.js?v=22';
 export const families=[
 ['Italian','Italian Game','e4 e5 Nf3 Nc6 Bc4 Bc5 c3 Nf6 d3 d6 O-O O-O','Develop with a purpose','Your bishop eyes f7 while your knights support the center. Build up calmly before choosing a pawn break.','Use c3 to support d4. Castle, finish development, then decide whether the center is ready to open.','Moving the same piece repeatedly to chase a pawn can leave your king in the center.'],
 ['Ruy Lopez','Ruy Lopez','e4 e5 Nf3 Nc6 Bb5 a6 Ba4 Nf6 O-O Be7 Re1 b5 Bb3 d6','Pressure, then patience','Bb5 puts pressure on the defender of e5. White often builds a center with c3 and d4 while improving the pieces.','Preserve the light-squared bishop when useful. A rook on e1 and a knight maneuver toward the kingside often fit the structure.','Taking e5 immediately is not always a free pawn; Black can counterattack the center.'],
