@@ -77,3 +77,11 @@
 .opening-side.opening-white:before,.opening-side.opening-black:before{content:"";width:12px;height:12px;border-radius:50%;border:2px solid #75818d;flex-shrink:0}
 .opening-side.opening-white:before{background:#fff}
 .opening-side.opening-black:before{background:#161e27}
+
+.game-learning{margin:14px 0;padding:14px;border:1px solid var(--border);border-radius:12px;line-height:1.6;background:var(--white)}.game-learning p{font-size:.85rem;margin:8px 0;overflow-wrap:anywhere}.learning-toggle{display:flex;align-items:center;gap:10px;font-weight:700}.learning-toggle input{width:20px;height:20px;flex-shrink:0}.learning-review{border-top:1px solid var(--border);margin-top:12px;padding-top:8px}.learning-review h3{font-size:1rem;line-height:1.5}.learning-status:empty{display:none}
+/* Keep the existing mobile menu trigger available throughout the document. */
+@media(max-width:900px){
+ .mobile-brand{position:fixed;top:calc(10px + env(safe-area-inset-top,0px));left:calc(12px + env(safe-area-inset-left,0px));z-index:40;display:inline-grid;place-items:center;width:48px;height:48px;min-width:48px;padding:0;border:1px solid #c6d2b6;border-radius:14px;background:var(--white);color:var(--green);font-size:32px;line-height:1;box-shadow:0 3px 14px #14251b26;touch-action:manipulation}
+ .topbar{padding-left:78px}
+ .sidebar{padding-top:calc(76px + env(safe-area-inset-top,0px))}
+}
