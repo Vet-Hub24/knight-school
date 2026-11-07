@@ -1,40 +1,41 @@
-import {learningMoveReport,learningMoveGuidance,terminalAnalysis,undoPlayerTurn} from './play-learning.js?v=20';
+import {homeMarkup} from './home.js?v=21';
+import {learningMoveReport,learningMoveGuidance,terminalAnalysis,undoPlayerTurn} from './play-learning.js?v=21';
 let learningGame=false,learningReview=null,learningStatus='';
-import {openingSide} from './opening-side.js?v=20';
-import {buildNarration,loadNarrationSettings,saveNarrationSettings,selectedVoiceURI,createAutoExplanationGate} from './narration-content.js?v=20';
+import {openingSide} from './opening-side.js?v=21';
+import {buildNarration,loadNarrationSettings,saveNarrationSettings,selectedVoiceURI,createAutoExplanationGate} from './narration-content.js?v=21';
 let autoExplain=false,autoExplainPaused=false;const autoExplanationGate=createAutoExplanationGate();
 let narrationPreferences;try{narrationPreferences=loadNarrationSettings(localStorage)}catch{narrationPreferences={voiceURI:'',rate:.75,scope:'move'}}
-import {deviationLessons,deviationBoard} from './deviations.js?v=20';
-import {practiceSample,selectPracticeMoment,practiceMomentReport} from './practice-review.js?v=20';
+import {deviationLessons,deviationBoard} from './deviations.js?v=21';
+import {practiceSample,selectPracticeMoment,practiceMomentReport} from './practice-review.js?v=21';
 let deviationState=null,openingPractice=null,pendingOpeningPractice=null,practiceRecall=null;
-import {createNarrator} from './narration.js?v=20';
-import {loadStudySession,saveStudySession} from './study-session.js?v=20';
-import {planningLessons} from './plan-lessons.js?v=20';
+import {createNarrator} from './narration.js?v=21';
+import {loadStudySession,saveStudySession} from './study-session.js?v=21';
+import {planningLessons} from './plan-lessons.js?v=21';
 let studySession;try{studySession=loadStudySession(localStorage)}catch{studySession={version:1,last:null,answers:[]}}
 let teachPlanMode=false,restoringStudy=false,replyDemo=null,narrationFen='',voiceURI=narrationPreferences.voiceURI,voiceRate=narrationPreferences.rate,narrationScope=narrationPreferences.scope;
 const narrator=createNarrator({synth:window.speechSynthesis,Utterance:window.SpeechSynthesisUtterance,onStatus:message=>{const status=document.getElementById('narrationStatus');if(status)status.textContent=message}});
-import {openingBranches} from './teach-branches.js?v=20';
+import {openingBranches} from './teach-branches.js?v=21';
 let lessonAttempt=null;
-import {boardGuidance,guidanceSvg} from './board-guidance.js?v=20';
+import {boardGuidance,guidanceSvg} from './board-guidance.js?v=21';
 let showBoardGuidance=true;let guidancePreview=null;
 const teachAnswers=new Map(studySession.answers);let teachBranch=null;
-import {teachCourses} from './teach-me.js?v=20';
-import {Chess} from './vendor/chess.js?v=20';
-import {pieceVisual} from './pieces.js?v=20';
-import {initPWA} from './pwa.js?v=20';
-import {trainingKey,emptyTraining,loadTraining,reviewKey,scheduleReview,dueReviews,createMistake,rememberMistake} from './training.js?v=20';
-import {makeBackup,parseBackup,restoreBackup} from './backup.js?v=20';
+import {teachCourses} from './teach-me.js?v=21';
+import {Chess} from './vendor/chess.js?v=21';
+import {pieceVisual} from './pieces.js?v=21';
+import {initPWA} from './pwa.js?v=21';
+import {trainingKey,emptyTraining,loadTraining,reviewKey,scheduleReview,dueReviews,createMistake,rememberMistake} from './training.js?v=21';
+import {makeBackup,parseBackup,restoreBackup} from './backup.js?v=21';
 let training;try{training=loadTraining(localStorage)}catch{training=emptyTraining()}
 let drillErrors=0,drillHints=0,pendingRecallResult=null,pendingMistakeId=null,activeMistakeId=null,restoreCandidate=null;
-import {families,strategies,endgames,masters,glossary} from './content.js?v=20';
+import {families,strategies,endgames,masters,glossary} from './content.js?v=21';
 const teachBranchLessons=openingBranches.map(b=>{const f=families.find(f=>f.id===b.courseId),theory=getOpeningTheory(f.name);return {...f,id:b.id,courseId:b.courseId,name:f.name+' — '+b.title,line:b.line,branchNotes:[...theory.notes.slice(0,b.prefixCount),...b.notes]}});
-import {advancedStrategies,advancedEndgames} from './advanced.js?v=20';
-import {enrichMaster} from './master-notes.js?v=20';
-import {explainMove,positionFacts,planText,answerGuided,side} from './coach.js?v=20';
-import {getOpeningTheory} from './opening-theory.js?v=20';
-import {searchPosition} from './engine.js?v=20';
-import {coachReport,freeCoachReply,buildChatGPTPrompt} from './free-coach.js?v=20';
-import {questionDeck,makeQuestionState,currentQuestion,submitQuestion,nextQuestion,previousQuestion,restartQuestions} from './coach-questions.js?v=20';
+import {advancedStrategies,advancedEndgames} from './advanced.js?v=21';
+import {enrichMaster} from './master-notes.js?v=21';
+import {explainMove,positionFacts,planText,answerGuided,side} from './coach.js?v=21';
+import {getOpeningTheory} from './opening-theory.js?v=21';
+import {searchPosition} from './engine.js?v=21';
+import {coachReport,freeCoachReply,buildChatGPTPrompt} from './free-coach.js?v=21';
+import {questionDeck,makeQuestionState,currentQuestion,submitQuestion,nextQuestion,previousQuestion,restartQuestions} from './coach-questions.js?v=21';
 let savedQuestionSessions=[];try{savedQuestionSessions=JSON.parse(localStorage.getItem('knight-school-questions-v1'))||[]}catch{}
 const questionSessions=new Map(Array.isArray(savedQuestionSessions)?savedQuestionSessions.filter(x=>Array.isArray(x)&&typeof x[0]==='string').map(([key,value])=>[key,makeQuestionState(value)]):[]);
 
@@ -46,8 +47,8 @@ const coachThreads=new Map(Array.isArray(savedThreads)?savedThreads.filter(x=>Ar
 
 const $=s=>document.querySelector(s);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const icons={teach:'✦',today:'◈',openings:'♙',guided:'♙',analysis:'⌕',mistakes:'✎',videos:'▶',strategy:'♞',endgames:'♔',masters:'♛',review:'⌕',practice:'⚔'};
-const names={teach:'Teach Me',today:'Today',openings:'Openings',guided:'Guided Lessons',analysis:'Game Analysis',mistakes:'Mistake Notebook',videos:'Video Academy',strategy:'Strategy & tactics',endgames:'Endgames',masters:'Master games',review:'Game review',practice:'Free practice'};
+const icons={today:'⌂',teach:'✦',overview:'◈',openings:'♙',guided:'♙',analysis:'⌕',mistakes:'✎',videos:'▶',strategy:'♞',endgames:'♔',masters:'♛',review:'⌕',practice:'⚔'};
+const names={today:'Home',teach:'Teach Me',overview:'Training overview',openings:'Openings',guided:'Guided Lessons',analysis:'Game Analysis',mistakes:'Mistake Notebook',videos:'Video Academy',strategy:'Strategy & tactics',endgames:'Endgames',masters:'Master games',review:'Game review',practice:'Free practice'};
 let progress;try{progress=JSON.parse(localStorage.getItem('knight-school-v1'))||{}}catch{progress={}}
 progress={done:[],saved:[],weak:[],attempts:0,correct:0,days:[],...progress};
 let pendingPracticeFen=null;let storageAvailable=true;let openings=[],page='today',search='',eco='all',savedOnly=false,catalogPage=0;
@@ -180,7 +181,7 @@ function videoAcademy(){
  '<div class="button-row"><a class="primary" href="#guided">Practice guided openings →</a><a class="secondary" href="#strategy">Practice tactics →</a></div>';
 }
 
-function catalogOrPage(){if(page==='teach')teachCatalog();else if(page==='guided')guidedCatalog();else if(page==='analysis')analysisLanding();else if(page==='mistakes')mistakeLanding();else if(page==='videos')videoAcademy();else if(['openings','strategy','endgames'].includes(page))catalog();else if(page==='masters')masterCatalog();else if(page==='review')review();else if(page==='practice')practice();else today()}
+function catalogOrPage(){if(page==='today')home();else if(page==='overview')today();else if(page==='teach')teachCatalog();else if(page==='guided')guidedCatalog();else if(page==='analysis')analysisLanding();else if(page==='mistakes')mistakeLanding();else if(page==='videos')videoAcademy();else if(['openings','strategy','endgames'].includes(page))catalog();else if(page==='masters')masterCatalog();else if(page==='review')review();else if(page==='practice')practice();else today()}
 function route(){const dest=location.hash.slice(1).split('?')[0]||'today';page=names[dest]?dest:'today';search='';catalogPage=0;renderNav();catalogOrPage();window.scrollTo(0,0)}
 document.addEventListener('click',e=>{const sq=e.target.closest('[data-square]');if(sq){squareClick(sq.dataset.square);return}const act=e.target.closest('[data-action]');if(act){onAction(act.dataset.action);return}const open=e.target.closest('[data-open]');if(open){openStudy(open.dataset.open);window.scrollTo(0,0);return}const st=e.target.closest('[data-step]');if(st&&!drill&&!playing&&!replyDemo&&!deviationState&&!practiceRecall){pausePlayback();step=Number(st.dataset.step);feedback='';setPosition();renderBoard();renderPanel();return}if(e.target.id==='previousPage'){catalogPage--;renderCatalogCards();window.scrollTo(0,180)}if(e.target.id==='nextPage'){catalogPage++;renderCatalogCards();window.scrollTo(0,180)}if(e.target.id==='savedFilter'){savedOnly=!savedOnly;catalogPage=0;$('#savedFilter').textContent=savedOnly?'✓ Saved openings':'♡ Saved openings';renderCatalogCards()}if(e.target.id==='importPgn')importText($('#pgnInput').value);if(e.target.id==='sampleGame'){$('#pgnInput').value=masters[0].pgn;importText(masters[0].pgn)}});
 document.addEventListener('input',e=>{if(e.target.id==='search'){search=e.target.value;catalogPage=0;renderCatalogCards()}});document.addEventListener('change',async e=>{if(e.target.id==='ecoFilter'){eco=e.target.value;catalogPage=0;renderCatalogCards()}if(e.target.id==='pgnFile'&&e.target.files[0]){if(e.target.files[0].size>500000){toast('Please choose a single game file smaller than 500 KB.');return}const text=await e.target.files[0].text();$('#pgnInput').value=text;importText(text)}});
@@ -447,3 +448,9 @@ document.addEventListener('change',e=>{if(e.target.id!=='learningGame')return;le
 
 function moreOpeningMarkup(){const more=families.filter(f=>!teachCourses.some(c=>c.id===f.id));return `<section class="more-opening-studies"><h2>More openings & defenses</h2><p>Keep the ten courses above for extra decisions and plan quizzes. Explore ${more.length} more guided studies below, each with move explanations and both sides’ plans. The reference library has ${openings.length.toLocaleString()} named variations; these do not all have a full authored course.</p><details><summary>Browse ${more.length} more guided studies · four new lessons</summary><div class="catalog">${more.map(f=>`<article class="catalog-card"><h3>${esc(f.name)}</h3>${openingSideMarkup(f)}<p>${esc(f.title)}</p><button class="secondary" data-guided-open="${f.id}">Learn this opening →</button></article>`).join('')}</div></details><a class="back" href="#openings">Search all opening variations →</a></section>`}
 document.addEventListener('click',e=>{const b=e.target.closest('[data-guided-open]');if(!b)return;page='guided';history.replaceState(null,'','#guided');renderNav();openStudy(b.dataset.guidedOpen);window.scrollTo(0,0);});
+
+function home(){resetContext();lesson=null;document.documentElement.classList.remove('teach-testing');const r=studySession.last,valid=r&&[...families,...teachBranchLessons].some(f=>f.id===r.id);$('#main').innerHTML=homeMarkup({last:valid?{...r,name:studyName(r.id)}:null,done:progress.done.length,days:progress.days.length,mistakes:training.mistakes.length,due:dueReviews(training).length,guided:families.length,variations:openings.length});}
+function homeCourse(id){$('#modal').close();page='teach';history.replaceState(null,'','#teach');renderNav();openStudy(id);window.scrollTo(0,0);}
+function homeOpeningPicker(color=null){const ids=color==='w'?['family-0','family-18','family-1','family-19']:['family-4','family-2','family-3','family-13'];modal(`<p class="eyebrow">FIND YOUR FIRST LINE</p><h2>Which side would you like to learn?</h2><p>White starts the game. Black chooses a defense. Every lesson still explains both players’ ideas.</p><div class="home-side-choices"><button class="${color==='w'?'primary':'secondary'}" data-home-side="w" aria-pressed="${color==='w'}">♙ Learn as White</button><button class="${color==='b'?'primary':'secondary'}" data-home-side="b" aria-pressed="${color==='b'}">♟ Learn as Black</button></div>${color?`<h3 class="home-picker-heading">${color==='w'?'White openings':'Black defenses'} to explore</h3><div class="home-picker-list">${ids.map(id=>{const c=teachCourses.find(x=>x.id===id);return `<button class="home-course-choice" data-home-course="${id}"><b>${esc(c.name)} <span>→</span></b><small>${esc(c.intro)}</small></button>`}).join('')}</div><p>These are useful starting points, not a ranking of winning strength.</p><button class="secondary" data-home-all>Browse every Teach Me course →</button>`:'<p>Choose a side above for a small, approachable starting selection.</p>'}`);}
+function homeStarter(){modal(`<p class="eyebrow">YOUR FIRST STEP</p><h2>Three ideas. A better first move.</h2><ol class="home-first-steps"><li><b>Control the center.</b> The middle squares give your pieces more room and more choices.</li><li><b>Develop your pieces.</b> Bring knights and bishops off their starting squares so they can help.</li><li><b>Protect your king.</b> Prepare to castle: the king moves toward safety and the rook joins the game.</li></ol><p>Try the Italian Game. We’ll start from the first move, show where to go, and explain why. No memorizing required.</p><button class="primary" data-home-course="family-0">Start my first lesson →</button><button class="secondary" data-action="glossary">Explain chess words</button>`);}
+document.addEventListener('click',e=>{if(e.target.closest('[data-home-openings]')){homeOpeningPicker();return;}const side=e.target.closest('[data-home-side]');if(side){homeOpeningPicker(side.dataset.homeSide);return;}const course=e.target.closest('[data-home-course]');if(course){homeCourse(course.dataset.homeCourse);return;}if(e.target.closest('[data-home-all]')){$('#modal').close();navigate('teach');return;}if(e.target.closest('[data-home-start]')){homeStarter();return;}if(e.target.closest('[data-home-play]')){learningGame=true;navigate('practice');return;}if(e.target.closest('[data-home-resume]')){page='teach';history.replaceState(null,'','#teach');renderNav();resumeStudy();window.scrollTo(0,0);}});
