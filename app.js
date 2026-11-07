@@ -1,41 +1,42 @@
-import {homeMarkup} from './home.js?v=24';
-import {learningMoveReport,learningMoveGuidance,terminalAnalysis,undoPlayerTurn,learningReviewTarget} from './play-learning.js?v=24';
+import {homeMarkup} from './home.js?v=25';
+import {learningMoveReport,learningMoveGuidance,terminalAnalysis,undoPlayerTurn,learningReviewTarget} from './play-learning.js?v=25';
+const learningSearchCache=new Map();
 let learningGame=false,learningReview=null,learningStatus='',learningBusy=false;
-import {openingSide} from './opening-side.js?v=24';
-import {buildNarration,loadNarrationSettings,saveNarrationSettings,selectedVoiceURI,createAutoExplanationGate} from './narration-content.js?v=24';
+import {openingSide} from './opening-side.js?v=25';
+import {buildNarration,loadNarrationSettings,saveNarrationSettings,selectedVoiceURI,createAutoExplanationGate} from './narration-content.js?v=25';
 let autoExplain=false,autoExplainPaused=false;const autoExplanationGate=createAutoExplanationGate();
 let narrationPreferences;try{narrationPreferences=loadNarrationSettings(localStorage)}catch{narrationPreferences={voiceURI:'',rate:.75,scope:'move'}}
-import {deviationLessons,deviationBoard} from './deviations.js?v=24';
-import {practiceSample,selectPracticeMoment,practiceMomentReport} from './practice-review.js?v=24';
+import {deviationLessons,deviationBoard} from './deviations.js?v=25';
+import {practiceSample,selectPracticeMoment,practiceMomentReport} from './practice-review.js?v=25';
 let deviationState=null,openingPractice=null,pendingOpeningPractice=null,practiceRecall=null;
-import {createNarrator} from './narration.js?v=24';
-import {loadStudySession,saveStudySession} from './study-session.js?v=24';
-import {planningLessons} from './plan-lessons.js?v=24';
+import {createNarrator} from './narration.js?v=25';
+import {loadStudySession,saveStudySession} from './study-session.js?v=25';
+import {planningLessons} from './plan-lessons.js?v=25';
 let studySession;try{studySession=loadStudySession(localStorage)}catch{studySession={version:1,last:null,answers:[]}}
 let teachPlanMode=false,restoringStudy=false,replyDemo=null,narrationFen='',voiceURI=narrationPreferences.voiceURI,voiceRate=narrationPreferences.rate,narrationScope=narrationPreferences.scope;
 const narrator=createNarrator({synth:window.speechSynthesis,Utterance:window.SpeechSynthesisUtterance,onStatus:message=>{const status=document.getElementById('narrationStatus');if(status)status.textContent=message}});
-import {openingBranches} from './teach-branches.js?v=24';
+import {openingBranches} from './teach-branches.js?v=25';
 let lessonAttempt=null;
-import {boardGuidance,guidanceSvg} from './board-guidance.js?v=24';
+import {boardGuidance,guidanceSvg} from './board-guidance.js?v=25';
 let showBoardGuidance=true;let guidancePreview=null;
 const teachAnswers=new Map(studySession.answers);let teachBranch=null;
-import {teachCourses} from './teach-me.js?v=24';
-import {Chess} from './vendor/chess.js?v=24';
-import {pieceVisual} from './pieces.js?v=24';
-import {initPWA} from './pwa.js?v=24';
-import {trainingKey,emptyTraining,loadTraining,reviewKey,scheduleReview,dueReviews,createMistake,rememberMistake} from './training.js?v=24';
-import {makeBackup,parseBackup,restoreBackup} from './backup.js?v=24';
+import {teachCourses} from './teach-me.js?v=25';
+import {Chess} from './vendor/chess.js?v=25';
+import {pieceVisual} from './pieces.js?v=25';
+import {initPWA} from './pwa.js?v=25';
+import {trainingKey,emptyTraining,loadTraining,reviewKey,scheduleReview,dueReviews,createMistake,rememberMistake} from './training.js?v=25';
+import {makeBackup,parseBackup,restoreBackup} from './backup.js?v=25';
 let training;try{training=loadTraining(localStorage)}catch{training=emptyTraining()}
 let drillErrors=0,drillHints=0,pendingRecallResult=null,pendingMistakeId=null,activeMistakeId=null,restoreCandidate=null;
-import {families,strategies,endgames,masters,glossary} from './content.js?v=24';
+import {families,strategies,endgames,masters,glossary} from './content.js?v=25';
 const teachBranchLessons=openingBranches.map(b=>{const f=families.find(f=>f.id===b.courseId),theory=getOpeningTheory(f.name);return {...f,id:b.id,courseId:b.courseId,name:f.name+' — '+b.title,line:b.line,branchNotes:[...theory.notes.slice(0,b.prefixCount),...b.notes]}});
-import {advancedStrategies,advancedEndgames} from './advanced.js?v=24';
-import {enrichMaster} from './master-notes.js?v=24';
-import {explainMove,positionFacts,planText,answerGuided,side} from './coach.js?v=24';
-import {getOpeningTheory} from './opening-theory.js?v=24';
-import {searchPosition} from './engine.js?v=24';
-import {coachReport,freeCoachReply,buildChatGPTPrompt} from './free-coach.js?v=24';
-import {questionDeck,makeQuestionState,currentQuestion,submitQuestion,nextQuestion,previousQuestion,restartQuestions} from './coach-questions.js?v=24';
+import {advancedStrategies,advancedEndgames} from './advanced.js?v=25';
+import {enrichMaster} from './master-notes.js?v=25';
+import {explainMove,positionFacts,planText,answerGuided,side} from './coach.js?v=25';
+import {getOpeningTheory} from './opening-theory.js?v=25';
+import {searchPosition} from './engine.js?v=25';
+import {coachReport,freeCoachReply,buildChatGPTPrompt} from './free-coach.js?v=25';
+import {questionDeck,makeQuestionState,currentQuestion,submitQuestion,nextQuestion,previousQuestion,restartQuestions} from './coach-questions.js?v=25';
 let savedQuestionSessions=[];try{savedQuestionSessions=JSON.parse(localStorage.getItem('knight-school-questions-v1'))||[]}catch{}
 const questionSessions=new Map(Array.isArray(savedQuestionSessions)?savedQuestionSessions.filter(x=>Array.isArray(x)&&typeof x[0]==='string').map(([key,value])=>[key,makeQuestionState(value)]):[]);
 
@@ -451,10 +452,10 @@ function learningReviewMarkup(){const r=learningReview;return `<article class="l
 async function reviewLearningMove(move){
  stopEngine();const token=engineToken,displayFen=chess.fen(),afterBoard=new Chess(move.after);learningReview=null;learningBusy=true;engineBusy=true;learningStatus='Checking '+side(move.color)+' '+move.san+' · 1/2: finding the earlier candidate…';renderBoard();renderPanel();
  try{
-  let task=searchPosition(move.before,{time:900,multipv:1});engine=task;const before=await task.promise;
+  let task=cachedLearningSearch(move.before);engine=task;const before=await task.promise;
   if(token!==engineToken||chess.fen()!==displayFen)return;
   learningStatus='Checking '+move.san+' · 2/2: comparing the result…';renderGameLearningTools();
-  let after=terminalAnalysis(afterBoard);if(!after){task=searchPosition(move.after,{time:900,multipv:1});engine=task;after=await task.promise;}
+  let after=terminalAnalysis(afterBoard);if(!after){task=cachedLearningSearch(move.after);engine=task;after=await task.promise;}
   if(token!==engineToken||chess.fen()!==displayFen)return;
   learningReview=learningMoveReport(move,before,after);learningReview.displayFen=displayFen;
   learningStatus=learningReview.symbol?'Review complete: '+side(move.color)+' '+move.san+'. Undo to try another move.':'No reliable grade from this search. Choose Check my last move to try again.';
@@ -477,3 +478,5 @@ document.addEventListener('click',e=>{if(e.target.closest('[data-home-openings]'
 
 $('#navBackdrop').addEventListener('click',()=>{setMobileMenu(false);$('.mobile-brand').focus({preventScroll:true})});
 window.matchMedia('(max-width:900px)').addEventListener('change',()=>setMobileMenu(false));
+
+function cachedLearningSearch(fen){if(learningSearchCache.has(fen))return {promise:Promise.resolve(learningSearchCache.get(fen)),terminate(){}};const task=searchPosition(fen,{time:250,multipv:1});return {terminate:()=>task.terminate(),promise:task.promise.then(result=>{if(result.lines?.length){learningSearchCache.delete(fen);learningSearchCache.set(fen,result);if(learningSearchCache.size>64)learningSearchCache.delete(learningSearchCache.keys().next().value);}return result;})};}
