@@ -1,42 +1,42 @@
-import {homeMarkup} from './home.js?v=25';
-import {learningMoveReport,learningMoveGuidance,terminalAnalysis,undoPlayerTurn,learningReviewTarget} from './play-learning.js?v=25';
+import {homeMarkup} from './home.js?v=26';
+import {learningMoveReport,learningMoveGuidance,terminalAnalysis,undoPlayerTurn,learningReviewTarget} from './play-learning.js?v=26';
 const learningSearchCache=new Map();
 let learningGame=false,learningReview=null,learningStatus='',learningBusy=false;
-import {openingSide} from './opening-side.js?v=25';
-import {buildNarration,loadNarrationSettings,saveNarrationSettings,selectedVoiceURI,createAutoExplanationGate} from './narration-content.js?v=25';
+import {openingSide} from './opening-side.js?v=26';
+import {buildNarration,loadNarrationSettings,saveNarrationSettings,selectedVoiceURI,createAutoExplanationGate} from './narration-content.js?v=26';
 let autoExplain=false,autoExplainPaused=false;const autoExplanationGate=createAutoExplanationGate();
 let narrationPreferences;try{narrationPreferences=loadNarrationSettings(localStorage)}catch{narrationPreferences={voiceURI:'',rate:.75,scope:'move'}}
-import {deviationLessons,deviationBoard} from './deviations.js?v=25';
-import {practiceSample,selectPracticeMoment,practiceMomentReport} from './practice-review.js?v=25';
+import {deviationLessons,deviationBoard} from './deviations.js?v=26';
+import {practiceSample,selectPracticeMoment,practiceMomentReport} from './practice-review.js?v=26';
 let deviationState=null,openingPractice=null,pendingOpeningPractice=null,practiceRecall=null;
-import {createNarrator} from './narration.js?v=25';
-import {loadStudySession,saveStudySession} from './study-session.js?v=25';
-import {planningLessons} from './plan-lessons.js?v=25';
+import {createNarrator} from './narration.js?v=26';
+import {loadStudySession,saveStudySession} from './study-session.js?v=26';
+import {planningLessons} from './plan-lessons.js?v=26';
 let studySession;try{studySession=loadStudySession(localStorage)}catch{studySession={version:1,last:null,answers:[]}}
 let teachPlanMode=false,restoringStudy=false,replyDemo=null,narrationFen='',voiceURI=narrationPreferences.voiceURI,voiceRate=narrationPreferences.rate,narrationScope=narrationPreferences.scope;
 const narrator=createNarrator({synth:window.speechSynthesis,Utterance:window.SpeechSynthesisUtterance,onStatus:message=>{const status=document.getElementById('narrationStatus');if(status)status.textContent=message}});
-import {openingBranches} from './teach-branches.js?v=25';
+import {openingBranches} from './teach-branches.js?v=26';
 let lessonAttempt=null;
-import {boardGuidance,guidanceSvg} from './board-guidance.js?v=25';
+import {boardGuidance,guidanceSvg} from './board-guidance.js?v=26';
 let showBoardGuidance=true;let guidancePreview=null;
 const teachAnswers=new Map(studySession.answers);let teachBranch=null;
-import {teachCourses} from './teach-me.js?v=25';
-import {Chess} from './vendor/chess.js?v=25';
-import {pieceVisual} from './pieces.js?v=25';
-import {initPWA} from './pwa.js?v=25';
-import {trainingKey,emptyTraining,loadTraining,reviewKey,scheduleReview,dueReviews,createMistake,rememberMistake} from './training.js?v=25';
-import {makeBackup,parseBackup,restoreBackup} from './backup.js?v=25';
+import {teachCourses} from './teach-me.js?v=26';
+import {Chess} from './vendor/chess.js?v=26';
+import {pieceVisual} from './pieces.js?v=26';
+import {initPWA} from './pwa.js?v=26';
+import {trainingKey,emptyTraining,loadTraining,reviewKey,scheduleReview,dueReviews,createMistake,rememberMistake} from './training.js?v=26';
+import {makeBackup,parseBackup,restoreBackup} from './backup.js?v=26';
 let training;try{training=loadTraining(localStorage)}catch{training=emptyTraining()}
 let drillErrors=0,drillHints=0,pendingRecallResult=null,pendingMistakeId=null,activeMistakeId=null,restoreCandidate=null;
-import {families,strategies,endgames,masters,glossary} from './content.js?v=25';
+import {families,strategies,endgames,masters,glossary} from './content.js?v=26';
 const teachBranchLessons=openingBranches.map(b=>{const f=families.find(f=>f.id===b.courseId),theory=getOpeningTheory(f.name);return {...f,id:b.id,courseId:b.courseId,name:f.name+' — '+b.title,line:b.line,branchNotes:[...theory.notes.slice(0,b.prefixCount),...b.notes]}});
-import {advancedStrategies,advancedEndgames} from './advanced.js?v=25';
-import {enrichMaster} from './master-notes.js?v=25';
-import {explainMove,positionFacts,planText,answerGuided,side} from './coach.js?v=25';
-import {getOpeningTheory} from './opening-theory.js?v=25';
-import {searchPosition} from './engine.js?v=25';
-import {coachReport,freeCoachReply,buildChatGPTPrompt} from './free-coach.js?v=25';
-import {questionDeck,makeQuestionState,currentQuestion,submitQuestion,nextQuestion,previousQuestion,restartQuestions} from './coach-questions.js?v=25';
+import {advancedStrategies,advancedEndgames} from './advanced.js?v=26';
+import {enrichMaster} from './master-notes.js?v=26';
+import {explainMove,positionFacts,planText,answerGuided,side} from './coach.js?v=26';
+import {getOpeningTheory} from './opening-theory.js?v=26';
+import {searchPosition} from './engine.js?v=26';
+import {coachReport,freeCoachReply,buildChatGPTPrompt} from './free-coach.js?v=26';
+import {questionDeck,makeQuestionState,currentQuestion,submitQuestion,nextQuestion,previousQuestion,restartQuestions} from './coach-questions.js?v=26';
 let savedQuestionSessions=[];try{savedQuestionSessions=JSON.parse(localStorage.getItem('knight-school-questions-v1'))||[]}catch{}
 const questionSessions=new Map(Array.isArray(savedQuestionSessions)?savedQuestionSessions.filter(x=>Array.isArray(x)&&typeof x[0]==='string').map(([key,value])=>[key,makeQuestionState(value)]):[]);
 
@@ -107,7 +107,7 @@ function masterCatalog(){resetContext();$('#main').innerHTML=heading('CLASSIC GA
 function review(){resetContext();lessonType='review';lesson={id:'review',name:'Your game'};line=[];step=0;startFen=null;chess=new Chess();$('#main').innerHTML=heading('LEARN FROM YOUR OWN MOVES','Every game has something to teach you.','Import a saved game, replay the moves, and check positions with Stockfish.')+`<section class="review-import"><h3>Bring your game to the board.</h3><p>Paste PGN move text from your chess app, or choose a .pgn file. You can also paste a FEN to study a single position.</p><textarea id="pgnInput" aria-label="PGN or FEN input" placeholder="1. e4 e5 2. Nf3 Nc6 3. Bc4 Bc5…"></textarea><div class="button-row"><button class="primary" id="importPgn">Load game or position →</button><label class="secondary" for="pgnFile">Choose PGN file</label><input type="file" id="pgnFile" accept=".pgn,.txt" hidden><button class="secondary" id="sampleGame">Load example game</button></div><div id="importError" class="notice" role="status"></div></section>`+workspace();renderBoard();renderPanel()}
 function importText(text){try{const candidate=new Chess();let fen=false;if(text.trim().split(/\s+/)[0]?.includes('/')&&!text.includes('[FEN')){candidate.load(text.trim());fen=true}else candidate.loadPgn(text.trim());if(!fen&&!candidate.history().length)throw new Error('No moves found.');const headers=candidate.getHeaders();const hist=candidate.history({verbose:true});resetContext();lessonType='review';lesson={id:'review'};reviewName=fen?'Your imported position':headers.White&&headers.Black&&headers.White!=='?'&&headers.Black!=='?'?headers.White+' vs. '+headers.Black:'Your imported game';line=candidate.history();startFen=fen?candidate.fen():hist[0]?.before||null;step=0;setPosition();$('#importError').textContent=fen?'Position loaded.':`${line.length} moves loaded. Use the board arrows to replay the game.`;renderBoard();renderPanel()}catch(e){$('#importError').textContent='Could not read that game or position. Check the PGN/FEN and try again. '+e.message}}
 function practice(){resetContext();openingPractice=pendingOpeningPractice;pendingOpeningPractice=null;activeMistakeId=pendingMistakeId;pendingMistakeId=null;lesson=null;lessonType='practice';startFen=pendingPracticeFen;pendingPracticeFen=null;chess=new Chess(startFen||undefined);line=[];step=0;$('#main').innerHTML=heading('THE PRACTICE BOARD','Try an idea. Play it out.','Play both sides, test a position, or practice against Stockfish.')+workspace();renderBoard();renderPanel()}
-function practicePanel(){let status=chess.isCheckmate()?`Checkmate. ${chess.turn()==='w'?'Black':'White'} wins.`:chess.isDraw()?'The game is drawn.':playing?`You are playing ${playSide==='w'?'White':'Black'}. ${chess.turn()===playSide?'Your move.':'Stockfish is thinking.'}`:'Move either side. Select a piece, then a highlighted destination.';return `<span class="pill">PLAY AGAINST THE COMPUTER · FREE</span><h2>Make the board your laboratory.</h2><p class="computer-intro">Play Stockfish, your chess computer. Choose your color and difficulty, then press <b>Play against the computer</b>. You can also move both sides freely before starting a game.</p><p class="lesson-copy">${status}</p><div class="study-options"><label for="playSide">Play as</label><select id="playSide" ${playing?'disabled':''}><option value="w" ${playSide==='w'?'selected':''}>White</option><option value="b" ${playSide==='b'?'selected':''}>Black</option></select><label for="playLevel">Engine</label><select id="playLevel" ${playing?'disabled':''}><option value="0" ${playLevel==='0'?'selected':''}>Gentler</option><option value="5" ${playLevel==='5'?'selected':''}>Balanced</option><option value="15" ${playLevel==='15'?'selected':''}>Challenging</option></select></div><div class="button-row"><button class="primary" data-action="play">${playing?'Stop computer game':'Play against the computer →'}</button><button class="secondary" data-action="undo">Undo move</button></div><div class="coach-note" style="margin-top:18px"><div class="coach-label">A GOOD HABIT</div>Before moving: check your opponent’s threats, look for checks and captures, and make sure your chosen piece will be safe.</div>${feedbackBox()}${engineBox()}<div class="button-row"><button class="secondary" data-action="analyze" ${playing?'disabled':''}>Analyze position</button><button class="secondary" data-action="export">Export PGN</button></div><div class="review-import" style="padding:13px;margin-top:18px"><label for="fenInput" class="mini-label">Study a specific position (FEN)</label><input id="fenInput" class="search" style="width:100%;margin:9px 0" placeholder="Paste FEN position…"><button class="secondary" data-action="loadFen">Load position</button></div><p class="notice">Engine levels adjust Stockfish’s skill setting; they are not calibrated Elo ratings. Even Gentler can be a difficult opponent.</p>`}
+function practicePanel(){let status=chess.isCheckmate()?`Checkmate. ${chess.turn()==='w'?'Black':'White'} wins.`:chess.isDraw()?'The game is drawn.':playing?`You are playing ${playSide==='w'?'White':'Black'}. ${chess.turn()===playSide?'Your move.':'Stockfish is thinking.'}`:'Move either side. Select a piece, then a highlighted destination.';return `<span class="pill">PLAY AGAINST THE COMPUTER · FREE</span><h2>Make the board your laboratory.</h2><p class="computer-intro">Play Stockfish, your chess computer. Choose your color and difficulty, then press <b>Play against the computer</b>. You can also move both sides freely before starting a game.</p><p class="lesson-copy">${status}</p><div class="study-options"><label for="playSide">Play as</label><select id="playSide" ${playing?'disabled':''}><option value="w" ${playSide==='w'?'selected':''}>White</option><option value="b" ${playSide==='b'?'selected':''}>Black</option></select><label for="playLevel">Difficulty</label><select id="playLevel" ${playing?'disabled':''}><option value="0" ${playLevel==='0'?'selected':''}>Gentler</option><option value="5" ${playLevel==='5'?'selected':''}>Balanced</option><option value="15" ${playLevel==='15'?'selected':''}>Challenging</option></select></div><div class="button-row"><button class="primary" data-action="play">${playing?'Stop computer game':'Play against the computer →'}</button><button class="secondary" data-action="undo">Undo move</button></div><div class="coach-note" style="margin-top:18px"><div class="coach-label">A GOOD HABIT</div>Before moving: check your opponent’s threats, look for checks and captures, and make sure your chosen piece will be safe.</div>${feedbackBox()}${engineBox()}<div class="button-row"><button class="secondary" data-action="analyze" ${playing?'disabled':''}>Analyze position</button><button class="secondary" data-action="export">Export PGN</button></div><div class="review-import" style="padding:13px;margin-top:18px"><label for="fenInput" class="mini-label">Study a specific position (FEN)</label><input id="fenInput" class="search" style="width:100%;margin:9px 0" placeholder="Paste FEN position…"><button class="secondary" data-action="loadFen">Load position</button></div><p class="notice">Engine levels adjust Stockfish’s skill setting; they are not calibrated Elo ratings. Even Gentler can be a difficult opponent.</p>`}
 async function squareClick(sq){if(replyDemo||openingPractice?.busy){toast("Finish this review before playing.");return;}if(teachPlanMode){toast("Choose a plan below, or return to the opening walkthrough.");return;}if(playing&&chess.turn()!==playSide)return;if(engineBusy&&(playing||learningGame))return;if(chess.isGameOver())return;const p=chess.get(sq);if(selected&&legal.some(m=>m.to===sq)){const candidates=legal.filter(m=>m.to===sq);let promotion='q';if(candidates.some(m=>m.promotion)){promotion=await choosePromotion();if(!promotion)return}attemptMove({from:selected,to:sq,promotion});return}if(p&&p.color===chess.turn()){selected=sq;legal=chess.moves({square:sq,verbose:true});renderBoard()}else{selected=null;legal=[];renderBoard()}}
 function choosePromotion(){return new Promise(resolve=>{modal(`<h2>Choose your promotion</h2><p>Your pawn has reached the last rank.</p><div class="promotion">${['q','r','b','n'].map(t=>`<button data-promote="${t}" aria-label="Promote to ${pieceNames[t]}">${pieceVisual({color:chess.turn(),type:t})}</button>`).join('')}</div>`);$('#modal').onclose=()=>resolve(null);document.querySelectorAll('[data-promote]').forEach(el=>el.onclick=()=>{const p=el.dataset.promote;$('#modal').onclose=null;$('#modal').close();resolve(p)})})}
 function attemptMove(move){
@@ -479,4 +479,4 @@ document.addEventListener('click',e=>{if(e.target.closest('[data-home-openings]'
 $('#navBackdrop').addEventListener('click',()=>{setMobileMenu(false);$('.mobile-brand').focus({preventScroll:true})});
 window.matchMedia('(max-width:900px)').addEventListener('change',()=>setMobileMenu(false));
 
-function cachedLearningSearch(fen){if(learningSearchCache.has(fen))return {promise:Promise.resolve(learningSearchCache.get(fen)),terminate(){}};const task=searchPosition(fen,{time:250,multipv:1});return {terminate:()=>task.terminate(),promise:task.promise.then(result=>{if(result.lines?.length){learningSearchCache.delete(fen);learningSearchCache.set(fen,result);if(learningSearchCache.size>64)learningSearchCache.delete(learningSearchCache.keys().next().value);}return result;})};}
+function cachedLearningSearch(fen){if(learningSearchCache.has(fen))return {promise:Promise.resolve(learningSearchCache.get(fen)),terminate(){}};const task=searchPosition(fen,{time:100,multipv:1,reuse:true});return {terminate:()=>task.terminate(),promise:task.promise.then(result=>{if(result.lines?.length){learningSearchCache.delete(fen);learningSearchCache.set(fen,result);if(learningSearchCache.size>64)learningSearchCache.delete(learningSearchCache.keys().next().value);}return result;})};}

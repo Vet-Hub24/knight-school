@@ -1,11 +1,12 @@
-import {Chess} from './vendor/chess.js?v=25';
-export function searchPosition(fen,{time=1800,multipv=3,skill=null}={}){
- const worker=new Worker('./vendor/stockfish-19-lite-single.js');
+import {Chess} from './vendor/chess.js?v=26';
+let idleLearningWorker=null;
+export function searchPosition(fen,{time=1800,multipv=3,skill=null,reuse=false}={}){
+ const worker=reuse&&idleLearningWorker?idleLearningWorker:new Worker('./vendor/stockfish-19-lite-single.js');if(worker===idleLearningWorker)idleLearningWorker=null;
  let rejectTask,finished=false,ready=false,timer;
  const lines=new Map();
  const promise=new Promise((resolve,reject)=>{
   rejectTask=reject;
-  const finish=(error,result)=>{if(finished)return;finished=true;clearTimeout(timer);worker.terminate();error?reject(error):resolve(result)};
+  const finish=(error,result)=>{if(finished)return;finished=true;clearTimeout(timer);worker.onmessage=null;worker.onerror=null;if(reuse&&!error){if(idleLearningWorker)idleLearningWorker.terminate();idleLearningWorker=worker;}else worker.terminate();error?reject(error):resolve(result)};
   timer=setTimeout(()=>finish(new Error('Stockfish did not respond. Please try again.')),25000);
   worker.onerror=()=>finish(new Error('Stockfish could not load. Your browser needs WebAssembly and Worker support.'));
   worker.onmessage=e=>{for(const msg of String(e.data).split('\n')){
