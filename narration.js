@@ -1,4 +1,4 @@
-import {orderedVoices,selectedVoiceURI} from './narration-content.js?v=25';
+import {orderedVoices,selectedVoiceURI} from './narration-content.js?v=26';
 export function spokenChess(text){return String(text).replace(/O-O-O/g,'castle queenside').replace(/O-O/g,'castle kingside').replace(/\b([KQRBN]|[a-h](?=x))?(x)?([a-h])([1-8])(?:=([QRBN]))?([+#])?/g,(_,p,x,f,r,prom,check)=>`${({K:'king',Q:'queen',R:'rook',B:'bishop',N:'knight'})[p]||'pawn'} ${x?'takes on':'to'} ${f}-${({1:'one',2:'two',3:'three',4:'four',5:'five',6:'six',7:'seven',8:'eight'})[r]}${prom?' promotes to '+({Q:'queen',R:'rook',B:'bishop',N:'knight'})[prom]:''}${check==='#'?', checkmate':check==='+'?', check':''}`).replace(/[★✓×]/g,'');}
 export function createNarrator({synth,Utterance,onStatus=()=>{},schedule=setTimeout,unschedule=clearTimeout}={}){
  let run=0,paused=false,last=null,active=null,timer=null,status='';
