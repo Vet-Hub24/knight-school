@@ -111,3 +111,5 @@
  .mobile-bottom-nav .home-back{position:static;display:inline-flex;min-height:48px;padding:12px 18px;font-size:14px;font-weight:700;border-radius:10px;box-shadow:none;background:#2e543e;border:1px solid #2e543e;color:#fffef4}
  .main-wrap{padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))}
 }
+
+.home-daily{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:24px;border:1px solid #cbd9b6;border-radius:14px;background:#e8efda;margin-top:22px}.home-daily h2{margin:6px 0;font-size:24px}.home-daily p{margin:0;font-size:13px}.home-daily .primary{white-space:nowrap;min-height:48px;display:inline-flex;align-items:center}@media(max-width:650px){.home-daily{display:block;padding:20px}.home-daily .primary{margin-top:16px;width:100%;justify-content:center}}
