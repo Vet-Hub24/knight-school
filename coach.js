@@ -1,6 +1,6 @@
-import {Chess} from './vendor/chess.js?v=28';
-import {families,glossary} from './content.js?v=28';
-import {getOpeningTheory} from './opening-theory.js?v=28';
+import {Chess} from './vendor/chess.js?v=29';
+import {families,glossary} from './content.js?v=29';
+import {getOpeningTheory} from './opening-theory.js?v=29';
 const names={p:'pawn',n:'knight',b:'bishop',r:'rook',q:'queen',k:'king'};
 const values={p:1,n:3,b:3,r:5,q:9,k:0};
 const familyHistories=new Map(families.map(f=>{const c=new Chess();for(const m of f.line.split(' '))c.move(m);return[f.id,c.history()]}));
@@ -29,7 +29,7 @@ export function positionFacts(chess){
  return result;
 }
 export function explainMove(chess,lesson={}){
- const move=chess.history({verbose:true}).at(-1);const theory=getOpeningTheory(lesson?.name)||(chess.history().length<=24?inferOpeningTheory(chess):null);let authored='';
+ const move=chess.history({verbose:true}).at(-1);const theory=lesson?.decision?null:getOpeningTheory(lesson?.name)||(chess.history().length<=24?inferOpeningTheory(chess):null);let authored='';
  if(move){const hist=chess.history();const candidates=[...families].sort((a,b)=>Number(lesson?.id===b.id)-Number(lesson?.id===a.id));
   for(const f of candidates){const prefix=familyHistories.get(f.id).slice(0,hist.length);if(prefix.length===hist.length&&prefix.every((m,i)=>m===hist[i])){authored=getOpeningTheory(f.name)?.notes[hist.length-1]||'';if(authored)break}}
  }
@@ -53,10 +53,11 @@ export function explainMove(chess,lesson={}){
   if(!facts.length)facts.push(`The ${names[move.piece]} relocates from ${move.from} to ${move.to}. Evaluate its new targets, the squares left behind, and the opponent’s most forcing reply.`);
  }
  if(lesson?.branchNotes){const hist=chess.history(),tokens=lesson.line.split(' ');if(hist.every((m,i)=>m===tokens[i]))authored=lesson.branchNotes[hist.length-1]||'';}
+ if(lesson?.decision)authored=lesson.study?.why||'';
  return {move,authored,facts,theory,position:positionFacts(chess)};
 }
 export function planText(chess,color,lesson){
- const theory=getOpeningTheory(lesson?.name)||(chess.history().length<=24?inferOpeningTheory(chess):null);if(theory)return theory[color==='w'?'white':'black'];
+ const theory=lesson?.decision?null:getOpeningTheory(lesson?.name)||(chess.history().length<=24?inferOpeningTheory(chess):null);if(theory)return theory[color==='w'?'white':'black'];
  if(lesson?.study&&!lesson.players)return lesson.study[color==='w'?'white':'black']||lesson.plan;
  const f=positionFacts(chess),out=[];if(f.loose[color].length)out.push(`Check the safety of the ${f.loose[color].slice(0,2).join(' and ')}. They are attacked without a geometric defender.`);
  out.push('Compare king safety, piece activity, and the pawn structure. Improve the least useful piece unless a forcing threat requires an immediate response.');
