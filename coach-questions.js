@@ -1,7 +1,7 @@
-import {explainMove,planText,side} from './coach.js?v=28';
-import {getOpeningTheory} from './opening-theory.js?v=28';
+import {explainMove,planText,side} from './coach.js?v=29';
+import {getOpeningTheory} from './opening-theory.js?v=29';
 export function questionDeck(chess,lesson,analysis){
- const e=explainMove(chess,lesson),theory=getOpeningTheory(lesson?.name)||e.theory,study=lesson?.study,move=e.move;
+ const e=explainMove(chess,lesson),theory=lesson?.decision?null:getOpeningTheory(lesson?.name)||e.theory,study=lesson?.study,move=e.move;
  const changes=move?`${move.color==='w'?'White':'Black'} played ${move.san}. ${e.authored||e.facts.join(' ')}`:'Compare the center, king safety, and useful development squares before choosing a move.';
  return [
   {id:'lesson',question:study?.question||theory?.question||'What changed after the last move?',explanation:study?.answer||theory?.answer||changes},
