@@ -1,7 +1,8 @@
-import {narrationSettingsKey,validateNarrationSettings} from './narration-content.js?v=27';
-import {validateStudySession,studySessionKey} from './study-session.js?v=27';
-import {Chess} from './vendor/chess.js?v=27';
-export const backupKeys=[narrationSettingsKey,studySessionKey,'knight-school-v1','knight-school-chats-v2','knight-school-questions-v1','knight-school-training-v1','knight-school-chatgpt-destination','knight-school-chatgpt-destination-v1','knight-school-board-theme'];
+import {dailyKey,validateDaily} from './daily-training.js?v=28';
+import {narrationSettingsKey,validateNarrationSettings} from './narration-content.js?v=28';
+import {validateStudySession,studySessionKey} from './study-session.js?v=28';
+import {Chess} from './vendor/chess.js?v=28';
+export const backupKeys=[dailyKey,narrationSettingsKey,studySessionKey,'knight-school-v1','knight-school-chats-v2','knight-school-questions-v1','knight-school-training-v1','knight-school-chatgpt-destination','knight-school-chatgpt-destination-v1','knight-school-board-theme'];
 const textKeys=new Set(['knight-school-chatgpt-destination','knight-school-chatgpt-destination-v1','knight-school-board-theme']);
 const object=x=>x!==null&&typeof x==='object'&&!Array.isArray(x);
 const strings=x=>Array.isArray(x)&&x.length<=30000&&x.every(v=>typeof v==='string'&&v.length<=2000);
@@ -10,7 +11,8 @@ const iso=x=>typeof x==='string'&&Number.isFinite(Date.parse(x));
 function rejectUnsafe(x,depth=0){if(depth>20)throw Error('Backup nesting is too deep.');if(typeof x==='string'&&x.length>100000)throw Error('Backup text is too long.');if(x&&typeof x==='object'){for(const [k,v]of Object.entries(x)){if(['__proto__','prototype','constructor'].includes(k))throw Error('Invalid backup property.');rejectUnsafe(v,depth+1)}}}
 export function validateRecord(key,x){
  rejectUnsafe(x);
- if(key===narrationSettingsKey){validateNarrationSettings(x);
+ if(key===dailyKey){validateDaily(x);
+ }else if(key===narrationSettingsKey){validateNarrationSettings(x);
  }else if(key===studySessionKey){validateStudySession(x);
  }else if(key==='knight-school-v1'){
   if(!object(x)||!['done','saved','weak','days'].every(k=>strings(x[k]))||!['attempts','correct'].every(k=>count(x[k]))||x.correct>x.attempts||!x.days.every(d=>/^\d{4}-\d{2}-\d{2}$/.test(d)))throw Error('Invalid training progress.');
@@ -43,6 +45,7 @@ const union=(a=[],b=[])=>[...new Set([...a,...b])];
 function combineRecords(a=[],b=[]){const seen=new Set(a.map(x=>JSON.stringify(x)));return [...a,...b.filter(x=>{const k=JSON.stringify(x);if(seen.has(k))return false;seen.add(k);return true})]}
 export function mergeRecord(key,current,incoming){
  if(current===undefined)return incoming;
+ if(key===dailyKey){const newer=Date.parse(incoming.updatedAt)>Date.parse(current.updatedAt)?incoming:current;return {...newer,completed:union(current.completed,incoming.completed)};}
  if(key===studySessionKey){const newer=(Date.parse(incoming.last?.updatedAt)||0)>(Date.parse(current.last?.updatedAt)||0)?incoming:current,older=newer===incoming?current:incoming;return {...newer,answers:[...new Map([...older.answers,...newer.answers])]};}
  if(key==='knight-school-v1')return {...current,...Object.fromEntries(['done','saved','weak','days'].map(k=>[k,union(current[k],incoming[k])])),attempts:Math.max(current.attempts,incoming.attempts),correct:Math.max(current.correct,incoming.correct)};
  if(key==='knight-school-chats-v2'||key==='knight-school-questions-v1'){
