@@ -1,4 +1,4 @@
-import {Chess} from './vendor/chess.js?v=30';
+import {Chess} from './vendor/chess.js?v=31';
 export const dailyKey='knight-school-daily-v1';
 export function validateDaily(s){if(!s||s.version!==1||!/^\d{4}-\d{2}-\d{2}$/.test(s.day)||!Number.isInteger(s.stage)||s.stage<0||s.stage>3||!['openingId','tacticId'].every(k=>typeof s[k]==='string'&&s[k].length<100)||!(s.mistakeId===null||typeof s.mistakeId==='string'&&s.mistakeId.length<300)||!Array.isArray(s.plies)||s.plies.length!==3||!s.plies.every(n=>Number.isInteger(n)&&n>=0&&n<=20)||!Array.isArray(s.hints)||s.hints.length!==3||!s.hints.every(n=>typeof n==='boolean')||!Array.isArray(s.completed)||s.completed.length>5000||!s.completed.every(d=>/^\d{4}-\d{2}-\d{2}$/.test(d))||!Number.isFinite(Date.parse(s.updatedAt)))throw Error('Invalid daily session.');return s;}
 export function loadDaily(storage){try{const raw=storage.getItem(dailyKey);return raw?validateDaily(JSON.parse(raw)):null}catch{return null}}

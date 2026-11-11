@@ -1,46 +1,47 @@
-import {dailyKey,loadDaily,newDaily,dailyTask} from './daily-training.js?v=30';
+import {deepOpeningMoves} from './deep-opening.js?v=31';
+import {dailyKey,loadDaily,newDaily,dailyTask} from './daily-training.js?v=31';
 let dailySession;try{dailySession=loadDaily(localStorage)}catch{dailySession=null}let dailyMessage='';
-import {mistakeLesson} from './mistake-teacher.js?v=30';
+import {mistakeLesson} from './mistake-teacher.js?v=31';
 let mistakeTeacher=null;
-import {homeMarkup} from './home.js?v=30';
-import {learningMoveReport,learningMoveGuidance,terminalAnalysis,undoPlayerTurn,learningReviewTarget} from './play-learning.js?v=30';
+import {homeMarkup} from './home.js?v=31';
+import {learningMoveReport,learningMoveGuidance,terminalAnalysis,undoPlayerTurn,learningReviewTarget} from './play-learning.js?v=31';
 const learningSearchCache=new Map();
 let learningGame=false,learningReview=null,learningStatus='',learningBusy=false;
-import {openingSide} from './opening-side.js?v=30';
-import {buildNarration,loadNarrationSettings,saveNarrationSettings,selectedVoiceURI,createAutoExplanationGate} from './narration-content.js?v=30';
+import {openingSide} from './opening-side.js?v=31';
+import {buildNarration,loadNarrationSettings,saveNarrationSettings,selectedVoiceURI,createAutoExplanationGate} from './narration-content.js?v=31';
 let autoExplain=false,autoExplainPaused=false;const autoExplanationGate=createAutoExplanationGate();
 let narrationPreferences;try{narrationPreferences=loadNarrationSettings(localStorage)}catch{narrationPreferences={voiceURI:'',rate:.75,scope:'move'}}
-import {deviationLessons,deviationBoard} from './deviations.js?v=30';
-import {practiceSample,selectPracticeMoment,practiceMomentReport} from './practice-review.js?v=30';
+import {deviationLessons,deviationBoard} from './deviations.js?v=31';
+import {practiceSample,selectPracticeMoment,practiceMomentReport} from './practice-review.js?v=31';
 let deviationState=null,openingPractice=null,pendingOpeningPractice=null,practiceRecall=null;
-import {createNarrator} from './narration.js?v=30';
-import {loadStudySession,saveStudySession} from './study-session.js?v=30';
-import {planningLessons} from './plan-lessons.js?v=30';
+import {createNarrator} from './narration.js?v=31';
+import {loadStudySession,saveStudySession} from './study-session.js?v=31';
+import {planningLessons} from './plan-lessons.js?v=31';
 let studySession;try{studySession=loadStudySession(localStorage)}catch{studySession={version:1,last:null,answers:[]}}
 let teachPlanMode=false,restoringStudy=false,replyDemo=null,narrationFen='',voiceURI=narrationPreferences.voiceURI,voiceRate=narrationPreferences.rate,narrationScope=narrationPreferences.scope;
 const narrator=createNarrator({synth:window.speechSynthesis,Utterance:window.SpeechSynthesisUtterance,onStatus:message=>{const status=document.getElementById('narrationStatus');if(status)status.textContent=message}});
-import {openingBranches} from './teach-branches.js?v=30';
+import {openingBranches} from './teach-branches.js?v=31';
 let lessonAttempt=null;
-import {boardGuidance,guidanceSvg} from './board-guidance.js?v=30';
+import {boardGuidance,guidanceSvg} from './board-guidance.js?v=31';
 let showBoardGuidance=true;let guidancePreview=null;
 const teachAnswers=new Map(studySession.answers);let teachBranch=null;
-import {teachCourses} from './teach-me.js?v=30';
-import {Chess} from './vendor/chess.js?v=30';
-import {pieceVisual} from './pieces.js?v=30';
-import {initPWA} from './pwa.js?v=30';
-import {trainingKey,emptyTraining,loadTraining,reviewKey,scheduleReview,dueReviews,createMistake,rememberMistake} from './training.js?v=30';
-import {makeBackup,parseBackup,restoreBackup} from './backup.js?v=30';
+import {teachCourses} from './teach-me.js?v=31';
+import {Chess} from './vendor/chess.js?v=31';
+import {pieceVisual} from './pieces.js?v=31';
+import {initPWA} from './pwa.js?v=31';
+import {trainingKey,emptyTraining,loadTraining,reviewKey,scheduleReview,dueReviews,createMistake,rememberMistake} from './training.js?v=31';
+import {makeBackup,parseBackup,restoreBackup} from './backup.js?v=31';
 let training;try{training=loadTraining(localStorage)}catch{training=emptyTraining()}
 let drillErrors=0,drillHints=0,pendingRecallResult=null,pendingMistakeId=null,activeMistakeId=null,restoreCandidate=null;
-import {families,strategies,endgames,masters,glossary} from './content.js?v=30';
+import {families,strategies,endgames,masters,glossary} from './content.js?v=31';
 const teachBranchLessons=openingBranches.map(b=>{const f=families.find(f=>f.id===b.courseId),theory=getOpeningTheory(f.name);return {...f,id:b.id,courseId:b.courseId,name:f.name+' — '+b.title,line:b.line,branchNotes:[...theory.notes.slice(0,b.prefixCount),...b.notes]}});
-import {advancedStrategies,advancedEndgames} from './advanced.js?v=30';
-import {enrichMaster} from './master-notes.js?v=30';
-import {explainMove,positionFacts,planText,answerGuided,side} from './coach.js?v=30';
-import {getOpeningTheory} from './opening-theory.js?v=30';
-import {searchPosition} from './engine.js?v=30';
-import {coachReport,freeCoachReply,buildChatGPTPrompt} from './free-coach.js?v=30';
-import {questionDeck,makeQuestionState,currentQuestion,submitQuestion,nextQuestion,previousQuestion,restartQuestions} from './coach-questions.js?v=30';
+import {advancedStrategies,advancedEndgames} from './advanced.js?v=31';
+import {enrichMaster} from './master-notes.js?v=31';
+import {explainMove,positionFacts,planText,answerGuided,side} from './coach.js?v=31';
+import {getOpeningTheory} from './opening-theory.js?v=31';
+import {searchPosition} from './engine.js?v=31';
+import {coachReport,freeCoachReply,buildChatGPTPrompt} from './free-coach.js?v=31';
+import {questionDeck,makeQuestionState,currentQuestion,submitQuestion,nextQuestion,previousQuestion,restartQuestions} from './coach-questions.js?v=31';
 let savedQuestionSessions=[];try{savedQuestionSessions=JSON.parse(localStorage.getItem('knight-school-questions-v1'))||[]}catch{}
 const questionSessions=new Map(Array.isArray(savedQuestionSessions)?savedQuestionSessions.filter(x=>Array.isArray(x)&&typeof x[0]==='string').map(([key,value])=>[key,makeQuestionState(value)]):[]);
 
@@ -376,8 +377,9 @@ function renderBoardGuidance(){if(!$('#boardGuidanceLayer'))return;if(page==='da
 document.addEventListener('click',e=>{if(e.target.closest('[data-guidance-toggle]')){showBoardGuidance=!showBoardGuidance;renderBoardGuidance();return}if(e.target.closest('[data-guidance-before]')){const m=chess.history({verbose:true}).at(-1),before=engineResult?.moveReview?.before;if(!m||!before?.length)return;pausePlayback();guidancePreview={chess,lastMove,engineResult,step,free};chess=new Chess(m.before);lastMove=null;selected=null;legal=[];engineResult={fen:chess.fen(),lines:before,whiteScore:before[0].scoreWhite||0,mate:before[0].mateWhite??null,depth:before[0].depth,explain:'Earlier candidate before your move. Return to your move to continue.'};renderBoard();renderPanel();return}if(e.target.closest('[data-guidance-return]')&&guidancePreview){({chess,lastMove,engineResult,step,free}=guidancePreview);guidancePreview=null;selected=null;legal=[];renderBoard();renderPanel()}});
 
 function nextLessonMove(){if(deviationState)return deviationNextMove();if(practiceRecall)return null;if(replyDemo||teachPlanMode)return null;if(drill||playing||free||teachBranch||guidancePreview||!lesson||lessonType==='review'||page==='practice'||step>=line.length)return null;try{const m=new Chess(chess.fen()).move(line[step]);return {san:m.san,from:m.from,to:m.to}}catch{return null}}
-function teachNextTheoryMarkup(){const next=nextLessonMove();if(!next)return '<p>Walkthrough finished, or exploring an alternative. Return to the taught line to continue.</p>';const theory=getOpeningTheory(lesson.name),why=(lesson.branchNotes||theory?.notes)?.[step];return `<section class="teach-next" aria-label="Your next opening move"><span class="pill">YOUR TURN · ${side(chess.turn())}</span><h3>Play ${esc(next.san)}: ${esc(next.from)} → ${esc(next.to)}</h3><p><b>Why this move?</b> ${esc(why||'Follow the illustrated line and compare the position with the plans below.')}</p><p>Move the piece on the board. The green arrow points to its destination. Learn both sides before testing your memory with Practice.</p>${lessonAttempt?`<p role="status"><b>${lessonAttempt.correct?'✓ Correct':'× Try again'}</b> ${esc(feedback)}</p>`:''}<details><summary>Connect this move to the theory</summary><p><b>Pawn structure and tradeoffs:</b> ${esc(theory?.structure||'')}</p><p><b>White’s long-term plan:</b> ${esc(theory?.white||'')}</p><p><b>Black’s long-term plan:</b> ${esc(theory?.black||'')}</p><p>After every move, check what changed: central control, development, king safety, and the opponent’s forcing replies. A familiar opening move can still be wrong in a different position.</p></details></section>`}
+function teachNextTheoryMarkup(){const next=nextLessonMove();if(!next)return '<p>Walkthrough finished, or exploring an alternative. Return to the taught line to continue.</p>';const theory=getOpeningTheory(lesson.name),why=(lesson.branchNotes||theory?.notes)?.[step];return `<section class="teach-next" aria-label="Your next opening move"><span class="pill">YOUR TURN · ${side(chess.turn())}</span><h3>Play ${esc(next.san)}: ${esc(next.from)} → ${esc(next.to)}</h3><p><b>Why this move?</b> ${esc(why||'Follow the illustrated line and compare the position with the plans below.')}</p><p>Move the piece on the board. The green arrow points to its destination. Learn both sides before testing your memory with Practice.</p>${deepOpeningMarkup()}${lessonAttempt?`<p role="status"><b>${lessonAttempt.correct?'✓ Correct':'× Try again'}</b> ${esc(feedback)}</p>`:''}<details><summary>Connect this move to the theory</summary><p><b>Pawn structure and tradeoffs:</b> ${esc(theory?.structure||'')}</p><p><b>White’s long-term plan:</b> ${esc(theory?.white||'')}</p><p><b>Black’s long-term plan:</b> ${esc(theory?.black||'')}</p><p>After every move, check what changed: central control, development, king safety, and the opponent’s forcing replies. A familiar opening move can still be wrong in a different position.</p></details></section>`}
 
+function deepOpeningMarkup(){if(drill||free||deviationState||teachBranch||replyDemo||teachPlanMode)return '';const item=deepOpeningMoves[lesson?.id]?.[step];if(!item)return '';return `<section class="deep-move-teaching" aria-label="Understand the next move"><h4>What is the opponent trying to do?</h4><p>${esc(item.opponent)}</p><details><summary>Why not ${esc(item.alternative)}?</summary><p>${esc(item.comparison)}</p></details><h4>What comes next?</h4><p>${esc(item.plan)}</p><button class="secondary" data-deviation-open="${lesson.id==='family-0'?'italian-knights':'caro-exchange'}">Try a related decision yourself →</button><p>This opens a related practice position. Back returns to this lesson step.</p></section>`}
 function teachModeControls(c){return `<section class="teach-card" aria-label="Learning mode and branch"><div class="button-row teach-navigation"><button class="secondary" data-teach-home>← All courses</button><button class="secondary" data-teach-restart>↺ Restart this line</button></div>${openingSideMarkup(c)}<p>This course follows both colors. The board shows whose turn it is.</p><h3>Choose how to learn</h3><button class="secondary" data-deviation-open="${deviationLessons.find(d=>d.courseId===c.id)?.id||''}">Practice other replies →</button><p>Open a prepared position, see an opponent’s reply, then learn how to respond.</p><div class="button-row"><button class="${drill?'secondary':'primary'}" data-teach-learn aria-pressed="${!drill}">Learn · arrows & theory</button><button class="${drill?'primary':'secondary'}" data-teach-test aria-pressed="${drill}">Test · recall from memory</button></div><label for="teachBranchSelect">Opening response</label><select id="teachBranchSelect" aria-label="Opening response"><option value="${c.id}" ${lesson.id===c.id?'selected':''}>Main course line</option>${teachBranchLessons.filter(x=>x.courseId===c.id).map(x=>`<option value="${x.id}" ${lesson.id===x.id?'selected':''}>${esc(x.name)}</option>`).join('')}</select><label for="teachTestSide">Test as</label><select id="teachTestSide" aria-label="Test as"><option value="w" ${drillSide==='w'?'selected':''}>White</option><option value="b" ${drillSide==='b'?'selected':''}>Black</option><option value="both" ${drillSide==='both'?'selected':''}>Both sides</option></select><p>Learn both sides step by step. Each response and side has its own recall schedule.</p></section>`}
 document.addEventListener('change',e=>{if(e.target.id==='teachBranchSelect'){const testing=drill;openStudy(e.target.value);if(testing)startDrill()}});
 document.addEventListener('click',e=>{if(e.target.closest('[data-teach-test]')){deviationState=null;teachPlanMode=false;teachBranch=null;drillSide=$('#teachTestSide').value;if($('#drillSide'))$('#drillSide').value=drillSide;startDrill()}if(e.target.closest('[data-teach-learn]')){deviationState=null;drill=false;step=0;feedback='';teachBranch=null;setPosition();renderBoard();renderPanel()}});
@@ -488,7 +490,7 @@ async function reviewLearningMove(move){
 document.addEventListener('change',e=>{if(e.target.id!=='learningGame')return;learningGame=e.target.checked;stopEngine();learningReview=null;learningStatus='';if(learningGame)showBoardGuidance=true;const move=learningReviewTarget(chess,playing,playSide);if(learningGame&&move){reviewLearningMove(move);return;}renderBoard();renderPanel();if(playing&&!chess.isGameOver()&&chess.turn()!==playSide)analyze('play');});
 document.addEventListener('click',e=>{if(!e.target.closest('[data-learning-review]')||learningBusy)return;const move=learningReviewTarget(chess,playing,playSide);if(move){showBoardGuidance=true;reviewLearningMove(move);}});
 
-function moreOpeningMarkup(){const more=families.filter(f=>!teachCourses.some(c=>c.id===f.id));return `<section class="more-opening-studies"><h2>More openings & defenses</h2><h3>New guided studies</h3><div class="catalog">${families.filter(f=>['guided-two-knights','guided-evans','guided-colle','guided-qgd-exchange'].includes(f.id)).map(f=>`<article class="catalog-card"><span class="pill">NEW · GUIDED STUDY</span><h3>${esc(f.name)}</h3>${openingSideMarkup(f)}<p>${esc(f.title)}</p><button class="secondary" data-guided-open="${f.id}">Learn this opening →</button><button class="secondary" data-deviation-open="${deviationLessons.find(d=>d.courseId===f.id)?.id||''}">Practice an opponent’s different reply →</button></article>`).join('')}</div><p>Keep the ten courses above for extra decisions and plan quizzes. Explore ${more.length} more guided studies below, each with move explanations and both sides’ plans. The reference library has ${openings.length.toLocaleString()} named variations; these do not all have a full authored course.</p><details><summary>Browse all ${more.length} additional guided studies</summary><div class="catalog">${more.map(f=>`<article class="catalog-card"><h3>${esc(f.name)}</h3>${openingSideMarkup(f)}<p>${esc(f.title)}</p><button class="secondary" data-guided-open="${f.id}">Learn this opening →</button></article>`).join('')}</div></details><a class="back" href="#openings">Search all opening variations →</a></section>`}
+function moreOpeningMarkup(){const more=families.filter(f=>!teachCourses.some(c=>c.id===f.id));return `<section class="more-opening-studies"><h2>More openings & defenses</h2><h3>New guided studies</h3><div class="catalog">${families.filter(f=>['guided-two-knights','guided-evans','guided-colle','guided-qgd-exchange','guided-stonewall','guided-owen'].includes(f.id)).map(f=>`<article class="catalog-card"><span class="pill">NEW · GUIDED STUDY</span><h3>${esc(f.name)}</h3>${openingSideMarkup(f)}<p>${esc(f.title)}</p><button class="secondary" data-guided-open="${f.id}">Learn this opening →</button>${deviationLessons.some(d=>d.courseId===f.id)?`<button class="secondary" data-deviation-open="${deviationLessons.find(d=>d.courseId===f.id).id}">Practice an opponent’s different reply →</button>`:''}</article>`).join('')}</div><p>Keep the ten courses above for extra decisions and plan quizzes. Explore ${more.length} more guided studies below, each with move explanations and both sides’ plans. The reference library has ${openings.length.toLocaleString()} named variations; these do not all have a full authored course.</p><details><summary>Browse all ${more.length} additional guided studies</summary><div class="catalog">${more.map(f=>`<article class="catalog-card"><h3>${esc(f.name)}</h3>${openingSideMarkup(f)}<p>${esc(f.title)}</p><button class="secondary" data-guided-open="${f.id}">Learn this opening →</button></article>`).join('')}</div></details><a class="back" href="#openings">Search all opening variations →</a></section>`}
 document.addEventListener('click',e=>{const b=e.target.closest('[data-guided-open]');if(!b)return;page='guided';history.replaceState(null,'','#guided');renderNav();openStudy(b.dataset.guidedOpen);window.scrollTo(0,0);});
 
 function home(){resetContext();lesson=null;document.documentElement.classList.remove('teach-testing');const r=studySession.last,valid=r&&[...families,...teachBranchLessons].some(f=>f.id===r.id);$('#main').innerHTML=homeMarkup({dailyStarted:!!dailySession&&dailySession.stage<3,last:valid?{...r,name:studyName(r.id)}:null,done:progress.done.length,days:progress.days.length,mistakes:training.mistakes.length,due:dueReviews(training).length,guided:families.length,variations:openings.length});}
