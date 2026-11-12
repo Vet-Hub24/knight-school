@@ -1,7 +1,7 @@
 {
   "guidedStudies": 50,
   "referenceVariations": 3865,
-  "deeperTeachingPositions": 55,
+  "deeperTeachingPositions": 112,
   "checks": [
     "All guided and reference moves legal",
     "Exact guided SAN",
@@ -12,7 +12,7 @@
   "limits": [
     "This is a legality and content-completeness audit, not an exhaustive opening-theory certification.",
     "Reference variations do not each have an authored course.",
-    "Five main courses have deeper per-position teaching: Italian, Caro-Kann, Sicilian, French and London.",
+    "All ten main Teach Me courses have deeper per-position teaching; other guided studies retain their original explanations.",
     "No finite library contains every legal opening reply."
   ]
 }
