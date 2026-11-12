@@ -1,0 +1,18 @@
+{
+  "guidedStudies": 50,
+  "referenceVariations": 3865,
+  "deeperTeachingPositions": 22,
+  "checks": [
+    "All guided and reference moves legal",
+    "Exact guided SAN",
+    "Both-side plans, structures, questions, answers and per-move notes present",
+    "Guided IDs and names unique"
+  ],
+  "issues": [],
+  "limits": [
+    "This is a legality and content-completeness audit, not an exhaustive opening-theory certification.",
+    "Reference variations do not each have an authored course.",
+    "Only Italian and Caro-Kann have the new deeper per-position teaching.",
+    "No finite library contains every legal opening reply."
+  ]
+}
