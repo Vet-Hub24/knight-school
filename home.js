@@ -1,5 +1,5 @@
-import {Chess} from './vendor/chess.js?v=35';
-import {pieceVisual} from './pieces.js?v=35';
+import {Chess} from './vendor/chess.js?v=36';
+import {pieceVisual} from './pieces.js?v=36';
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const icons={book:'<path d="M3 5c4-2 7-1 9 1 2-2 5-3 9-1v14c-4-2-7-1-9 1-2-2-5-3-9-1V5Z"/><path d="M12 6v14"/>',play:'<path d="M8 4 20 12 8 20V4Z"/>',review:'<circle cx="10" cy="10" r="6"/><path d="m15 15 6 6M8 10h4m-2-2v4"/>'};
 function icon(name){return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${icons[name]}</svg>`;}
