@@ -1,4 +1,4 @@
-// Original position-specific teaching. Alternatives are comparisons, not engine rankings.
+// Original teaching comparisons. Alternatives are not engine rankings.
 export const deepOpeningMoves={
   "family-0": [
     {
@@ -339,5 +339,371 @@ export const deepOpeningMoves={
       "comparison": "Be2 also prepares castling but is less active toward h7. Bd3 develops with kingside influence; that pressure alone does not justify a sacrifice.",
       "plan": "Castle and coordinate the remaining pieces, checking central threats before an attack."
     }
+  ],
+  "family-1": [
+    {
+      "opponent": "Neither player has moved yet. Choose a central plan while preparing useful piece development.",
+      "alternative": "d4",
+      "comparison": "d4 builds a different pawn center; e4 starts this open-game lesson. Compare the structure and the opponent’s strongest reply in this exact position.",
+      "plan": "Maintain pressure on the defender of e5 while building toward c3 and d4. Preserve the bishop when it has useful long-term diagonals, and use Re1 to support the e-pawn."
+    },
+    {
+      "opponent": "The opponent just played e4. e4 claims central space and opens development lines. Reassess this change before continuing the setup.",
+      "alternative": "c5",
+      "comparison": "...c5 chooses an asymmetrical Sicilian instead of meeting e4 directly. Compare the structure and the opponent’s strongest reply in this exact position.",
+      "plan": "Keep e5 adequately defended, develop, and gain space with ...a6 and ...b5 when useful. Prepare central counterplay rather than spending every tempo chasing the bishop."
+    },
+    {
+      "opponent": "The opponent just played e5. ...e5 answers centrally and gives Black an equal foothold. Reassess this change before continuing the setup.",
+      "alternative": "Bc4",
+      "comparison": "Bc4 develops a bishop, but Nf3 develops with pressure on e5 first. Compare the structure and the opponent’s strongest reply in this exact position.",
+      "plan": "Maintain pressure on the defender of e5 while building toward c3 and d4. Preserve the bishop when it has useful long-term diagonals, and use Re1 to support the e-pawn."
+    },
+    {
+      "opponent": "The opponent just played Nf3. Nf3 develops with an attack on e5. Reassess this change before continuing the setup.",
+      "alternative": "d6",
+      "comparison": "...d6 defends e5 but restricts the f8 bishop; ...Nc6 develops a defender. Compare the structure and the opponent’s strongest reply in this exact position.",
+      "plan": "Keep e5 adequately defended, develop, and gain space with ...a6 and ...b5 when useful. Prepare central counterplay rather than spending every tempo chasing the bishop."
+    },
+    {
+      "opponent": "The opponent just played Nc6. ...Nc6 develops while protecting the attacked pawn. Reassess this change before continuing the setup.",
+      "alternative": "Bc4",
+      "comparison": "Bc4 aims directly at f7. Bb5 instead pressures the c6 knight that defends e5. Compare the structure and the opponent’s strongest reply in this exact position.",
+      "plan": "Maintain pressure on the defender of e5 while building toward c3 and d4. Preserve the bishop when it has useful long-term diagonals, and use Re1 to support the e-pawn."
+    },
+    {
+      "opponent": "The opponent just played Bb5. Bb5 pressures the knight that defends e5. Its long-term purpose is central pressure, not simply exchanging a bishop for a knight. Reassess this change before continuing the setup.",
+      "alternative": "Nf6",
+      "comparison": "...Nf6 attacks e4 immediately. ...a6 asks White to decide what to do with the active bishop first. Compare the structure and the opponent’s strongest reply in this exact position.",
+      "plan": "Keep e5 adequately defended, develop, and gain space with ...a6 and ...b5 when useful. Prepare central counterplay rather than spending every tempo chasing the bishop."
+    },
+    {
+      "opponent": "The opponent just played a6. ...a6 asks the bishop to choose and prepares queenside expansion. Black spends a pawn move to gain useful space. Reassess this change before continuing the setup.",
+      "alternative": "Bxc6",
+      "comparison": "Bxc6 exchanges bishop for knight and changes Black’s pawns after a recapture. Ba4 keeps the bishop and tension. Compare the structure and the opponent’s strongest reply in this exact position.",
+      "plan": "Maintain pressure on the defender of e5 while building toward c3 and d4. Preserve the bishop when it has useful long-term diagonals, and use Re1 to support the e-pawn."
+    },
+    {
+      "opponent": "The opponent just played Ba4. Ba4 keeps the bishop pair and maintains the diagonal toward the knight. Reassess this change before continuing the setup.",
+      "alternative": "d6",
+      "comparison": "...d6 reinforces e5. ...Nf6 develops with pressure on e4 and asks White to calculate before castling. Compare the structure and the opponent’s strongest reply in this exact position.",
+      "plan": "Keep e5 adequately defended, develop, and gain space with ...a6 and ...b5 when useful. Prepare central counterplay rather than spending every tempo chasing the bishop."
+    },
+    {
+      "opponent": "The opponent just played Nf6. ...Nf6 develops and attacks e4, creating a central threat. Reassess this change before continuing the setup.",
+      "alternative": "d3",
+      "comparison": "d3 supports e4 immediately. Castling first prioritizes king safety; a capture on e4 must be assessed concretely. Compare the structure and the opponent’s strongest reply in this exact position.",
+      "plan": "Maintain pressure on the defender of e5 while building toward c3 and d4. Preserve the bishop when it has useful long-term diagonals, and use Re1 to support the e-pawn."
+    },
+    {
+      "opponent": "The opponent just played O-O. O-O gets the king safe. White accepts that central tactics must be calculated rather than defending every threat with a pawn. Reassess this change before continuing the setup.",
+      "alternative": "Nxe4",
+      "comparison": "...Nxe4 takes a pawn but opens tactical questions in the center, including White’s d4 break. ...Be7 chooses quieter development. Compare the structure and the opponent’s strongest reply in this exact position.",
+      "plan": "Keep e5 adequately defended, develop, and gain space with ...a6 and ...b5 when useful. Prepare central counterplay rather than spending every tempo chasing the bishop."
+    },
+    {
+      "opponent": "The opponent just played Be7. ...Be7 prepares castling and makes Black’s king less vulnerable before opening the center. Reassess this change before continuing the setup.",
+      "alternative": "d3",
+      "comparison": "d3 supports e4 with a pawn. Re1 supports it with the rook and keeps a later central d4 expansion available. Compare the structure and the opponent’s strongest reply in this exact position.",
+      "plan": "Maintain pressure on the defender of e5 while building toward c3 and d4. Preserve the bishop when it has useful long-term diagonals, and use Re1 to support the e-pawn."
+    },
+    {
+      "opponent": "The opponent just played Re1. Re1 supports e4 with a rook, freeing other pieces for central and kingside play. Reassess this change before continuing the setup.",
+      "alternative": "O-O",
+      "comparison": "Castling is legal now. ...b5 instead gains space while attacking the a4 bishop, so White must address a concrete threat. Compare the structure and the opponent’s strongest reply in this exact position.",
+      "plan": "Keep e5 adequately defended, develop, and gain space with ...a6 and ...b5 when useful. Prepare central counterplay rather than spending every tempo chasing the bishop."
+    },
+    {
+      "opponent": "The opponent just played b5. ...b5 gains space and drives the bishop back. Advancing pawns also leaves squares that White may later target. Reassess this change before continuing the setup.",
+      "alternative": "Bxb5",
+      "comparison": "Bxb5 takes a pawn, but the a6 pawn can recapture the bishop with ...axb5. Bb3 preserves the bishop and its diagonal toward f7. Compare the structure and the opponent’s strongest reply in this exact position.",
+      "plan": "Maintain pressure on the defender of e5 while building toward c3 and d4. Preserve the bishop when it has useful long-term diagonals, and use Re1 to support the e-pawn."
+    },
+    {
+      "opponent": "The opponent just played Bb3. Bb3 keeps the bishop on a useful diagonal toward f7. Reassess this change before continuing the setup.",
+      "alternative": "O-O",
+      "comparison": "Castling is another useful move. ...d6 first supports e5 and opens the c8 bishop; Black should not postpone king safety indefinitely. Compare the structure and the opponent’s strongest reply in this exact position.",
+      "plan": "Keep e5 adequately defended, develop, and gain space with ...a6 and ...b5 when useful. Prepare central counterplay rather than spending every tempo chasing the bishop."
+    }
+  ],
+  "family-12": [
+    {
+      "opponent": "Neither player has moved yet. Choose a central plan while preparing useful piece development.",
+      "alternative": "e4",
+      "comparison": "e4 opens a different central game; d4 prepares the Queen’s Gambit structure. Compare the structure and the opponent’s strongest reply in this exact position.",
+      "plan": "Use c4 to challenge d5, develop behind the center, and decide when central exchanges help your pieces."
+    },
+    {
+      "opponent": "The opponent just played d4. d4 controls the center and opens the c1 bishop. Reassess this change before continuing the setup.",
+      "alternative": "Nf6",
+      "comparison": "...Nf6 controls e4 flexibly. ...d5 directly occupies the center opposite White’s pawn. Compare the structure and the opponent’s strongest reply in this exact position.",
+      "plan": "Defend the center without becoming passive. Seek freeing breaks such as ...c5 and develop the c8 bishop when possible."
+    },
+    {
+      "opponent": "The opponent just played d5. ...d5 creates a symmetrical central foothold. Reassess this change before continuing the setup.",
+      "alternative": "Nf3",
+      "comparison": "Nf3 develops first. c4 immediately challenges d5 with a flank pawn, asking Black to choose a structure. Compare the structure and the opponent’s strongest reply in this exact position.",
+      "plan": "Use c4 to challenge d5, develop behind the center, and decide when central exchanges help your pieces."
+    },
+    {
+      "opponent": "The opponent just played c4. c4 attacks d5 from the flank. Reassess this change before continuing the setup.",
+      "alternative": "dxc4",
+      "comparison": "...dxc4 accepts the gambit and changes the center. ...e6 supports d5 and keeps the central pawn pair. Compare the structure and the opponent’s strongest reply in this exact position.",
+      "plan": "Defend the center without becoming passive. Seek freeing breaks such as ...c5 and develop the c8 bishop when possible."
+    },
+    {
+      "opponent": "The opponent just played e6. ...e6 reinforces d5 but temporarily closes the c8 bishop’s main diagonal. Reassess this change before continuing the setup.",
+      "alternative": "Nf3",
+      "comparison": "Nf3 is a flexible development move. Nc3 directly increases pressure on d5 and supports future e4 play. Compare the structure and the opponent’s strongest reply in this exact position.",
+      "plan": "Use c4 to challenge d5, develop behind the center, and decide when central exchanges help your pieces."
+    },
+    {
+      "opponent": "The opponent just played Nc3. Nc3 develops and increases pressure on d5. Reassess this change before continuing the setup.",
+      "alternative": "c6",
+      "comparison": "...c6 adds pawn support to d5. ...Nf6 instead develops and controls e4 without another pawn move. Compare the structure and the opponent’s strongest reply in this exact position.",
+      "plan": "Defend the center without becoming passive. Seek freeing breaks such as ...c5 and develop the c8 bishop when possible."
+    },
+    {
+      "opponent": "The opponent just played Nf6. ...Nf6 develops and supports central control. Reassess this change before continuing the setup.",
+      "alternative": "Nf3",
+      "comparison": "Nf3 develops and protects d4. Bg5 develops the bishop outside the e-pawn chain and pins the f6 knight to the queen for now. Compare the structure and the opponent’s strongest reply in this exact position.",
+      "plan": "Use c4 to challenge d5, develop behind the center, and decide when central exchanges help your pieces."
+    },
+    {
+      "opponent": "The opponent just played Bg5. Bg5 develops and pins the f6 knight to the queen on d8. The pin is relative, so the knight may move if Black accepts the consequences. Reassess this change before continuing the setup.",
+      "alternative": "Nbd7",
+      "comparison": "...Nbd7 develops another defender of f6. ...Be7 prepares castling and challenges the effect of the pin. Compare the structure and the opponent’s strongest reply in this exact position.",
+      "plan": "Defend the center without becoming passive. Seek freeing breaks such as ...c5 and develop the c8 bishop when possible."
+    },
+    {
+      "opponent": "The opponent just played Be7. ...Be7 interposes a bishop on the pinning diagonal, shielding the queen, and prepares castling. Reassess this change before continuing the setup.",
+      "alternative": "cxd5",
+      "comparison": "cxd5 resolves central tension and allows an e-pawn recapture. e3 keeps the tension while opening the f1 bishop. Compare the structure and the opponent’s strongest reply in this exact position.",
+      "plan": "Use c4 to challenge d5, develop behind the center, and decide when central exchanges help your pieces."
+    },
+    {
+      "opponent": "The opponent just played e3. e3 opens the f1 bishop and gives d4 extra support. Reassess this change before continuing the setup.",
+      "alternative": "c5",
+      "comparison": "...c5 challenges d4 immediately. Castling first secures Black’s king before the center opens. Compare the structure and the opponent’s strongest reply in this exact position.",
+      "plan": "Defend the center without becoming passive. Seek freeing breaks such as ...c5 and develop the c8 bishop when possible."
+    },
+    {
+      "opponent": "The opponent just played O-O. ...O-O secures the king before central operations. The earlier ...Be7 has already shielded the queen from the g5 bishop. Reassess this change before continuing the setup.",
+      "alternative": "Bd3",
+      "comparison": "Bd3 develops toward h7. Nf3 first supports d4 and prepares castling; both choices need an answer to Black’s central breaks. Compare the structure and the opponent’s strongest reply in this exact position.",
+      "plan": "Use c4 to challenge d5, develop behind the center, and decide when central exchanges help your pieces."
+    }
+  ],
+  "family-13": [
+    {
+      "opponent": "Neither player has moved yet. Choose a central plan while preparing useful piece development.",
+      "alternative": "e4",
+      "comparison": "e4 starts another central opening; d4 prepares a Queen’s Gambit family position. Compare the structure and the opponent’s strongest reply in this exact position.",
+      "plan": "Develop and maintain central pressure. If Black captures c4, recover it without allowing an easy ...b5 pawn chain."
+    },
+    {
+      "opponent": "The opponent just played d4. d4 controls the center. Reassess this change before continuing the setup.",
+      "alternative": "Nf6",
+      "comparison": "...Nf6 develops flexibly. ...d5 immediately establishes a central pawn foothold. Compare the structure and the opponent’s strongest reply in this exact position.",
+      "plan": "Support d5 with ...c6 while keeping the c8 bishop free. Time captures and bishop development carefully."
+    },
+    {
+      "opponent": "The opponent just played d5. ...d5 matches the central claim. Reassess this change before continuing the setup.",
+      "alternative": "Nf3",
+      "comparison": "Nf3 develops before challenging the center. c4 asks Black how d5 will be supported or exchanged. Compare the structure and the opponent’s strongest reply in this exact position.",
+      "plan": "Develop and maintain central pressure. If Black captures c4, recover it without allowing an easy ...b5 pawn chain."
+    },
+    {
+      "opponent": "The opponent just played c4. c4 challenges d5. Reassess this change before continuing the setup.",
+      "alternative": "e6",
+      "comparison": "...e6 supports d5 but restricts the c8 bishop. ...c6 keeps that bishop’s diagonal available for now. Compare the structure and the opponent’s strongest reply in this exact position.",
+      "plan": "Support d5 with ...c6 while keeping the c8 bishop free. Time captures and bishop development carefully."
+    },
+    {
+      "opponent": "The opponent just played c6. ...c6 supports d5 while keeping the c8 bishop’s diagonal open. Reassess this change before continuing the setup.",
+      "alternative": "Nc3",
+      "comparison": "Nc3 also adds central pressure. Nf3 first controls e5 and keeps several development options available. Compare the structure and the opponent’s strongest reply in this exact position.",
+      "plan": "Develop and maintain central pressure. If Black captures c4, recover it without allowing an easy ...b5 pawn chain."
+    },
+    {
+      "opponent": "The opponent just played Nf3. Nf3 develops and supports d4. Reassess this change before continuing the setup.",
+      "alternative": "Bf5",
+      "comparison": "...Bf5 develops outside the pawn chain immediately, but the queenside and central tension need care. ...Nf6 develops a knight first. Compare the structure and the opponent’s strongest reply in this exact position.",
+      "plan": "Support d5 with ...c6 while keeping the c8 bishop free. Time captures and bishop development carefully."
+    },
+    {
+      "opponent": "The opponent just played Nf6. ...Nf6 develops and increases central control. Reassess this change before continuing the setup.",
+      "alternative": "e3",
+      "comparison": "e3 reinforces d4 and opens f1. Nc3 develops another piece and increases central pressure before fixing the bishop’s route. Compare the structure and the opponent’s strongest reply in this exact position.",
+      "plan": "Develop and maintain central pressure. If Black captures c4, recover it without allowing an easy ...b5 pawn chain."
+    },
+    {
+      "opponent": "The opponent just played Nc3. Nc3 develops and pressures d5. Reassess this change before continuing the setup.",
+      "alternative": "e6",
+      "comparison": "...e6 keeps the d5 pawn supported. ...dxc4 instead releases tension and asks White to recover the pawn while Black develops. Compare the structure and the opponent’s strongest reply in this exact position.",
+      "plan": "Support d5 with ...c6 while keeping the c8 bishop free. Time captures and bishop development carefully."
+    },
+    {
+      "opponent": "The opponent just played dxc4. ...dxc4 accepts the c-pawn and releases the central tension. Reassess this change before continuing the setup.",
+      "alternative": "e3",
+      "comparison": "e3 prepares Bxc4, but gives Black time for ...b5 to support c4. a4 acts against that queenside pawn support first. Compare the structure and the opponent’s strongest reply in this exact position.",
+      "plan": "Develop and maintain central pressure. If Black captures c4, recover it without allowing an easy ...b5 pawn chain."
+    },
+    {
+      "opponent": "The opponent just played a4. a4 discourages ...b5, which could otherwise defend the pawn on c4. Reassess this change before continuing the setup.",
+      "alternative": "e6",
+      "comparison": "...e6 develops toward a solid setup but shuts in the c8 bishop. ...Bf5 gets the bishop outside before committing the e-pawn. Compare the structure and the opponent’s strongest reply in this exact position.",
+      "plan": "Support d5 with ...c6 while keeping the c8 bishop free. Time captures and bishop development carefully."
+    }
+  ],
+  "family-15": [
+    {
+      "opponent": "Neither player has moved yet. Choose a central plan while preparing useful piece development.",
+      "alternative": "e4",
+      "comparison": "e4 is a different central start. d4 allows White to build the broad center seen in this lesson. Compare the structure and the opponent’s strongest reply in this exact position.",
+      "plan": "Use central space and development. If the center closes with d5, prepare queenside expansion while watching Black’s kingside attack."
+    },
+    {
+      "opponent": "The opponent just played d4. d4 takes central space. Reassess this change before continuing the setup.",
+      "alternative": "d5",
+      "comparison": "...d5 occupies the center directly. ...Nf6 controls e4 while keeping the pawn structure flexible. Compare the structure and the opponent’s strongest reply in this exact position.",
+      "plan": "Develop the g7 bishop, castle, and challenge the center. In locked structures, ...f5 can start kingside play if tactically sound."
+    },
+    {
+      "opponent": "The opponent just played Nf6. ...Nf6 controls e4 and develops. Reassess this change before continuing the setup.",
+      "alternative": "Nf3",
+      "comparison": "Nf3 develops without committing the c-pawn yet. c4 increases central influence and prepares Nc3 and e4. Compare the structure and the opponent’s strongest reply in this exact position.",
+      "plan": "Use central space and development. If the center closes with d5, prepare queenside expansion while watching Black’s kingside attack."
+    },
+    {
+      "opponent": "The opponent just played c4. c4 expands White’s central influence. Reassess this change before continuing the setup.",
+      "alternative": "e6",
+      "comparison": "...e6 can lead to other Indian defenses. ...g6 commits to a bishop fianchetto on g7. Compare the structure and the opponent’s strongest reply in this exact position.",
+      "plan": "Develop the g7 bishop, castle, and challenge the center. In locked structures, ...f5 can start kingside play if tactically sound."
+    },
+    {
+      "opponent": "The opponent just played g6. ...g6 prepares the fianchetto. Reassess this change before continuing the setup.",
+      "alternative": "Nf3",
+      "comparison": "Nf3 develops naturally. Nc3 supports a broad e4 center before White chooses the other knight’s route. Compare the structure and the opponent’s strongest reply in this exact position.",
+      "plan": "Use central space and development. If the center closes with d5, prepare queenside expansion while watching Black’s kingside attack."
+    },
+    {
+      "opponent": "The opponent just played Nc3. Nc3 supports e4. Reassess this change before continuing the setup.",
+      "alternative": "d5",
+      "comparison": "...d5 directly challenges the center and can lead to Grünfeld structures. ...Bg7 completes the fianchetto first. Compare the structure and the opponent’s strongest reply in this exact position.",
+      "plan": "Develop the g7 bishop, castle, and challenge the center. In locked structures, ...f5 can start kingside play if tactically sound."
+    },
+    {
+      "opponent": "The opponent just played Bg7. ...Bg7 pressures the center along the long diagonal. Reassess this change before continuing the setup.",
+      "alternative": "Nf3",
+      "comparison": "Nf3 develops but delays occupying e4. e4 takes the space Black has allowed and creates a center that must be supported. Compare the structure and the opponent’s strongest reply in this exact position.",
+      "plan": "Use central space and development. If the center closes with d5, prepare queenside expansion while watching Black’s kingside attack."
+    },
+    {
+      "opponent": "The opponent just played e4. e4 builds a broad center. Reassess this change before continuing the setup.",
+      "alternative": "O-O",
+      "comparison": "Castling is legal now. ...d6 first supports e5 and opens the c8 bishop’s diagonal without occupying the center yet. Compare the structure and the opponent’s strongest reply in this exact position.",
+      "plan": "Develop the g7 bishop, castle, and challenge the center. In locked structures, ...f5 can start kingside play if tactically sound."
+    },
+    {
+      "opponent": "The opponent just played d6. ...d6 restrains e5 and prepares central breaks. Reassess this change before continuing the setup.",
+      "alternative": "f3",
+      "comparison": "f3 reinforces e4 and chooses a Sämisch setup, but takes f3 away from the knight. Nf3 develops without that pawn commitment. Compare the structure and the opponent’s strongest reply in this exact position.",
+      "plan": "Use central space and development. If the center closes with d5, prepare queenside expansion while watching Black’s kingside attack."
+    },
+    {
+      "opponent": "The opponent just played Nf3. Nf3 develops and supports d4. Reassess this change before continuing the setup.",
+      "alternative": "e5",
+      "comparison": "...e5 challenges the center immediately. Castling first secures Black’s king before White chooses whether to advance or exchange. Compare the structure and the opponent’s strongest reply in this exact position.",
+      "plan": "Develop the g7 bishop, castle, and challenge the center. In locked structures, ...f5 can start kingside play if tactically sound."
+    },
+    {
+      "opponent": "The opponent just played O-O. ...O-O secures Black’s king before counterattacking. Reassess this change before continuing the setup.",
+      "alternative": "d5",
+      "comparison": "d5 gains space and closes the center immediately. Be2 develops toward castling while leaving White’s central decision open. Compare the structure and the opponent’s strongest reply in this exact position.",
+      "plan": "Use central space and development. If the center closes with d5, prepare queenside expansion while watching Black’s kingside attack."
+    },
+    {
+      "opponent": "The opponent just played Be2. Be2 develops quietly and prepares castling. Reassess this change before continuing the setup.",
+      "alternative": "c5",
+      "comparison": "...c5 challenges d4 from a different direction. ...e5 directly attacks d4 and creates the familiar King’s Indian central tension. Compare the structure and the opponent’s strongest reply in this exact position.",
+      "plan": "Develop the g7 bishop, castle, and challenge the center. In locked structures, ...f5 can start kingside play if tactically sound."
+    },
+    {
+      "opponent": "The opponent just played e5. ...e5 challenges the center and asks White whether to close, exchange, or maintain tension. Reassess this change before continuing the setup.",
+      "alternative": "d5",
+      "comparison": "d5 closes the center and changes which flank plans are plausible. Castling first leaves the pawn tension unresolved and secures White’s king. Compare the structure and the opponent’s strongest reply in this exact position.",
+      "plan": "Use central space and development. If the center closes with d5, prepare queenside expansion while watching Black’s kingside attack."
+    }
+  ],
+  "family-19": [
+    {
+      "opponent": "Neither player has moved yet. Choose a central plan while preparing useful piece development.",
+      "alternative": "e4",
+      "comparison": "e4 occupies the center directly. c4 instead controls d5 from the flank and keeps the d-pawn flexible. Compare the structure and the opponent’s strongest reply in this exact position.",
+      "plan": "Use c4 and a fianchetto to control d5. Choose a central or queenside expansion based on Black’s structure."
+    },
+    {
+      "opponent": "The opponent just played c4. c4 controls d5 without committing a central pawn. Reassess this change before continuing the setup.",
+      "alternative": "c5",
+      "comparison": "...c5 chooses a symmetrical English. ...e5 claims central space and can produce a reversed-Sicilian structure. Compare the structure and the opponent’s strongest reply in this exact position.",
+      "plan": "Take useful central space, develop, and challenge the flank setup with timely central play."
+    },
+    {
+      "opponent": "The opponent just played e5. ...e5 takes central space and makes the position a reversed open-game structure. Reassess this change before continuing the setup.",
+      "alternative": "Nf3",
+      "comparison": "Nf3 is playable but can face ...e4 with tempo if Black supports it. Nc3 develops with immediate control of d5. Compare the structure and the opponent’s strongest reply in this exact position.",
+      "plan": "Use c4 and a fianchetto to control d5. Choose a central or queenside expansion based on Black’s structure."
+    },
+    {
+      "opponent": "The opponent just played Nc3. Nc3 develops and increases d5 control. Reassess this change before continuing the setup.",
+      "alternative": "Nc6",
+      "comparison": "...Nc6 develops and supports e5. ...Nf6 controls d5 and e4 while keeping the c-pawn free. Compare the structure and the opponent’s strongest reply in this exact position.",
+      "plan": "Take useful central space, develop, and challenge the flank setup with timely central play."
+    },
+    {
+      "opponent": "The opponent just played Nf6. ...Nf6 develops and controls d5 and e4. Reassess this change before continuing the setup.",
+      "alternative": "Nf3",
+      "comparison": "Nf3 develops immediately. g3 prepares a bishop fianchetto on g2 but spends a tempo before that bishop becomes active. Compare the structure and the opponent’s strongest reply in this exact position.",
+      "plan": "Use c4 and a fianchetto to control d5. Choose a central or queenside expansion based on Black’s structure."
+    },
+    {
+      "opponent": "The opponent just played g3. g3 prepares the bishop on the long diagonal. Reassess this change before continuing the setup.",
+      "alternative": "Bc5",
+      "comparison": "...Bc5 develops toward f2. ...d5 instead challenges White’s control of the center before the fianchetto is complete. Compare the structure and the opponent’s strongest reply in this exact position.",
+      "plan": "Take useful central space, develop, and challenge the flank setup with timely central play."
+    },
+    {
+      "opponent": "The opponent just played d5. ...d5 strikes the center before White finishes the fianchetto. Reassess this change before continuing the setup.",
+      "alternative": "Bg2",
+      "comparison": "Bg2 develops while preserving tension. cxd5 exchanges a flank pawn for a central pawn and invites Black’s knight into d5. Compare the structure and the opponent’s strongest reply in this exact position.",
+      "plan": "Use c4 and a fianchetto to control d5. Choose a central or queenside expansion based on Black’s structure."
+    },
+    {
+      "opponent": "The opponent just played cxd5. cxd5 exchanges a flank pawn for a central pawn. Reassess this change before continuing the setup.",
+      "alternative": "Qxd5",
+      "comparison": "...Qxd5 recaptures but exposes the queen to developing attacks. ...Nxd5 centralizes a knight and leaves the queen at home. Compare the structure and the opponent’s strongest reply in this exact position.",
+      "plan": "Take useful central space, develop, and challenge the flank setup with timely central play."
+    },
+    {
+      "opponent": "The opponent just played Nxd5. ...Nxd5 recaptures with an active central knight. Reassess this change before continuing the setup.",
+      "alternative": "Nf3",
+      "comparison": "Nf3 develops and attacks e5. Bg2 completes the prepared fianchetto and places a bishop on the long diagonal. Compare the structure and the opponent’s strongest reply in this exact position.",
+      "plan": "Use c4 and a fianchetto to control d5. Choose a central or queenside expansion based on Black’s structure."
+    }
   ]
+};
+
+export const deepCoursePractice={'family-0':'italian-knights','family-1':'ruy-exchange','family-2':'sicilian-alapin','family-3':'french-advance','family-4':'caro-exchange','family-12':'queens-gambit-accepted','family-13':'slav-exchange','family-15':'kings-indian-samisch','family-18':'london-c5','family-19':'english-symmetry'};
+export const middlegameConnections={
+'family-0':{id:'center',why:'Practice challenging the center before starting an attack against f7.'},
+'family-1':{id:'development',why:'Coordinate pieces before opening the center with d4; activity matters more than a pawn grab.'},
+'family-2':{id:'counterplay',why:'Compare your central activity with Black’s central breaks and queenside counterplay.'},
+'family-3':{id:'center',why:'Use pawn breaks against the support of a pawn chain, especially d4.'},
+'family-4':{id:'space',why:'Learn how to use space without leaving the advanced pawn chain unsupported.'},
+'family-12':{id:'center',why:'Work through central exchanges before deciding whether the resulting pawn structure helps you.'},
+'family-13':{id:'bishop',why:'Give the bishop developed outside the pawn chain an active job after the center changes.'},
+'family-15':{id:'counterplay',why:'Practice active defense against central space; flank plans depend on whether the center is closed.'},
+'family-18':{id:'prophylaxis',why:'Check the opponent’s plan before repeating a familiar London setup move.'},
+'family-19':{id:'bishop',why:'Study how central pawn structure changes the usefulness of a bishop’s long diagonal.'}
 };
