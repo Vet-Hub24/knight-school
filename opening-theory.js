@@ -1,4 +1,4 @@
-import {additionalTheory} from './extra-openings.js?v=35';
+import {additionalTheory} from './extra-openings.js?v=36';
 // Plans are teaching guides, not a claim that every thematic move is best now.
 // Notes follow the exact main line in content.js, one entry per half-move.
 export const openingTheory = {

@@ -117,3 +117,5 @@
 /* Reply practice keeps the decision and its explanation in view. */
 .response-practice{margin-top:0}.response-practice,.response-feedback,#deviationStep{scroll-margin-top:24px}.response-practice:focus,.response-practice [tabindex="-1"]:focus{outline:none}.response-practice .pill{display:inline-block;margin:18px 0 12px}.response-feedback{padding:16px;background:#edf2e3;border-radius:8px;margin:18px 0}.response-step-controls{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:16px 0}.response-practice select{margin-bottom:20px}.board-panel{scroll-margin-top:72px}
 @media(max-width:900px){.response-practice,.response-feedback,#deviationStep{scroll-margin-top:76px}.response-step-controls button{min-height:48px}}
+
+.mixed-plan-hidden #learningExtras{display:none}
