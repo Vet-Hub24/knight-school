@@ -1,7 +1,7 @@
-import {dailyKey,validateDaily} from './daily-training.js?v=32';
-import {narrationSettingsKey,validateNarrationSettings} from './narration-content.js?v=32';
-import {validateStudySession,studySessionKey} from './study-session.js?v=32';
-import {Chess} from './vendor/chess.js?v=32';
+import {dailyKey,validateDaily} from './daily-training.js?v=33';
+import {narrationSettingsKey,validateNarrationSettings} from './narration-content.js?v=33';
+import {validateStudySession,studySessionKey} from './study-session.js?v=33';
+import {Chess} from './vendor/chess.js?v=33';
 export const backupKeys=[dailyKey,narrationSettingsKey,studySessionKey,'knight-school-v1','knight-school-chats-v2','knight-school-questions-v1','knight-school-training-v1','knight-school-chatgpt-destination','knight-school-chatgpt-destination-v1','knight-school-board-theme'];
 const textKeys=new Set(['knight-school-chatgpt-destination','knight-school-chatgpt-destination-v1','knight-school-board-theme']);
 const object=x=>x!==null&&typeof x==='object'&&!Array.isArray(x);
