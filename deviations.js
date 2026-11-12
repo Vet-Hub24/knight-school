@@ -1,7 +1,8 @@
-import {Chess} from './vendor/chess.js?v=34';
+import {planTrainerLessons} from './plan-trainer.js?v=35';
+import {Chess} from './vendor/chess.js?v=35';
 // Original decision exercises. "Recommended" identifies the teaching plan, not a unique engine-best move.
 const choice=(move,label,kind,why,line)=>({move,label,kind,why,line:line.split(' ')});
-export const deviationLessons=[
+export const deviationLessons=[...planTrainerLessons,
 {id:'italian-knights',courseId:'family-0',title:'Black attacks e4 with ...Nf6',prefix:'e4 e5 Nf3 Nc6 Bc4 Nf6',idea:'The new knight attacks e4. Reassess the threat before completing your usual setup.',choices:[
 choice('d3','Support the center','recommended','d3 adds a pawn defender to e4 and opens the c1 bishop. It chooses a quiet game while both sides finish development.','d3 Bc5 O-O d6'),
 choice('Nc3','Develop another defender','playable','Nc3 develops and protects e4. Black can pin this knight with ...Bb4, so your new defender can become a target. This is playable, with different follow-up decisions.','Nc3 Bb4'),
