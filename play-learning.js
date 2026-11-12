@@ -1,5 +1,5 @@
-import {Chess} from './vendor/chess.js?v=32';
-import {coachReport,reviewClassification} from './free-coach.js?v=32';
+import {Chess} from './vendor/chess.js?v=33';
+import {coachReport,reviewClassification} from './free-coach.js?v=33';
 export function terminalAnalysis(board){if(!board.isGameOver())return null;return {lines:[{terminal:board.isCheckmate()?'checkmate':'draw',scoreWhite:board.isCheckmate()?null:0,mateWhite:board.isCheckmate()?(board.turn()==='b'?1:-1):null,uci:[],san:[]}]};}
 export function learningMoveReport(move,before,after){
  const board=new Chess(move.before),actual=board.move(move.san);if(board.fen()!==move.after)throw Error('Move does not match reviewed position.');
